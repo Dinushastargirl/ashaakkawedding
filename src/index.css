@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-royal-purple: #230738;
+    --color-plum: #4e144a;
+    --color-gold: #c5a059;
+    --color-champagne: #e5c578;
+    --color-ivory: #faf7f2;
+    --color-lavender: #efe6fb;
+  }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background-color: #faf7f2;
+    color: #2e1a38;
+    overflow-x: hidden;
+  }
+}
+
+/* Regal Gold & Purple Foil Sheen Animations */
+@keyframes chFoilSheen {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-gold-gradient {
+  background-image: linear-gradient(105deg, #8c6d2a 0%, #d4af37 35%, #f9e8a2 50%, #d4af37 65%, #8c6d2a 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: chFoilSheen 8s ease-in-out infinite;
+}
+
+.text-purple-gradient {
+  background-image: linear-gradient(105deg, #230738 0%, #521782 30%, #7b2cbf 50%, #4e144a 75%, #230738 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: chFoilSheen 8s ease-in-out infinite;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #b08a3f 0%, #d4af37 40%, #fae69e 60%, #b08a3f 100%);
+}
+
+.bg-purple-regal {
+  background: radial-gradient(circle at 50% 20%, #3e1066 0%, #230738 60%, #150323 100%);
+}
+
+.card-luxury {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(250, 245, 237, 0.72));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  box-shadow: 0 20px 50px -15px rgba(35, 7, 56, 0.15), 0 0 30px -15px rgba(212, 175, 55, 0.25);
+}
+
+.card-dark-luxury {
+  background: linear-gradient(160deg, rgba(35, 7, 56, 0.88), rgba(20, 3, 34, 0.94));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 25px 60px -20px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(212, 175, 55, 0.08);
+}
+
+/* Subtle background noise texture */
+.luxury-texture {
+  background-image: radial-gradient(rgba(197, 160, 89, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Floating animation */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #faf7f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5a059;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8c6d2a;
+}
