@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CinematicVideoOpening } from './components/CinematicVideoOpening';
 import { FloatingNav } from './components/FloatingNav';
+import { FloatingPetals } from './components/common/FloatingPetals';
 import { HeroSection } from './components/HeroSection';
-import { FramedWeddingDetailsCard } from './components/FramedWeddingDetailsCard';
+import { LoveStorySection } from './components/LoveStorySection';
 import { BibleVerseSection } from './components/BibleVerseSection';
 import { CountdownSection } from './components/CountdownSection';
 import { EventDetailsSection } from './components/EventDetailsSection';
@@ -39,29 +40,32 @@ export default function App() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-0 pb-20 sm:pb-24"
         >
+          {/* Ambient Rising Purple & Gold Petals (Velvet Homecoming style) */}
+          <FloatingPetals />
+
           {/* Bottom Navigation & Floating Sound Toggle */}
           <FloatingNav />
 
           <main>
-            {/* 1. Hero Section: Joshua & Asha, Christian Holy Matrimony & Reception, 17th October 2026 */}
+            {/* 1. Hero Section: Ornate Letterbox Frame with Joshua & Asha, Oct 17, 2026 */}
             <HeroSection />
 
-            {/* 2. Wedding Details: Framed Card with 5:30 PM Service, 7:30 PM Reception, Add to Google Calendar */}
-            <FramedWeddingDetailsCard />
+            {/* 2. Love Story: Two Hearts, One Celebration & Milestone Spine Timeline */}
+            <LoveStorySection />
 
-            {/* 3. Bible Verse: Matthew 19:6 with Christian Cross & Floral accents */}
-            <BibleVerseSection />
-
-            {/* 4. Wedding Countdown: Days, Hours, Minutes, Seconds to 17th October 2026, 5:30 PM */}
+            {/* 3. Wedding Countdown: 4 Frosted Velvet Glass Cards */}
             <CountdownSection />
 
-            {/* 5. Ceremony & Reception Details */}
+            {/* 4. Ceremony & Reception Event Cards + Save to Google Calendar */}
             <EventDetailsSection />
 
-            {/* 6. Photo Gallery */}
+            {/* 5. Moments in Time: 4-Column Photo Gallery + Lightbox Modal */}
             <PhotoExperienceSection />
 
-            {/* 7. RSVP Section: We Would Love To Celebrate With You */}
+            {/* 6. Holy Matrimony Scripture: Matthew 19:6 */}
+            <BibleVerseSection />
+
+            {/* 7. RSVP Section: Attendee Reservation with Supabase Persistence */}
             <RSVPSection />
 
             {/* 8. Final Christian Wedding Message & Scripture */}

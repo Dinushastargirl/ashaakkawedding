@@ -3,160 +3,143 @@ import { motion } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { GoldDivider } from './common/GoldDivider';
 import { CrossOrnament } from './common/CrossOrnament';
-import { ChevronDown, Calendar, Clock } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-16 pb-14 sm:py-24">
-      {/* Ambient background wash */}
+    <section id="hero" className="relative flex min-h-[100svh] scroll-mt-20 flex-col items-stretch overflow-hidden px-4 py-16 sm:py-24">
+      {/* Background radial velvet wash */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-0 bg-radial-gradient from-[#EFE6FB]/40 via-[#FAF7F2] to-[#FAF7F2] opacity-80" 
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(72%_64%_at_50%_46%,rgba(251,245,234,0.92),rgba(251,245,234,0.48)_46%,transparent_74%),radial-gradient(60%_46%_at_50%_40%,rgba(239,230,251,0.4),transparent_68%)]" 
       />
 
-      {/* Floating subtle bokeh dots */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-8 h-64 w-64 rounded-full bg-[#D4BEE4]/25 blur-3xl" />
-        <div className="absolute bottom-1/4 right-8 h-72 w-72 rounded-full bg-[#E5C578]/20 blur-3xl" />
-      </div>
-
-      {/* Main Luxury Frame */}
+      {/* Main Velvet Homecoming Ornate Letterbox Frame */}
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.985 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.1, ease: "easeOut" }}
-        className="relative z-10 mx-auto flex w-[min(94vw,660px)] flex-col items-center text-center"
+        className="relative z-[2] mx-auto flex w-[min(94vw,660px)] flex-1 flex-col items-center justify-center gap-4 sm:gap-5 px-6 sm:px-10 py-12 sm:py-16 text-center"
       >
-        {/* Sacred Cross */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mb-3"
-        >
-          <CrossOrnament size={34} />
-        </motion.div>
+        {/* Outer Gold Border with Inset Shadow */}
+        <span 
+          aria-hidden="true" 
+          className="pointer-events-none absolute inset-0 border-2 border-[#B08A3F]/85 shadow-[inset_0_0_40px_-14px_rgba(176,138,63,0.4)] rounded-[4px]" 
+        />
+        
+        {/* Inner Gold Border */}
+        <span 
+          aria-hidden="true" 
+          className="pointer-events-none absolute inset-2 sm:inset-3 border border-[#B08A3F]/55 rounded-[2px]" 
+        />
 
-        {/* Names Header: Joshua & Asha */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 1 }}
-          className="flex flex-col items-center font-serif italic text-[clamp(2.5rem,8.5vw,4.4rem)] leading-none text-purple-gradient"
-        >
+        {/* 4 Corner Gold Brackets */}
+        <span aria-hidden="true" className="pointer-events-none">
+          <span className="absolute top-[7px] left-[7px] w-[30px] h-[30px] border-t border-l border-[#B08A3F] rounded-tl-[3px]" />
+          <span className="absolute top-[7px] right-[7px] w-[30px] h-[30px] border-t border-r border-[#B08A3F] rounded-tr-[3px]" />
+          <span className="absolute bottom-[7px] left-[7px] w-[30px] h-[30px] border-b border-l border-[#B08A3F] rounded-bl-[3px]" />
+          <span className="absolute bottom-[7px] right-[7px] w-[30px] h-[30px] border-b border-r border-[#B08A3F] rounded-br-[3px]" />
+        </span>
+
+        {/* Diamond Pins at Top & Bottom Center */}
+        <span 
+          aria-hidden="true" 
+          className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#B08A3F] shadow-[0_0_8px_rgba(176,138,63,0.5)]" 
+        />
+        <span 
+          aria-hidden="true" 
+          className="absolute bottom-0 left-1/2 h-2.5 w-2.5 -translate-x-1/2 translate-y-1/2 rotate-45 bg-[#B08A3F] shadow-[0_0_8px_rgba(176,138,63,0.5)]" 
+        />
+
+        {/* Cross Icon */}
+        <div className="flex justify-center -mb-1">
+          <CrossOrnament size={32} />
+        </div>
+
+        {/* Pre-title */}
+        <p className="font-sans text-[0.66rem] uppercase tracking-[0.42em] font-bold text-[#8C6D2A]">
+          The Holy Matrimony &amp; Reception of
+        </p>
+
+        {/* Divider 1 */}
+        <div className="mt-0.5">
+          <GoldDivider width="w-[140px]" />
+        </div>
+
+        {/* Couple Names */}
+        <h1 className="flex flex-col items-center font-serif italic font-medium text-[clamp(2.3rem,8.5vw,4.1rem)] leading-[1.14] text-purple-foil tracking-[0.04em]">
           <span>{weddingConfig.couple.groom}</span>
-          <span className="my-1 font-script text-[0.72em] not-italic text-[#C5A059] leading-tight select-none">
+          <span className="my-0.5 font-script not-italic text-[0.72em] text-[#521782] leading-none select-none">
             &amp;
           </span>
           <span>{weddingConfig.couple.bride}</span>
-        </motion.h1>
+        </h1>
 
-        {/* Tagline: Christian Holy Matrimony & Reception */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-3 font-sans text-xs sm:text-sm uppercase tracking-[0.32em] text-[#521782] font-semibold"
-        >
-          {weddingConfig.couple.subheading}
-        </motion.p>
+        {/* Divider 2 */}
+        <div className="mt-0.5">
+          <GoldDivider width="w-[140px]" />
+        </div>
 
-        {/* Date: 17th October 2026 */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-1.5 font-serif text-lg sm:text-xl text-[#8C6D2A] tracking-widest font-normal"
-        >
-          {weddingConfig.date.shortDate}
-        </motion.p>
+        {/* Subtitle */}
+        <p className="max-w-[36ch] font-body italic text-[0.98rem] sm:text-[1.05rem] leading-relaxed text-[#7A4B7E]">
+          A Sacred Celebration of Love, Faith, and Covenant Under God
+        </p>
 
+        {/* Authentic Couple Photograph */}
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="my-4 flex justify-center"
-        >
-          <GoldDivider width="w-48 sm:w-64" />
-        </motion.div>
-
-        {/* Cinematic Photograph Container */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-2 w-full max-w-[440px] px-2 sm:px-0"
+          transition={{ delay: 0.3, duration: 1 }}
+          className="relative my-2 w-full max-w-[380px]"
         >
-          {/* Double Gold Filigree Framing */}
-          <div className="relative overflow-hidden rounded-[26px] p-2 bg-gradient-to-b from-[#FAF7F2] via-[#F3EBE0] to-[#FAF7F2] border border-[#C5A059]/70 shadow-[0_20px_50px_-15px_rgba(35,7,56,0.35),0_0_30px_rgba(197,160,89,0.25)]">
-            
-            {/* Corner Filigree Markers */}
-            <span className="pointer-events-none absolute left-3 top-3 h-6 w-6 border-l-2 border-t-2 border-[#D4AF37] z-20" />
-            <span className="pointer-events-none absolute right-3 top-3 h-6 w-6 border-r-2 border-t-2 border-[#D4AF37] z-20" />
-            <span className="pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b-2 border-l-2 border-[#D4AF37] z-20" />
-            <span className="pointer-events-none absolute bottom-3 right-3 h-6 w-6 border-b-2 border-r-2 border-[#D4AF37] z-20" />
+          <div className="relative overflow-hidden rounded-[20px] p-2 bg-gradient-to-b from-[#FFFDF9] via-[#FAF6EE] to-[#F5ECE0] border border-[#B08A3F]/70 shadow-[0_15px_35px_-10px_rgba(35,7,56,0.25)]">
+            {/* Inner corner brackets */}
+            <span className="pointer-events-none absolute left-3 top-3 h-4 w-4 border-l border-t border-[#B08A3F]" />
+            <span className="pointer-events-none absolute right-3 top-3 h-4 w-4 border-r border-t border-[#B08A3F]" />
+            <span className="pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b border-l border-[#B08A3F]" />
+            <span className="pointer-events-none absolute bottom-3 right-3 h-4 w-4 border-b border-r border-[#B08A3F]" />
 
-            {/* Inner image frame */}
-            <div className="relative overflow-hidden rounded-[20px] aspect-[4/4.8] sm:aspect-[4/4.5] group">
+            <div className="relative overflow-hidden rounded-[16px] aspect-[4/4.8]">
               <img
                 src={weddingConfig.photos.coupleHero}
                 alt="Joshua & Asha"
-                className="h-full w-full object-cover object-[center_28%] transition-transform duration-1000 ease-out group-hover:scale-105"
+                className="h-full w-full object-cover object-[center_28%] transition-transform duration-700 hover:scale-105"
                 loading="eager"
               />
-              
-              {/* Soft romantic purple & warm ivory vignette overlay */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#230738]/60 via-transparent to-black/10" />
-              <div className="pointer-events-none absolute inset-0 border border-white/20 rounded-[20px]" />
-
-              {/* In-photo subtle name badge at bottom */}
-              <div className="absolute bottom-4 left-0 right-0 text-center text-[#FAF7F2] drop-shadow-md">
-                <p className="font-script text-2xl sm:text-3xl text-[#E5C578] tracking-wide">
-                  Joshua &amp; Asha
-                </p>
-                <p className="font-sans text-[0.62rem] uppercase tracking-[0.3em] text-[#FAF7F2]/90">
-                  Together Forever Under God
-                </p>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#230738]/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-0 right-0 text-center text-[#FAF7F2]">
+                <p className="font-script text-2xl text-[#E5C578]">Joshua &amp; Asha</p>
+                <p className="font-sans text-[0.6rem] uppercase tracking-[0.25em] text-[#FAF7F2]/90">Together in Christ</p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Date & Time pill badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-serif"
-        >
-          <div className="flex items-center gap-2 rounded-full border border-[#C5A059]/50 bg-white/80 px-4 py-1.5 backdrop-blur-sm shadow-sm">
-            <Calendar className="h-3.5 w-3.5 text-[#8C6D2A]" />
-            <span className="text-sm sm:text-base font-semibold text-[#230738] tracking-wide">
-              {weddingConfig.date.shortDate}
-            </span>
-          </div>
+        {/* Date with 17th superscript */}
+        <p className="font-serif italic font-medium text-[clamp(1.3rem,5vw,1.9rem)] leading-[1.3] text-purple-foil">
+          17<sup className="text-[0.62em]">th</sup> October 2026
+        </p>
 
-          <div className="flex items-center gap-2 rounded-full border border-[#C5A059]/50 bg-white/80 px-4 py-1.5 backdrop-blur-sm shadow-sm">
-            <Clock className="h-3.5 w-3.5 text-[#8C6D2A]" />
-            <span className="text-sm sm:text-base font-semibold text-[#230738] tracking-wide">
-              Ceremony 5:30 PM • Reception 7:30 PM
-            </span>
-          </div>
-        </motion.div>
+        {/* Time */}
+        <p className="font-sans text-[0.7rem] uppercase tracking-[0.32em] font-bold text-[#521782]">
+          5:30 PM &amp; 7:30 PM
+        </p>
 
-        {/* Scroll down prompt */}
-        <motion.a
-          href="#wedding-details"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-8 inline-flex flex-col items-center text-[#8C6D2A] hover:text-[#521782] transition-colors group cursor-pointer"
+        {/* Location Placeholder */}
+        <p className="font-sans text-[0.72rem] uppercase tracking-[0.22em] font-semibold text-[#8C6D2A]">
+          Venue details coming soon
+        </p>
+
+        {/* Scroll indicator */}
+        <a
+          href="#story"
+          className="mt-4 inline-flex flex-col items-center text-[#8C6D2A] hover:text-[#521782] transition-colors group cursor-pointer"
         >
-          <span className="font-sans text-[0.65rem] tracking-[0.3em] uppercase mb-1">
-            Scroll For Wedding Details
+          <span className="font-sans text-[0.62rem] tracking-[0.3em] uppercase mb-1">
+            Scroll To Read Our Story
           </span>
           <ChevronDown className="h-4 w-4 animate-bounce text-[#B08A3F]" />
-        </motion.a>
+        </a>
       </motion.div>
     </section>
   );

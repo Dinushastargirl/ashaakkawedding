@@ -1,64 +1,58 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
-import { GoldDivider } from './common/GoldDivider';
+import { SectionHeader } from './common/SectionHeader';
 import { CrossOrnament } from './common/CrossOrnament';
 
 export const BibleVerseSection: React.FC = () => {
   return (
-    <section id="verse" className="relative py-20 px-4 sm:px-8 overflow-hidden bg-[#230738] text-[#FAF7F2]">
-      {/* Background with warm candlelight chapel & flowers subtle texture */}
-      <div 
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20 mix-blend-screen filter blur-[2px]"
-        style={{ backgroundImage: `url('/ceremony_chapel.jpg')` }}
-      />
-      {/* Radial purple gradient vignette */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(82,23,130,0.6)_0%,rgba(35,7,56,0.95)_70%,#150323_100%)]" />
+    <section id="verse" className="relative scroll-mt-20 px-5 py-14 sm:px-8 sm:py-20">
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        {/* Section Header */}
+        <SectionHeader
+          preTitle="Holy Scripture"
+          title="United Under God"
+          dividerWidth="w-[200px]"
+        />
 
-      {/* Floating gold glitter specks */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="absolute top-10 left-1/4 h-1 w-1 rounded-full bg-[#fae69e] shadow-[0_0_6px_#fae69e] animate-pulse" />
-        <span className="absolute bottom-12 right-1/4 h-1.5 w-1.5 rounded-full bg-[#fae69e] shadow-[0_0_8px_#fae69e] animate-pulse" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-3xl">
+        {/* Velvet Card */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1 }}
-          className="relative rounded-[28px] border border-[#D4AF37]/50 bg-gradient-to-b from-[#2E0A4A]/80 to-[#1D052F]/90 p-8 sm:p-14 text-center backdrop-blur-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6),0_0_40px_rgba(212,175,55,0.18)]"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.9 }}
+          className="relative mx-auto max-w-2xl rounded-[28px] px-7 py-10 text-center sm:px-12 sm:py-14 velvet-card"
         >
-          {/* Ornate Gold Corners */}
-          <span className="pointer-events-none absolute left-3 top-3 h-6 w-6 border-l-2 border-t-2 border-[#D4AF37]" />
-          <span className="pointer-events-none absolute right-3 top-3 h-6 w-6 border-r-2 border-t-2 border-[#D4AF37]" />
-          <span className="pointer-events-none absolute bottom-3 left-3 h-6 w-6 border-b-2 border-l-2 border-[#D4AF37]" />
-          <span className="pointer-events-none absolute bottom-3 right-3 h-6 w-6 border-b-2 border-r-2 border-[#D4AF37]" />
-          <span className="pointer-events-none absolute inset-2.5 rounded-[22px] border border-[#D4AF37]/20" />
+          {/* 4 Corner Gold Brackets */}
+          <span aria-hidden="true" className="pointer-events-none">
+            <span className="absolute top-[13px] left-[13px] w-[18px] h-[18px] border-t border-l border-[#C3A45C] rounded-tl-[3px]" />
+            <span className="absolute top-[13px] right-[13px] w-[18px] h-[18px] border-t border-r border-[#C3A45C] rounded-tr-[3px]" />
+            <span className="absolute bottom-[13px] left-[13px] w-[18px] h-[18px] border-b border-l border-[#C3A45C] rounded-bl-[3px]" />
+            <span className="absolute bottom-[13px] right-[13px] w-[18px] h-[18px] border-b border-r border-[#C3A45C] rounded-br-[3px]" />
+          </span>
 
-          {/* Cross Icon with glow */}
-          <div className="mb-4 flex justify-center">
-            <CrossOrnament size={36} />
-          </div>
+          {/* Top Medallion Circle */}
+          <span 
+            className="mb-4 inline-grid h-16 w-16 place-items-center rounded-full"
+            style={{
+              background: 'radial-gradient(circle at 35% 30%, #521782, #230738)',
+              border: '1px solid rgba(176, 138, 63, 0.75)',
+              boxShadow: '0 0 0 4px rgba(251, 245, 234, 0.9), 0 0 0 5px rgba(176, 138, 63, 0.4), 0 8px 18px -10px rgba(35, 7, 56, 0.4)',
+            }}
+          >
+            <CrossOrnament size={32} />
+          </span>
 
-          <p className="font-sans text-[0.68rem] uppercase tracking-[0.4em] text-[#E5C578] font-semibold">
-            Holy Scripture
-          </p>
-
-          <h2 className="mt-3 font-serif italic text-2xl sm:text-4xl text-[#FAF7F2] font-normal leading-relaxed tracking-wide text-gold-gradient max-w-[28ch] mx-auto">
+          <blockquote className="mt-3 font-serif italic text-2xl sm:text-3.5xl text-purple-foil leading-relaxed max-w-[26ch] mx-auto">
             {weddingConfig.scripture.verse}
-          </h2>
+          </blockquote>
 
-          <div className="my-5 flex justify-center">
-            <GoldDivider width="w-36 sm:w-48" />
-          </div>
-
-          <p className="font-sans text-xs sm:text-sm uppercase tracking-[0.3em] text-[#DFCBF7] font-semibold">
+          <p className="mt-4 font-sans text-xs uppercase tracking-[0.32em] font-bold text-[#8C6D2A]">
             {weddingConfig.scripture.citation}
           </p>
 
-          <p className="mx-auto mt-4 max-w-[42ch] font-body italic text-base sm:text-lg text-[#DFCBF7]/80 leading-relaxed">
-            Centered upon faith, Christ is the foundation of our covenant, our joy, and our future together.
+          <p className="mx-auto mt-4 max-w-[42ch] font-body text-base text-[#5C4566] leading-relaxed">
+            Centered upon faith, Christ is the foundation of our covenant, our joy, and our eternal love.
           </p>
         </motion.div>
       </div>

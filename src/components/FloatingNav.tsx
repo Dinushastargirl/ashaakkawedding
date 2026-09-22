@@ -14,7 +14,7 @@ export const FloatingNav: React.FC = () => {
 
     // Observe active section on scroll
     const handleScroll = () => {
-      const sections = ['hero', 'ceremony', 'reception', 'gallery', 'rsvp'];
+      const sections = ['hero', 'story', 'details', 'gallery', 'rsvp'];
       const scrollY = window.scrollY + 300;
 
       for (const sec of sections) {
@@ -43,8 +43,8 @@ export const FloatingNav: React.FC = () => {
 
   const navItems = [
     { label: 'Home', href: '#hero', id: 'hero' },
-    { label: 'Ceremony', href: '#details', id: 'ceremony' },
-    { label: 'Reception', href: '#details', id: 'reception' },
+    { label: 'Story', href: '#story', id: 'story' },
+    { label: 'Events', href: '#details', id: 'details' },
     { label: 'Gallery', href: '#gallery', id: 'gallery' },
     { label: 'RSVP', href: '#rsvp', id: 'rsvp' },
   ];
