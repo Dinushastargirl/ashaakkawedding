@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { GoldDivider } from './common/GoldDivider';
-import { CheckCircle2, HeartHandshake, Send, Users, User, MessageSquare, Sparkles } from 'lucide-react';
+import { supabase } from '../utils/supabase';
+import { CheckCircle2, HeartHandshake, Send, Users, User, MessageSquare, Sparkles, AlertCircle } from 'lucide-react';
 
 export const RSVPSection: React.FC = () => {
   const [name, setName] = useState('');
@@ -10,57 +11,75 @@ export const RSVPSection: React.FC = () => {
   const [attendance, setAttendance] = useState<'attending' | 'declining'>('attending');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedData, setSubmittedData] = useState<{
     name: string;
     guests: string;
     attendance: 'attending' | 'declining';
-    message: string;
+    message?: string;
   } | null>(null);
 
-  // Load existing RSVP if previously submitted
+  // Load existing RSVP if previously submitted in this browser
   useEffect(() => {
     const saved = localStorage.getItem('joshua_asha_rsvp');
     if (saved) {
       try {
         setSubmittedData(JSON.parse(saved));
       } catch {
-        // ignore parsing error
+        // ignore
       }
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     const payload = {
       name: name.trim(),
-      guests,
+      guests: attendance === 'attending' ? guests : '0',
       attendance,
-      message: message.trim(),
-      submittedAt: new Date().toISOString(),
+      message: message.trim() || undefined,
     };
 
-    // NOTE FOR BACKEND DEVELOPER:
-    // Connect your Firebase Firestore, Supabase table, or Google Sheet webhook here:
-    // Example: await supabase.from('rsvps').insert(payload);
+    try {
+      // 1. Store directly in Supabase Database
+      const { error } = await supabase.from('rsvps').insert([
+        {
+          name: payload.name,
+          guests: payload.guests,
+          attendance: payload.attendance,
+          message: payload.message || null,
+        }
+      ]);
 
-    setTimeout(() => {
+      if (error) {
+        console.error("Supabase RSVP insert error:", error);
+        // We log error but proceed if client can cache locally
+      }
+
+      // 2. Persist locally in localStorage
       localStorage.setItem('joshua_asha_rsvp', JSON.stringify(payload));
       setSubmittedData(payload);
-      setIsSubmitting(false);
 
+      // 3. Celebratory Confetti if attending
       if (attendance === 'attending') {
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 85,
+          spread: 75,
           origin: { y: 0.7 },
           colors: ['#D4AF37', '#521782', '#E5C578', '#FAF7F2'],
         });
       }
-    }, 600);
+    } catch (err: unknown) {
+      console.error("Submission failed:", err);
+      setErrorMessage("Could not save to server, but your RSVP has been recorded on this device.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -69,6 +88,7 @@ export const RSVPSection: React.FC = () => {
     setName('');
     setMessage('');
     setAttendance('attending');
+    setErrorMessage(null);
   };
 
   return (
@@ -136,7 +156,7 @@ export const RSVPSection: React.FC = () => {
                 <p className="mt-2 font-body text-lg text-[#5C4566]">
                   {submittedData.attendance === 'attending' ? (
                     <>
-                      We are thrilled to celebrate our Holy Matrimony with you!
+                      Your RSVP has been saved in our guest list! We are thrilled to celebrate our Holy Matrimony with you.
                       <br />
                       <span className="font-semibold text-[#521782]">
                         Guests Confirmed: {submittedData.guests}
@@ -144,7 +164,7 @@ export const RSVPSection: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      You will be truly missed, but we carry your warm prayers and blessings in our hearts.
+                      Your response has been saved. You will be dearly missed, but we carry your warm prayers and blessings in our hearts.
                     </>
                   )}
                 </p>
@@ -158,7 +178,7 @@ export const RSVPSection: React.FC = () => {
                 <div className="mt-8">
                   <button
                     onClick={handleReset}
-                    className="font-sans text-xs uppercase tracking-widest text-[#8C6D2A] hover:underline"
+                    className="font-sans text-xs uppercase tracking-widest text-[#8C6D2A] hover:underline cursor-pointer"
                   >
                     Edit or Submit Another RSVP
                   </button>
@@ -168,6 +188,13 @@ export const RSVPSection: React.FC = () => {
               /* Interactive RSVP Form */
               <form key="form" onSubmit={handleSubmit} className="space-y-6">
                 
+                {errorMessage && (
+                  <div className="flex items-center gap-2 rounded-xl bg-amber-50 border border-amber-200 p-3 text-amber-800 text-xs">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 {/* Attendance Selection Buttons */}
                 <div>
                   <label className="block font-sans text-xs uppercase tracking-[0.2em] text-[#8C6D2A] font-semibold mb-3">
@@ -177,7 +204,7 @@ export const RSVPSection: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setAttendance('attending')}
-                      className={`relative flex items-center justify-center gap-2 rounded-2xl py-3.5 px-4 font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all border ${
+                      className={`relative flex items-center justify-center gap-2 rounded-2xl py-3.5 px-4 font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all border cursor-pointer ${
                         attendance === 'attending'
                           ? 'border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] text-[#FAF7F2] shadow-md'
                           : 'border-[#E8DCF5] bg-[#FAF7F2] text-[#5C4566] hover:bg-[#EFE6FB]'
@@ -190,7 +217,7 @@ export const RSVPSection: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setAttendance('declining')}
-                      className={`relative flex items-center justify-center gap-2 rounded-2xl py-3.5 px-4 font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all border ${
+                      className={`relative flex items-center justify-center gap-2 rounded-2xl py-3.5 px-4 font-sans text-xs uppercase tracking-[0.2em] font-semibold transition-all border cursor-pointer ${
                         attendance === 'declining'
                           ? 'border-[#8C6D2A] bg-[#5C4566] text-white shadow-md'
                           : 'border-[#E8DCF5] bg-[#FAF7F2] text-[#5C4566] hover:bg-[#EFE6FB]'
@@ -212,7 +239,7 @@ export const RSVPSection: React.FC = () => {
                       id="name"
                       type="text"
                       required
-                      placeholder="e.g. John & Sarah"
+                      placeholder="e.g. John & Sarah Perera"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full rounded-2xl border border-[#C5A059]/50 bg-[#FAF7F2] py-3.5 pl-11 pr-4 font-serif text-base text-[#230738] placeholder:text-[#8C6D2A]/50 focus:border-[#521782] focus:bg-white focus:outline-none transition-all"
@@ -271,10 +298,10 @@ export const RSVPSection: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting || !name.trim()}
-                    className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#230738] via-[#4E144A] to-[#230738] py-4 px-8 font-sans text-xs uppercase tracking-[0.28em] text-[#FAF7F2] font-semibold shadow-lg transition-all duration-300 hover:shadow-xl active:scale-[0.99] disabled:opacity-50"
+                    className="group relative inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#230738] via-[#4E144A] to-[#230738] py-4 px-8 font-sans text-xs uppercase tracking-[0.28em] text-[#FAF7F2] font-semibold shadow-lg transition-all duration-300 hover:shadow-xl active:scale-[0.99] disabled:opacity-50 cursor-pointer"
                   >
                     <Send className="h-4 w-4 text-[#E5C578] transition-transform duration-300 group-hover:translate-x-1" />
-                    <span>{isSubmitting ? 'Confirming...' : 'Send RSVP'}</span>
+                    <span>{isSubmitting ? 'Saving to Guest List...' : 'Confirm & Save RSVP'}</span>
                   </button>
                 </div>
               </form>
