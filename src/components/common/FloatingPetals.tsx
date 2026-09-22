@@ -2,17 +2,17 @@ import React from 'react';
 
 export const FloatingPetals: React.FC = () => {
   const petals = [
-    { left: '6%', size: 9, delay: '0s', dur: '12s' },
-    { left: '14%', size: 5, delay: '3s', dur: '14s' },
-    { left: '23%', size: 7, delay: '1.5s', dur: '11s' },
-    { left: '32%', size: 10, delay: '4s', dur: '15s' },
-    { left: '41%', size: 6, delay: '2s', dur: '13s' },
-    { left: '50%', size: 5, delay: '5s', dur: '16s' },
-    { left: '59%', size: 9, delay: '0.8s', dur: '12s' },
-    { left: '68%', size: 7, delay: '3.5s', dur: '14s' },
-    { left: '77%', size: 11, delay: '2.2s', dur: '15s' },
-    { left: '86%', size: 5, delay: '4.5s', dur: '13s' },
-    { left: '94%', size: 7, delay: '1s', dur: '12s' },
+    { left: '4%', size: 14, delay: '0s', dur: '13s', type: 'rose-purple', sway: '18px' },
+    { left: '12%', size: 9, delay: '2.5s', dur: '16s', type: 'lavender', sway: '-14px' },
+    { left: '20%', size: 16, delay: '1s', dur: '12s', type: 'rose-lilac', sway: '22px' },
+    { left: '28%', size: 8, delay: '4s', dur: '17s', type: 'gold-spore', sway: '-10px' },
+    { left: '38%', size: 15, delay: '0.5s', dur: '14s', type: 'rose-purple', sway: '16px' },
+    { left: '48%', size: 12, delay: '3.2s', dur: '15s', type: 'rose-lilac', sway: '-20px' },
+    { left: '58%', size: 17, delay: '1.8s', dur: '13s', type: 'rose-purple', sway: '18px' },
+    { left: '68%', size: 10, delay: '4.5s', dur: '16s', type: 'lavender', sway: '-15px' },
+    { left: '78%', size: 15, delay: '2.2s', dur: '14s', type: 'rose-lilac', sway: '20px' },
+    { left: '88%', size: 9, delay: '3.8s', dur: '15s', type: 'gold-spore', sway: '-12px' },
+    { left: '95%', size: 13, delay: '1.2s', dur: '13s', type: 'rose-purple', sway: '16px' },
   ];
 
   return (
@@ -21,38 +21,58 @@ export const FloatingPetals: React.FC = () => {
         @keyframes floatUpPetal {
           0% {
             opacity: 0;
-            transform: translateY(100vh) rotate(0deg) scale(0.8);
+            transform: translateY(105vh) translateX(0) rotate(0deg) scale(0.7);
           }
           15% {
-            opacity: 0.65;
+            opacity: 0.85;
+          }
+          50% {
+            transform: translateY(50vh) translateX(var(--sway)) rotate(180deg) scale(1);
           }
           85% {
-            opacity: 0.65;
+            opacity: 0.85;
           }
           100% {
             opacity: 0;
-            transform: translateY(-10vh) rotate(360deg) scale(1.1);
+            transform: translateY(-10vh) translateX(calc(var(--sway) * -1)) rotate(360deg) scale(0.9);
           }
         }
       `}</style>
-      {petals.map((p, i) => (
-        <span
-          key={i}
-          className="absolute"
-          style={{
-            left: p.left,
-            bottom: 0,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            borderRadius: '52% 0 52% 52%',
-            background: 'radial-gradient(circle at 35% 35%, rgba(244, 226, 217, 0.95), rgba(82, 23, 130, 0.45) 65%, rgba(35, 7, 56, 0) 100%)',
-            boxShadow: '0 0 8px rgba(176, 138, 63, 0.4)',
-            filter: 'blur(0.3px)',
-            animation: `floatUpPetal ${p.dur} ease-in-out infinite`,
-            animationDelay: p.delay,
-          }}
-        />
-      ))}
+      {petals.map((p, i) => {
+        let background = 'radial-gradient(circle at 35% 30%, #9D4EDD, #521782 70%, #230738)';
+        let borderRadius = '65% 15% 65% 45%';
+
+        if (p.type === 'rose-lilac') {
+          background = 'radial-gradient(circle at 35% 30%, #F5EDFF, #C77DFF 60%, #7B2CBF)';
+          borderRadius = '45% 65% 15% 65%';
+        } else if (p.type === 'lavender') {
+          background = 'linear-gradient(135deg, #E0AAFF, #9D4EDD 70%, #521782)';
+          borderRadius = '50% 50% 50% 10%';
+        } else if (p.type === 'gold-spore') {
+          background = 'radial-gradient(circle, #FFF7D6 20%, #D4AF37 70%, #8C6D2A)';
+          borderRadius = '50%';
+        }
+
+        return (
+          <span
+            key={i}
+            className="absolute"
+            style={{
+              left: p.left,
+              bottom: 0,
+              width: `${p.size}px`,
+              height: `${p.size * 1.25}px`,
+              borderRadius,
+              background,
+              boxShadow: p.type === 'gold-spore' ? '0 0 8px rgba(212,175,55,0.7)' : '0 2px 8px rgba(35,7,56,0.3)',
+              filter: 'blur(0.25px)',
+              ['--sway' as any]: p.sway,
+              animation: `floatUpPetal ${p.dur} ease-in-out infinite`,
+              animationDelay: p.delay,
+            }}
+          />
+        );
+      })}
     </div>
   );
 };

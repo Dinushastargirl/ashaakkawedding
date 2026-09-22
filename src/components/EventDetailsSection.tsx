@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { SectionHeader } from './common/SectionHeader';
-import { GoldDivider } from './common/GoldDivider';
+import { PurpleFloralDivider } from './common/PurpleFloralDivider';
+import { PurpleFloralCorner } from './common/PurpleFloralCorner';
 import { Clock, MapPin, X, Wine, Church, CalendarDays, CalendarPlus } from 'lucide-react';
 
 export const EventDetailsSection: React.FC = () => {
@@ -32,7 +33,7 @@ export const EventDetailsSection: React.FC = () => {
       />
 
       {/* Velvet Homecoming Event Cards Stack */}
-      <div className="mx-auto flex max-w-2xl flex-col gap-8">
+      <div className="mx-auto flex max-w-2xl flex-col gap-10">
         
         {/* Card 1: Christian Wedding Ceremony */}
         <motion.div
@@ -41,65 +42,73 @@ export const EventDetailsSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="relative w-full rounded-[28px] px-6 py-10 text-center sm:px-12 sm:py-14 velvet-card"
+          className="relative w-full rounded-[28px] overflow-hidden text-center velvet-card border border-[#B08A3F]/70 shadow-[0_20px_50px_rgba(35,7,56,0.15)]"
         >
-          {/* 4 Corner Gold Brackets */}
-          <span aria-hidden="true" className="pointer-events-none">
-            <span className="absolute top-[13px] left-[13px] w-[18px] h-[18px] border-t border-l border-[#C3A45C] rounded-tl-[3px]" />
-            <span className="absolute top-[13px] right-[13px] w-[18px] h-[18px] border-t border-r border-[#C3A45C] rounded-tr-[3px]" />
-            <span className="absolute bottom-[13px] left-[13px] w-[18px] h-[18px] border-b border-l border-[#C3A45C] rounded-bl-[3px]" />
-            <span className="absolute bottom-[13px] right-[13px] w-[18px] h-[18px] border-b border-r border-[#C3A45C] rounded-br-[3px]" />
-          </span>
+          {/* 4 Corner Purple Rose Bouquets */}
+          <PurpleFloralCorner position="top-left" size={85} />
+          <PurpleFloralCorner position="top-right" size={85} />
 
-          {/* Top Medallion Circle */}
-          <span 
-            className="relative mx-auto grid h-16 w-16 place-items-center rounded-full"
-            style={{
-              background: 'radial-gradient(circle at 35% 30%, #521782, #230738)',
-              border: '1px solid rgba(176, 138, 63, 0.75)',
-              boxShadow: '0 0 0 4px rgba(251, 245, 234, 0.9), 0 0 0 5px rgba(176, 138, 63, 0.4), 0 8px 18px -10px rgba(35, 7, 56, 0.4)',
-            }}
-          >
-            <Church className="h-8 w-8 text-[#D4AF37]" />
-          </span>
-
-          <h3 className="relative mt-4 font-serif italic text-2xl sm:text-3xl text-purple-foil tracking-[0.02em]">
-            {ceremony.title}
-          </h3>
-
-          <div className="mt-3 flex justify-center">
-            <GoldDivider width="w-[120px]" />
-          </div>
-
-          <p className="mt-3 font-body text-base text-[#5C4566]">
-            {ceremony.description}
-          </p>
-
-          {/* Details list */}
-          <div className="relative mx-auto mt-6 flex max-w-xs flex-col gap-3 text-left">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{weddingConfig.date.shortDate}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{ceremony.time} onwards</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{ceremony.venuePlaceholder}</span>
-            </div>
-          </div>
-
-          {/* View Location Action */}
-          <div className="mt-7">
-            <button
-              onClick={() => setModalVenue({ title: ceremony.title, time: ceremony.time, placeholder: ceremony.venuePlaceholder })}
-              className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+          {/* Scenic Floral Chapel Window Banner */}
+          <div className="relative h-44 sm:h-52 w-full overflow-hidden">
+            <img
+              src="/ceremony_chapel.jpg"
+              alt="Cathedral Ceremony with Purple Flowers"
+              className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#230738] via-[#230738]/40 to-transparent" />
+            
+            {/* Medallion badge resting on scenic window boundary */}
+            <span 
+              className="absolute -bottom-7 left-1/2 -translate-x-1/2 grid h-16 w-16 place-items-center rounded-full z-10"
+              style={{
+                background: 'radial-gradient(circle at 35% 30%, #521782, #230738)',
+                border: '2px solid #D4AF37',
+                boxShadow: '0 0 0 4px rgba(251, 245, 234, 0.95), 0 8px 20px rgba(35, 7, 56, 0.45)',
+              }}
             >
-              <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
-              <span>View Location</span>
-            </button>
+              <Church className="h-8 w-8 text-[#D4AF37]" />
+            </span>
+          </div>
+
+          <div className="px-6 pb-10 pt-10 sm:px-12 sm:pb-12">
+            <h3 className="relative font-serif italic text-2xl sm:text-3xl text-purple-foil tracking-[0.02em]">
+              {ceremony.title}
+            </h3>
+
+            <div className="my-2 flex justify-center">
+              <PurpleFloralDivider width="w-[140px]" />
+            </div>
+
+            <p className="font-body text-base text-[#5C4566]">
+              {ceremony.description}
+            </p>
+
+            {/* Details list */}
+            <div className="relative mx-auto mt-6 flex max-w-xs flex-col gap-3 text-left">
+              <div className="flex items-center gap-3">
+                <CalendarDays className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{weddingConfig.date.shortDate}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{ceremony.time} onwards</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{ceremony.venuePlaceholder}</span>
+              </div>
+            </div>
+
+            {/* View Location Action */}
+            <div className="mt-7">
+              <button
+                onClick={() => setModalVenue({ title: ceremony.title, time: ceremony.time, placeholder: ceremony.venuePlaceholder })}
+                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              >
+                <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
+                <span>View Location</span>
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -110,65 +119,73 @@ export const EventDetailsSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.15 }}
-          className="relative w-full rounded-[28px] px-6 py-10 text-center sm:px-12 sm:py-14 velvet-card"
+          className="relative w-full rounded-[28px] overflow-hidden text-center velvet-card border border-[#B08A3F]/70 shadow-[0_20px_50px_rgba(35,7,56,0.15)]"
         >
-          {/* 4 Corner Gold Brackets */}
-          <span aria-hidden="true" className="pointer-events-none">
-            <span className="absolute top-[13px] left-[13px] w-[18px] h-[18px] border-t border-l border-[#C3A45C] rounded-tl-[3px]" />
-            <span className="absolute top-[13px] right-[13px] w-[18px] h-[18px] border-t border-r border-[#C3A45C] rounded-tr-[3px]" />
-            <span className="absolute bottom-[13px] left-[13px] w-[18px] h-[18px] border-b border-l border-[#C3A45C] rounded-bl-[3px]" />
-            <span className="absolute bottom-[13px] right-[13px] w-[18px] h-[18px] border-b border-r border-[#C3A45C] rounded-br-[3px]" />
-          </span>
+          {/* 4 Corner Purple Rose Bouquets */}
+          <PurpleFloralCorner position="top-left" size={85} />
+          <PurpleFloralCorner position="top-right" size={85} />
 
-          {/* Top Medallion Circle */}
-          <span 
-            className="relative mx-auto grid h-16 w-16 place-items-center rounded-full"
-            style={{
-              background: 'radial-gradient(circle at 35% 30%, #521782, #230738)',
-              border: '1px solid rgba(176, 138, 63, 0.75)',
-              boxShadow: '0 0 0 4px rgba(251, 245, 234, 0.9), 0 0 0 5px rgba(176, 138, 63, 0.4), 0 8px 18px -10px rgba(35, 7, 56, 0.4)',
-            }}
-          >
-            <Wine className="h-8 w-8 text-[#D4AF37]" />
-          </span>
-
-          <h3 className="relative mt-4 font-serif italic text-2xl sm:text-3xl text-purple-foil tracking-[0.02em]">
-            {reception.title}
-          </h3>
-
-          <div className="mt-3 flex justify-center">
-            <GoldDivider width="w-[120px]" />
-          </div>
-
-          <p className="mt-3 font-body text-base text-[#5C4566]">
-            {reception.description}
-          </p>
-
-          {/* Details list */}
-          <div className="relative mx-auto mt-6 flex max-w-xs flex-col gap-3 text-left">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{weddingConfig.date.shortDate}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{reception.time} onwards</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-              <span className="font-body text-[1.02rem] text-[#4A154B]">{reception.venuePlaceholder}</span>
-            </div>
-          </div>
-
-          {/* View Location Action */}
-          <div className="mt-7">
-            <button
-              onClick={() => setModalVenue({ title: reception.title, time: reception.time, placeholder: reception.venuePlaceholder })}
-              className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+          {/* Scenic Purple Floral Candlelight Banquet Window Banner */}
+          <div className="relative h-44 sm:h-52 w-full overflow-hidden">
+            <img
+              src="/flowers.jpg"
+              alt="Evening Reception Banquet with Purple Roses and Candles"
+              className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#230738] via-[#230738]/40 to-transparent" />
+            
+            {/* Medallion badge resting on scenic window boundary */}
+            <span 
+              className="absolute -bottom-7 left-1/2 -translate-x-1/2 grid h-16 w-16 place-items-center rounded-full z-10"
+              style={{
+                background: 'radial-gradient(circle at 35% 30%, #521782, #230738)',
+                border: '2px solid #D4AF37',
+                boxShadow: '0 0 0 4px rgba(251, 245, 234, 0.95), 0 8px 20px rgba(35, 7, 56, 0.45)',
+              }}
             >
-              <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
-              <span>View Location</span>
-            </button>
+              <Wine className="h-8 w-8 text-[#D4AF37]" />
+            </span>
+          </div>
+
+          <div className="px-6 pb-10 pt-10 sm:px-12 sm:pb-12">
+            <h3 className="relative font-serif italic text-2xl sm:text-3xl text-purple-foil tracking-[0.02em]">
+              {reception.title}
+            </h3>
+
+            <div className="my-2 flex justify-center">
+              <PurpleFloralDivider width="w-[140px]" />
+            </div>
+
+            <p className="font-body text-base text-[#5C4566]">
+              {reception.description}
+            </p>
+
+            {/* Details list */}
+            <div className="relative mx-auto mt-6 flex max-w-xs flex-col gap-3 text-left">
+              <div className="flex items-center gap-3">
+                <CalendarDays className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{weddingConfig.date.shortDate}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{reception.time} onwards</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
+                <span className="font-body text-[1.02rem] text-[#4A154B]">{reception.venuePlaceholder}</span>
+              </div>
+            </div>
+
+            {/* View Location Action */}
+            <div className="mt-7">
+              <button
+                onClick={() => setModalVenue({ title: reception.title, time: reception.time, placeholder: reception.venuePlaceholder })}
+                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              >
+                <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
+                <span>View Location</span>
+              </button>
+            </div>
           </div>
         </motion.div>
 

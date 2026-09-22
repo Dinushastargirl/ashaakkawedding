@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { SectionHeader } from './common/SectionHeader';
-import { GoldDivider } from './common/GoldDivider';
+import { PurpleFloralDivider } from './common/PurpleFloralDivider';
+import { PurpleFloralCorner } from './common/PurpleFloralCorner';
 import { Heart, Sparkles } from 'lucide-react';
 
 export const LoveStorySection: React.FC = () => {
@@ -46,6 +47,12 @@ export const LoveStorySection: React.FC = () => {
         transition={{ duration: 0.9 }}
         className="relative mx-auto max-w-2xl rounded-[24px] px-7 py-10 text-center sm:px-12 sm:py-14 velvet-card"
       >
+        {/* Purple Floral Corners */}
+        <PurpleFloralCorner position="top-left" size={85} />
+        <PurpleFloralCorner position="top-right" size={85} />
+        <PurpleFloralCorner position="bottom-left" size={85} />
+        <PurpleFloralCorner position="bottom-right" size={85} />
+
         {/* 4 Corner Brackets */}
         <span aria-hidden="true" className="pointer-events-none">
           <span className="absolute top-[13px] left-[13px] w-[18px] h-[18px] border-t border-l border-[#C3A45C] rounded-tl-[3px]" />
@@ -78,7 +85,7 @@ export const LoveStorySection: React.FC = () => {
             Joshua <span className="font-script text-[0.8em] text-[#521782] mx-1">&amp;</span> Asha
           </h3>
           <div className="mt-1">
-            <GoldDivider width="w-[120px]" />
+            <PurpleFloralDivider width="w-[140px]" />
           </div>
         </div>
 

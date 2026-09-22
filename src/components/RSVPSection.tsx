@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { SectionHeader } from './common/SectionHeader';
+import { PurpleFloralCorner } from './common/PurpleFloralCorner';
 import { supabase } from '../utils/supabase';
 import { CheckCircle2, HeartHandshake, Send, Users, User, MessageSquare, Sparkles, AlertCircle } from 'lucide-react';
 
@@ -107,6 +108,12 @@ export const RSVPSection: React.FC = () => {
         transition={{ duration: 0.9 }}
         className="relative mx-auto max-w-2xl rounded-[28px] px-6 py-10 sm:px-12 sm:py-14 velvet-card text-left"
       >
+        {/* Purple Floral Corners */}
+        <PurpleFloralCorner position="top-left" size={85} />
+        <PurpleFloralCorner position="top-right" size={85} />
+        <PurpleFloralCorner position="bottom-left" size={85} />
+        <PurpleFloralCorner position="bottom-right" size={85} />
+
         {/* 4 Corner Gold Brackets */}
         <span aria-hidden="true" className="pointer-events-none">
           <span className="absolute top-[13px] left-[13px] w-[18px] h-[18px] border-t border-l border-[#C3A45C] rounded-tl-[3px]" />

@@ -1,39 +1,57 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
-import { GoldDivider } from './common/GoldDivider';
+import { PurpleFloralArch } from './common/PurpleFloralArch';
+import { PurpleFloralCorner } from './common/PurpleFloralCorner';
+import { PurpleFloralDivider } from './common/PurpleFloralDivider';
 import { CrossOrnament } from './common/CrossOrnament';
 import { ChevronDown } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" className="relative flex min-h-[100svh] scroll-mt-20 flex-col items-stretch overflow-hidden px-4 py-16 sm:py-24">
-      {/* Background radial velvet wash */}
+    <section id="hero" className="relative flex min-h-[100svh] scroll-mt-20 flex-col items-center justify-center overflow-hidden px-4 py-16 sm:py-24">
+      {/* Background scenic ambient radiance */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(72%_64%_at_50%_46%,rgba(251,245,234,0.92),rgba(251,245,234,0.48)_46%,transparent_74%),radial-gradient(60%_46%_at_50%_40%,rgba(239,230,251,0.4),transparent_68%)]" 
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_65%_at_50%_45%,rgba(251,245,234,0.7),rgba(251,245,234,0.95)_60%,transparent_100%)]" 
       />
 
-      {/* Main Velvet Homecoming Ornate Letterbox Frame */}
+      {/* 1. Regal Purple Floral Crown / Arch crowning the invitation */}
+      <motion.div
+        initial={{ opacity: 0, y: -25, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="relative z-[3] -mb-6 sm:-mb-10 w-full max-w-[540px] px-4"
+      >
+        <PurpleFloralArch />
+      </motion.div>
+
+      {/* 2. Main Velvet Homecoming Ornate Letterbox Frame with Purple Flower Corners */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.985 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.1, ease: "easeOut" }}
-        className="relative z-[2] mx-auto flex w-[min(94vw,660px)] flex-1 flex-col items-center justify-center gap-4 sm:gap-5 px-6 sm:px-10 py-12 sm:py-16 text-center"
+        className="relative z-[2] mx-auto flex w-[min(94vw,660px)] flex-col items-center justify-center gap-4 sm:gap-5 px-6 sm:px-10 py-12 sm:py-16 text-center rounded-[12px] bg-gradient-to-b from-[#FFFDF9]/95 via-[#FAF6EE]/92 to-[#F6ECDC]/95 backdrop-blur-md shadow-[0_30px_70px_rgba(35,7,56,0.18),0_0_60px_rgba(157,78,221,0.2),0_0_30px_rgba(212,175,55,0.25)]"
       >
+        {/* 4 Corners with Blooming Purple Rose & Lavender Bouquets */}
+        <PurpleFloralCorner position="top-left" size={105} />
+        <PurpleFloralCorner position="top-right" size={105} />
+        <PurpleFloralCorner position="bottom-left" size={105} />
+        <PurpleFloralCorner position="bottom-right" size={105} />
+
         {/* Outer Gold Border with Inset Shadow */}
         <span 
           aria-hidden="true" 
-          className="pointer-events-none absolute inset-0 border-2 border-[#B08A3F]/85 shadow-[inset_0_0_40px_-14px_rgba(176,138,63,0.4)] rounded-[4px]" 
+          className="pointer-events-none absolute inset-0 border-2 border-[#B08A3F]/85 shadow-[inset_0_0_40px_-14px_rgba(176,138,63,0.4)] rounded-[12px]" 
         />
         
         {/* Inner Gold Border */}
         <span 
           aria-hidden="true" 
-          className="pointer-events-none absolute inset-2 sm:inset-3 border border-[#B08A3F]/55 rounded-[2px]" 
+          className="pointer-events-none absolute inset-2 sm:inset-3 border border-[#B08A3F]/55 rounded-[8px]" 
         />
 
-        {/* 4 Corner Gold Brackets */}
+        {/* 4 Corner Gold Filigree Brackets */}
         <span aria-hidden="true" className="pointer-events-none">
           <span className="absolute top-[7px] left-[7px] w-[30px] h-[30px] border-t border-l border-[#B08A3F] rounded-tl-[3px]" />
           <span className="absolute top-[7px] right-[7px] w-[30px] h-[30px] border-t border-r border-[#B08A3F] rounded-tr-[3px]" />
@@ -61,10 +79,8 @@ export const HeroSection: React.FC = () => {
           The Holy Matrimony &amp; Reception of
         </p>
 
-        {/* Divider 1 */}
-        <div className="mt-0.5">
-          <GoldDivider width="w-[140px]" />
-        </div>
+        {/* Purple Floral Divider 1 */}
+        <PurpleFloralDivider width="w-[180px] sm:w-[220px]" />
 
         {/* Couple Names */}
         <h1 className="flex flex-col items-center font-serif italic font-medium text-[clamp(2.3rem,8.5vw,4.1rem)] leading-[1.14] text-purple-foil tracking-[0.04em]">
@@ -75,10 +91,8 @@ export const HeroSection: React.FC = () => {
           <span>{weddingConfig.couple.bride}</span>
         </h1>
 
-        {/* Divider 2 */}
-        <div className="mt-0.5">
-          <GoldDivider width="w-[140px]" />
-        </div>
+        {/* Purple Floral Divider 2 */}
+        <PurpleFloralDivider width="w-[180px] sm:w-[220px]" />
 
         {/* Subtitle */}
         <p className="max-w-[36ch] font-body italic text-[0.98rem] sm:text-[1.05rem] leading-relaxed text-[#7A4B7E]">

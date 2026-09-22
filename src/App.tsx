@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { CinematicVideoOpening } from './components/CinematicVideoOpening';
 import { FloatingNav } from './components/FloatingNav';
 import { FloatingPetals } from './components/common/FloatingPetals';
+import { ScenicBackdrop } from './components/common/ScenicBackdrop';
 import { HeroSection } from './components/HeroSection';
 import { LoveStorySection } from './components/LoveStorySection';
 import { BibleVerseSection } from './components/BibleVerseSection';
@@ -40,7 +41,10 @@ export default function App() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-0 pb-20 sm:pb-24"
         >
-          {/* Ambient Rising Purple & Gold Petals (Velvet Homecoming style) */}
+          {/* Scenic Romantic Backdrop (Candlelight banquet, purple floral radiance, wisteria canopy) */}
+          <ScenicBackdrop />
+
+          {/* Ambient Rising Purple & Gold Rose Petals */}
           <FloatingPetals />
 
           {/* Bottom Navigation & Floating Sound Toggle */}

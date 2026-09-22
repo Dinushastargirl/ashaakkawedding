@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoldDivider } from './GoldDivider';
+import { PurpleFloralDivider } from './PurpleFloralDivider';
 
 interface SectionHeaderProps {
   preTitle?: string;
@@ -13,7 +13,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   preTitle,
   title,
   subtitle,
-  dividerWidth = 'w-[200px] sm:w-[240px]',
+  dividerWidth = 'w-[200px] sm:w-[260px]',
   className = '',
 }) => {
   return (
@@ -43,8 +43,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         </p>
       )}
 
-      <div className="mt-4 flex justify-center">
-        <GoldDivider width={dividerWidth} />
+      <div className="mt-3 flex justify-center">
+        <PurpleFloralDivider width={dividerWidth} />
       </div>
     </div>
   );
