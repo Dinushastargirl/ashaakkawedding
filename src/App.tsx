@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { CinematicVideoOpening } from './components/CinematicVideoOpening';
 import { FloatingNav } from './components/FloatingNav';
 import { FloatingPetals } from './components/common/FloatingPetals';
+import { ButterfliesOverlay } from './components/common/ButterfliesOverlay';
 import { ScenicBackdrop } from './components/common/ScenicBackdrop';
 import { HeroSection } from './components/HeroSection';
 import { LoveStorySection } from './components/LoveStorySection';
@@ -41,8 +42,11 @@ export default function App() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-0 pb-20 sm:pb-24"
         >
-          {/* Scenic Romantic Backdrop (Candlelight banquet, purple floral radiance, wisteria canopy) */}
+          {/* Scenic Floral Motion Video (inside.mp4) + Radial Vignette + Wisteria Canopy */}
           <ScenicBackdrop />
+
+          {/* Gentle Fluttering 3D Butterflies */}
+          <ButterfliesOverlay count={5} theme="inside" />
 
           {/* Ambient Rising Purple & Gold Rose Petals */}
           <FloatingPetals />

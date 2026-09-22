@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { CrossOrnament } from './common/CrossOrnament';
 import { GoldDivider } from './common/GoldDivider';
+import { ButterfliesOverlay } from './common/ButterfliesOverlay';
 import { Volume2, Sparkles, Music } from 'lucide-react';
 
 interface CinematicVideoOpeningProps {
@@ -10,34 +11,14 @@ interface CinematicVideoOpeningProps {
 }
 
 export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ onEnterInvitation }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth < 768 || window.innerHeight > window.innerWidth;
-  });
-
   const [isMuted, setIsMuted] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
   const [showCover, setShowCover] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Responsive device detection (Laptop/Tab vs Phone)
-  useEffect(() => {
-    const handleResize = () => {
-      const mobileCheck = window.innerWidth < 768 || window.innerHeight > window.innerWidth;
-      setIsMobile(mobileCheck);
-    };
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
-    };
-  }, []);
-
-  // Selected video source: Portrait for phones, Landscape for laptops & tablets
-  const currentVideoSrc = isMobile ? weddingConfig.videos.portrait : weddingConfig.videos.landscape;
+  // Use intro.mp4 as provided in the asset folder
+  const currentVideoSrc = "/intro.mp4";
 
   // Initial autoplay
   useEffect(() => {
@@ -46,7 +27,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       v.muted = true;
       v.play().catch(() => {});
     }
-  }, [currentVideoSrc]);
+  }, []);
 
   // Unmute & sound toggle
   const toggleSound = (e?: React.MouseEvent) => {
@@ -67,7 +48,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     setIsEnded(true);
     setTimeout(() => {
       setShowCover(true);
-    }, 1200); // 1.2s elegant fade
+    }, 1000);
   };
 
   // Skip directly to invitation cover
@@ -83,14 +64,17 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       onClick={() => isMuted && toggleSound()}
       className="fixed inset-0 z-50 overflow-hidden bg-[#150323] select-none cursor-pointer"
     >
-      {/* 1. Full Screen Magical Video Presentation */}
+      {/* Delicate Ethereal Butterflies on Intro */}
+      <ButterfliesOverlay count={4} theme="intro" />
+
+      {/* 1. Full Screen Responsive Intro Video (Mobile & Laptop) */}
       <div className="relative h-full w-full overflow-hidden">
         <video
           ref={videoRef}
-          key={currentVideoSrc}
           src={currentVideoSrc}
           preload="auto"
           playsInline
+          autoPlay
           muted={isMuted}
           onEnded={handleVideoEnded}
           className={`h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
@@ -99,7 +83,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
         />
 
         {/* Soft Vignette Overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#150323]/50 via-transparent to-[#150323]/40" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#150323]/60 via-transparent to-[#150323]/50" />
 
         {/* Deep Royal Purple Fade Layer */}
         <div 

@@ -3,13 +3,14 @@ import React from 'react';
 export const ScenicBackdrop: React.FC = () => {
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden select-none">
-      {/* 1. Underlying Atmospheric Photography Layer: Purple Floral Candlelight Banquet */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.18] filter blur-[3px] scale-105"
-        style={{
-          backgroundImage: `url('/flowers.jpg')`,
-          transform: 'translateZ(0)',
-        }}
+      {/* 1. Underlying Floral Motion Video from assets: inside.mp4 */}
+      <video
+        src="/inside.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover opacity-35 sm:opacity-40"
       />
 
       {/* 2. Scenic Radial Vignette: Royal Purple Shadows at edges, warm radiant glow at center */}
@@ -17,10 +18,10 @@ export const ScenicBackdrop: React.FC = () => {
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 30%, rgba(251, 245, 234, 0.82) 0%, rgba(251, 245, 234, 0.92) 55%, rgba(240, 226, 255, 0.85) 80%, rgba(35, 7, 56, 0.42) 100%),
-            radial-gradient(circle at 15% 15%, rgba(157, 78, 221, 0.22) 0%, transparent 45%),
-            radial-gradient(circle at 85% 15%, rgba(157, 78, 221, 0.22) 0%, transparent 45%),
-            radial-gradient(circle at 50% 90%, rgba(82, 23, 130, 0.28) 0%, transparent 60%)
+            radial-gradient(ellipse 85% 65% at 50% 35%, rgba(251, 245, 234, 0.82) 0%, rgba(251, 245, 234, 0.90) 50%, rgba(240, 226, 255, 0.85) 75%, rgba(35, 7, 56, 0.65) 100%),
+            radial-gradient(circle at 15% 15%, rgba(157, 78, 221, 0.25) 0%, transparent 50%),
+            radial-gradient(circle at 85% 15%, rgba(157, 78, 221, 0.25) 0%, transparent 50%),
+            radial-gradient(circle at 50% 90%, rgba(82, 23, 130, 0.35) 0%, transparent 60%)
           `
         }}
       />
