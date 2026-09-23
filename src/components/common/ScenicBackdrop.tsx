@@ -20,6 +20,8 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
 
   const mobileSrc = getAssetUrl('inside/inside_vertical.mp4');
   const desktopSrc = getAssetUrl('inside/inside_horizontal.mp4');
+  const mobilePoster = getAssetUrl('inside/inside_vertical_poster.jpg');
+  const desktopPoster = getAssetUrl('inside/inside_horizontal_poster.jpg');
 
   useEffect(() => {
     const checkOrientation = () => {
@@ -97,14 +99,24 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
       aria-hidden="true" 
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
+      {/* 0. Instant Poster Image so phone screen NEVER shows black while video buffers */}
+      <img
+        src={isMobilePortrait ? mobilePoster : desktopPoster}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+      />
+
       {/* 1. Mobile / Phone Portrait Inside Video: inside_vertical.mp4 */}
       <video
         ref={mobileVideoRef}
         src={mobileSrc}
+        poster={mobilePoster}
         autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
           isMobilePortrait ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
         }`}
@@ -114,10 +126,12 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
       <video
         ref={desktopVideoRef}
         src={desktopSrc}
+        poster={desktopPoster}
         autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
           !isMobilePortrait ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
         }`}

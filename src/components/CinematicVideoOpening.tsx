@@ -46,14 +46,17 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     ? getAssetUrl('intro/intro_vertical.mp4')
     : getAssetUrl('intro/intro_horizontal.mp4');
 
-  // Preload and seek to first frame so the video image is visible immediately as the background
+  const posterSrc = isMobilePortrait
+    ? getAssetUrl('intro/intro_vertical_poster.jpg')
+    : getAssetUrl('intro/intro_horizontal_poster.jpg');
+
+  // Ensure video is muted and playsInline for mobile compatibility without seeking stalls
   useEffect(() => {
     const v = videoRef.current;
     if (v) {
       v.muted = true;
       v.defaultMuted = true;
       v.playsInline = true;
-      v.currentTime = 0.01;
     }
   }, [videoSrc]);
 
@@ -105,13 +108,23 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       transition={{ duration: 0.6, ease: "easeInOut" }}
       className="fixed inset-0 z-50 overflow-hidden bg-black select-none pointer-events-auto"
     >
-      {/* 1. Full-screen Intro Video as the actual background */}
+      {/* 0. Instant Poster Image so phone screen NEVER shows black, loads in milliseconds */}
+      <img
+        src={posterSrc}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+      />
+
+      {/* 1. Full-screen Intro Video playing seamlessly over poster */}
       <video
         ref={videoRef}
         key={videoSrc}
         src={videoSrc}
+        poster={posterSrc}
         preload="auto"
         playsInline
+        webkit-playsinline="true"
         muted
         onEnded={handleVideoEnded}
         onTimeUpdate={handleTimeUpdate}
