@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getAssetUrl } from '../../utils/assetHelper';
 
 export const ScenicBackdrop: React.FC = () => {
   // Robust detection for mobile / phone / portrait
@@ -12,6 +13,9 @@ export const ScenicBackdrop: React.FC = () => {
 
   const mobileVideoRef = useRef<HTMLVideoElement | null>(null);
   const desktopVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const mobileSrc = getAssetUrl('inside/inside_vertical.mp4');
+  const desktopSrc = getAssetUrl('inside/inside_horizontal.mp4');
 
   useEffect(() => {
     const checkOrientation = () => {
@@ -30,24 +34,53 @@ export const ScenicBackdrop: React.FC = () => {
     };
   }, []);
 
-  // Ensure videos play smoothly
+  // Ensure videos play smoothly with mobile browser autoplay workarounds
   useEffect(() => {
-    if (isMobilePortrait && mobileVideoRef.current) {
-      mobileVideoRef.current.play().catch(() => {});
-    } else if (!isMobilePortrait && desktopVideoRef.current) {
-      desktopVideoRef.current.play().catch(() => {});
-    }
+    const playCurrentVideo = () => {
+      const target = isMobilePortrait ? mobileVideoRef.current : desktopVideoRef.current;
+      if (target) {
+        target.muted = true;
+        target.defaultMuted = true;
+        target.playsInline = true;
+        target.setAttribute('playsinline', '');
+        target.setAttribute('webkit-playsinline', '');
+        const p = target.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      }
+    };
+
+    playCurrentVideo();
+
+    // Fallback: resume play on first user interaction if browser blocked autoplay
+    const handleFirstInteraction = () => {
+      playCurrentVideo();
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('scroll', handleFirstInteraction);
+    };
+
+    window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
+    window.addEventListener('click', handleFirstInteraction, { passive: true });
+    window.addEventListener('scroll', handleFirstInteraction, { passive: true });
+
+    return () => {
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('scroll', handleFirstInteraction);
+    };
   }, [isMobilePortrait]);
 
   return (
     <div 
       aria-hidden="true" 
-      className="pointer-events-none fixed inset-0 z-[-1] overflow-hidden select-none bg-[#F7F4EF]"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
-      {/* 1. Mobile / Phone Portrait Inside Video: /inside/inside_vertical.mp4 */}
+      {/* 1. Mobile / Phone Portrait Inside Video: inside_vertical.mp4 */}
       <video
         ref={mobileVideoRef}
-        src="/inside/inside_vertical.mp4"
+        src={mobileSrc}
         autoPlay
         loop
         muted
@@ -57,10 +90,10 @@ export const ScenicBackdrop: React.FC = () => {
         }`}
       />
 
-      {/* 2. Desktop / Laptop Landscape Inside Video: /inside/inside_horizontal.mp4 */}
+      {/* 2. Desktop / Laptop Landscape Inside Video: inside_horizontal.mp4 */}
       <video
         ref={desktopVideoRef}
-        src="/inside/inside_horizontal.mp4"
+        src={desktopSrc}
         autoPlay
         loop
         muted

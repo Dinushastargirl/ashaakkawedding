@@ -104,14 +104,6 @@ export const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Colour Theme: Purple */}
-        <div className="mt-1 inline-flex items-center gap-2.5 rounded-full border border-[#B08A3F]/50 bg-white/50 px-5 py-2 backdrop-blur-xs shadow-sm">
-          <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-tr from-[#350854] to-[#9D4EDD] shadow-[0_0_8px_rgba(157,78,221,0.6)] border border-[#E5C578]" />
-          <span className="font-sans text-[0.72rem] sm:text-[0.76rem] uppercase tracking-[0.28em] font-bold text-[#350854]">
-            Colour Theme: <span className="text-[#6A1B9A]">Purple</span>
-          </span>
-        </div>
-
         {/* Venue placeholder */}
         <p className="mt-1 font-sans text-[0.72rem] uppercase tracking-[0.24em] font-semibold text-[#8C6D2A]">
           Venue details coming soon

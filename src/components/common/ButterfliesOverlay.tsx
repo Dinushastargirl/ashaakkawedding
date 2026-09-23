@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '../../utils/assetHelper';
 
 interface ButterfliesOverlayProps {
   count?: number;
@@ -15,7 +16,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
   const butterflyConfigs = [
     {
       id: 'bf-1',
-      src: '/butterfly/b1.gif',
+      src: getAssetUrl('butterfly/b1.gif'),
       size: 48,
       duration: '22s',
       delay: '0s',
@@ -24,7 +25,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-2',
-      src: '/butterfly/b2.gif',
+      src: getAssetUrl('butterfly/b2.gif'),
       size: 54,
       duration: '26s',
       delay: '3s',
@@ -33,7 +34,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-3',
-      src: '/butterfly/b3.gif',
+      src: getAssetUrl('butterfly/b3.gif'),
       size: 42,
       duration: '20s',
       delay: '6s',
@@ -42,7 +43,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-4',
-      src: '/butterfly/b6.gif',
+      src: getAssetUrl('butterfly/b6.gif'),
       size: 46,
       duration: '24s',
       delay: '9s',
@@ -51,7 +52,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-5',
-      src: '/butterfly/b4.gif',
+      src: getAssetUrl('butterfly/b4.gif'),
       size: 38,
       duration: '19s',
       delay: '12s',
@@ -60,7 +61,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-6',
-      src: '/butterfly/b1.gif',
+      src: getAssetUrl('butterfly/b1.gif'),
       size: 44,
       duration: '25s',
       delay: '15s',
@@ -69,7 +70,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-7',
-      src: '/butterfly/b2.gif',
+      src: getAssetUrl('butterfly/b2.gif'),
       size: 50,
       duration: '28s',
       delay: '18s',
@@ -78,7 +79,7 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     },
     {
       id: 'bf-8',
-      src: '/butterfly/b3.gif',
+      src: getAssetUrl('butterfly/b3.gif'),
       size: 36,
       duration: '21s',
       delay: '21s',

@@ -1,3 +1,5 @@
+import { getAssetUrl } from '../utils/assetHelper';
+
 export interface WeddingEvent {
   title: string;
   subtitle: string;
@@ -133,16 +135,16 @@ export const weddingConfig: WeddingConfig = {
     },
   ],
   photos: {
-    coupleHero: "/photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg",
-    coupleEditorial: "/photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg",
-    flowers: "/flowers.jpg",
-    rings: "/rings.jpg",
-    chapel: "/ceremony_chapel.jpg",
+    coupleHero: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
+    coupleEditorial: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
+    flowers: getAssetUrl("flowers.jpg"),
+    rings: getAssetUrl("rings.jpg"),
+    chapel: getAssetUrl("ceremony_chapel.jpg"),
   },
   gallery: [
     {
       id: 1,
-      url: "/photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg",
+      url: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
       title: "Embraced in Love",
       subtitle: "A Sacred Covenant",
       caption: "Two hearts bound by God's eternal love and grace.",
@@ -150,7 +152,7 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 2,
-      url: "/photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg",
+      url: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
       title: "Sacred Covenant",
       subtitle: "Standing in Faith",
       caption: "Under the shelter of the Almighty, walking side by side.",
@@ -158,7 +160,7 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 3,
-      url: "/photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg",
+      url: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg"),
       title: "Hand in Hand",
       subtitle: "Steps into Forever",
       caption: "United in purpose, faith, and unconditional devotion.",
@@ -166,7 +168,7 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 4,
-      url: "/photos/Couple_standing_in_grass_2K_20260923124146.jpeg",
+      url: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.jpeg"),
       title: "Joyful Beginnings",
       subtitle: "Pure Happiness",
       caption: "Blessed with laughter, peace, and eternal joy.",

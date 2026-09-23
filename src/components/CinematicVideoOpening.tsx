@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
+import { getAssetUrl } from '../utils/assetHelper';
 import { CrossOrnament } from './common/CrossOrnament';
 import { GoldDivider } from './common/GoldDivider';
 import { ButterfliesOverlay } from './common/ButterfliesOverlay';
@@ -43,7 +44,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     };
   }, []);
 
-  const videoSrc = isPortrait ? '/intro/intro_vertical.mp4' : '/intro/intro_horizontal.mp4';
+  const videoSrc = isPortrait ? getAssetUrl('intro/intro_vertical.mp4') : getAssetUrl('intro/intro_horizontal.mp4');
 
   // Ensure autoplay on mount and source switch
   useEffect(() => {
