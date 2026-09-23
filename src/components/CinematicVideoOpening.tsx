@@ -3,18 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { getAssetUrl } from '../utils/assetHelper';
 import { audioManager } from '../utils/audioManager';
-import { CrossOrnament } from './common/CrossOrnament';
-import { GoldDivider } from './common/GoldDivider';
 import { ButterfliesOverlay } from './common/ButterfliesOverlay';
-import { Sparkles } from 'lucide-react';
 
 interface CinematicVideoOpeningProps {
   onEnterInvitation: () => void;
 }
 
 export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ onEnterInvitation }) => {
-  // State: 'cover' (initial Tap To Enter screen) -> 'playing' (intro video with music) -> calls onEnterInvitation
-  const [stage, setStage] = useState<'cover' | 'playing'>('cover');
+  // isStarted = false: Shows video paused at frame 0 with Joshua & Asha, Date & TAP TO ENTER button directly on video (Image 2)
+  // isStarted = true: Overlay fades out, song plays, video plays to completion, then dissolves into inside invitation
+  const [isStarted, setIsStarted] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
 
   // Responsive media switching: mobile/portrait -> vertical; desktop/landscape -> horizontal
@@ -49,137 +47,120 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     ? getAssetUrl('intro/intro_vertical.mp4')
     : getAssetUrl('intro/intro_horizontal.mp4');
 
-  // When user clicks "Tap To Enter": start song and play intro video
-  const handleStartIntro = () => {
-    // 1. Start real wedding song (intro audio.mp3)
+  // Preload and seek to first frame so the video image is visible immediately as the background
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.playsInline = true;
+      v.currentTime = 0.01;
+    }
+  }, [videoSrc]);
+
+  // When TAP TO ENTER is clicked:
+  const handleTapToEnter = () => {
+    setIsStarted(true);
+
+    // 1. Play real wedding song
     audioManager.start();
 
-    // 2. Switch stage to playing video
-    setStage('playing');
-
-    // 3. Play intro video immediately
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.muted = true; // Video itself is muted so the high-quality intro audio.mp3 plays clearly without interference
-      videoRef.current.defaultMuted = true;
-      videoRef.current.playsInline = true;
-      videoRef.current.play().catch(() => {});
+    // 2. Play intro video
+    const v = videoRef.current;
+    if (v) {
+      v.currentTime = 0;
+      v.muted = true; // Audio is handled by audioManager with the user's high quality mp3
+      v.defaultMuted = true;
+      v.playsInline = true;
+      const p = v.play();
+      if (p !== undefined) {
+        p.catch(() => {});
+      }
     }
   };
 
-  // When the intro video ends -> Transition directly to inside wedding invitation!
+  // When video ends -> transition directly into inside invitation
   const handleVideoEnded = () => {
     setVideoEnded(true);
-    // Smooth cinematic dissolve directly into invitation
     setTimeout(() => {
       onEnterInvitation();
-    }, 700);
+    }, 600);
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-[#150323] select-none">
-      {/* 1. Background Intro Video (Preloading in background, plays once entered) */}
-      <div className="relative h-full w-full overflow-hidden">
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          preload="auto"
-          playsInline
-          muted
-          onEnded={handleVideoEnded}
-          className={`h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
-            stage === 'playing' && !videoEnded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-          }`}
-        />
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black select-none">
+      {/* 1. Full-screen Intro Video as the actual background */}
+      <video
+        ref={videoRef}
+        key={videoSrc}
+        src={videoSrc}
+        preload="auto"
+        playsInline
+        muted
+        onEnded={handleVideoEnded}
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
+          videoEnded ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+        }`}
+      />
 
-        {/* Soft Vignette Overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#150323]/50 via-transparent to-[#150323]/40" />
+      {/* Subtle top & bottom gradient vignettes so text is clear without hiding the video */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/50" />
 
-        {/* Deep Royal Purple Dissolve Layer at video end */}
-        <div 
-          className={`pointer-events-none absolute inset-0 bg-[#150323] transition-opacity duration-700 ease-in-out ${
-            videoEnded ? 'opacity-100' : 'opacity-0'
-          }`} 
-        />
-      </div>
-
-      {/* Floating Natural Butterflies during intro */}
+      {/* Floating natural butterflies */}
       <ButterfliesOverlay count={4} theme="intro" />
 
-      {/* 2. Initial Luxury Screen: Names, Date, and "TAP TO ENTER" button */}
+      {/* 2. Exact Image 2 Overlay: AN INVITATION at top, Joshua & Asha + Date + TAP TO ENTER at bottom */}
       <AnimatePresence>
-        {stage === 'cover' && (
+        {!isStarted && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 z-40 flex items-center justify-center px-4 py-8 bg-[#150323]"
+            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            className="absolute inset-0 z-30 flex flex-col justify-between items-center px-4 py-8 pointer-events-none"
           >
-            {/* Subtle radial ambient warmth */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(82,23,130,0.55)_0%,rgba(35,7,56,0.95)_70%,#150323_100%)] pointer-events-none" />
-
-            {/* Centered Luxury Velvet Invitation Cover Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.1 }}
-              className="relative mx-auto w-full max-w-md overflow-hidden rounded-[24px] border border-[#D4AF37]/70 bg-gradient-to-b from-[#2E0A4A]/95 via-[#230738]/95 to-[#170428] p-8 sm:p-12 text-center shadow-[0_25px_80px_rgba(0,0,0,0.85),0_0_50px_rgba(212,175,55,0.25)]"
-            >
-              {/* Double Gold Inset Borders */}
-              <div className="pointer-events-none absolute inset-2.5 rounded-[18px] border border-[#D4AF37]/40" />
-              
-              {/* Ornate Gold Corners */}
-              <span className="pointer-events-none absolute left-3 top-3 h-5 w-5 border-l-2 border-t-2 border-[#D4AF37]" />
-              <span className="pointer-events-none absolute right-3 top-3 h-5 w-5 border-r-2 border-t-2 border-[#D4AF37]" />
-              <span className="pointer-events-none absolute bottom-3 left-3 h-5 w-5 border-b-2 border-l-2 border-[#D4AF37]" />
-              <span className="pointer-events-none absolute bottom-3 right-3 h-5 w-5 border-b-2 border-r-2 border-[#D4AF37]" />
-
-              {/* Faith Cross Finial */}
-              <div className="mb-4 flex justify-center">
-                <CrossOrnament size={34} />
-              </div>
-
-              {/* AN INVITATION */}
-              <p className="font-sans text-[0.72rem] sm:text-[0.78rem] uppercase tracking-[0.45em] text-[#E5C578] font-semibold">
+            {/* Top: AN INVITATION */}
+            <div className="pt-4 text-center">
+              <p className="font-sans text-[0.68rem] sm:text-[0.74rem] uppercase tracking-[0.45em] text-[#E5C578] font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                 An Invitation
               </p>
+            </div>
 
-              {/* Names: Joshua & Asha */}
-              <h2 className="mt-3 font-serif italic text-4xl sm:text-5xl tracking-wide text-gold-gradient leading-tight">
-                {weddingConfig.couple.groom} &amp; {weddingConfig.couple.bride}
-              </h2>
+            {/* Bottom-Center: Joshua & Asha, 17th October 2026, TAP TO ENTER */}
+            <div className="pb-8 sm:pb-12 text-center pointer-events-auto flex flex-col items-center">
+              {/* Couple Names */}
+              <h1 className="font-serif italic font-medium text-4xl sm:text-6xl text-[#FAF0D7] tracking-wide drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
+                <span>{weddingConfig.couple.groom}</span>{' '}
+                <span className="font-script text-[0.8em] text-[#E5C578] not-italic px-1 drop-shadow-md">
+                  &amp;
+                </span>{' '}
+                <span>{weddingConfig.couple.bride}</span>
+              </h1>
 
-              <div className="my-4 flex justify-center">
-                <GoldDivider width="w-36 sm:w-48" />
-              </div>
-
-              {/* Date: October 17, 2026 */}
-              <p className="font-serif text-lg sm:text-xl text-[#FAF7F2] tracking-widest font-normal">
-                {weddingConfig.date.shortDate}
+              {/* Date */}
+              <p className="font-serif italic text-base sm:text-xl text-[#E5C578] tracking-widest mt-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] font-medium">
+                17<sup className="text-[0.6em]">th</sup> October 2026
               </p>
 
-              <p className="mx-auto mt-4 max-w-[30ch] font-body italic text-sm sm:text-base text-[#DFCBF7]/90 leading-relaxed">
-                Together with their families, joyfully invite you to celebrate their holy matrimony under God.
-              </p>
-
-              {/* TAP TO ENTER button: Starts music & plays intro video */}
-              <div className="mt-8">
+              {/* TAP TO ENTER button */}
+              <div className="mt-5">
                 <button
-                  onClick={handleStartIntro}
-                  className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full border border-[#D4AF37] bg-gradient-to-r from-[#230738] via-[#4E144A] to-[#230738] px-9 py-4 font-sans text-xs uppercase tracking-[0.28em] text-[#FAF7F2] font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-[1.03] hover:border-[#E5C578] hover:shadow-[0_15px_35px_rgba(212,175,55,0.4)] active:scale-[0.98] cursor-pointer"
+                  onClick={handleTapToEnter}
+                  className="rounded-full px-8 py-2.5 sm:px-10 sm:py-3 bg-gradient-to-r from-[#B08A3F] via-[#D4B25E] to-[#B08A3F] text-[#230738] font-sans font-bold text-xs uppercase tracking-[0.25em] shadow-[0_6px_25px_rgba(0,0,0,0.7)] border border-[#FFF2BE] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                  
-                  <Sparkles className="h-3.5 w-3.5 text-[#E5C578] animate-pulse" />
-                  <span>Tap To Enter</span>
-                  <Sparkles className="h-3.5 w-3.5 text-[#E5C578] animate-pulse" />
+                  Tap To Enter
                 </button>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Smooth fade out when video finishes */}
+      <div 
+        className={`pointer-events-none absolute inset-0 bg-[#FAF7F2] transition-opacity duration-700 ease-in-out ${
+          videoEnded ? 'opacity-100' : 'opacity-0'
+        }`} 
+      />
     </div>
   );
 };
