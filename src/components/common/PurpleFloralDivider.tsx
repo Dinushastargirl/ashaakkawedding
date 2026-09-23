@@ -7,44 +7,67 @@ interface PurpleFloralDividerProps {
 
 export const PurpleFloralDivider: React.FC<PurpleFloralDividerProps> = ({
   className = '',
-  width = 'w-48 sm:w-64',
+  width = 'w-[140px] sm:w-[180px]',
 }) => {
   return (
-    <div className={`relative mx-auto flex items-center justify-center select-none pointer-events-none my-3 ${width} ${className}`}>
-      {/* Left Golden Vine with Leaves */}
-      <div className="flex-1 flex items-center">
-        <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#B08A3F] to-[#D4AF37]" />
-        {/* Tiny Leaf Accent */}
+    <div className={`relative mx-auto flex items-center justify-center select-none pointer-events-none my-2 ${width} ${className}`}>
+      {/* Velvet Homecoming Geometric Gold Filigree with Royal Purple Jewel Center */}
+      <span className="inline-flex w-full items-center justify-center gap-2" aria-hidden="true">
+        {/* Left gold diamond point */}
+        <span className="h-1 w-1 shrink-0 rotate-45 bg-[#B08A3F]" />
+        
+        {/* Left gold gradient rule with ambient glow */}
         <span 
-          className="inline-block w-2.5 h-1.5 rounded-full -ml-1 rotate-[35deg]"
-          style={{ background: 'linear-gradient(135deg, #D4AF37, #8C6D2A)' }} 
-        />
-      </div>
-
-      {/* Center Purple Rose Floret Badge */}
-      <div className="mx-2 flex items-center gap-1.5 shrink-0">
-        <span className="h-1.5 w-1.5 rotate-45 bg-[#D4AF37]" />
-        <span 
-          className="relative grid h-6 w-6 place-items-center rounded-full shadow-[0_0_8px_rgba(157,78,221,0.5)]"
+          className="h-px flex-1" 
           style={{
-            background: 'radial-gradient(circle at 35% 35%, #9D4EDD, #521782 70%, #230738 100%)',
-            border: '1px solid #D4AF37'
+            background: 'linear-gradient(90deg, transparent, rgba(212, 178, 94, 0.95))',
+            boxShadow: '0 0 8px rgba(176, 138, 63, 0.5)'
+          }}
+        />
+        
+        {/* Left gold accent diamond */}
+        <span 
+          className="h-1.5 w-1.5 shrink-0 rotate-45 bg-[#D4B25E]" 
+          style={{ boxShadow: '0 0 10px rgba(212, 178, 94, 0.8)' }}
+        />
+        
+        {/* Center Royal Purple Diamond Medallion */}
+        <span 
+          className="relative grid h-3.5 w-3.5 shrink-0 rotate-45 place-items-center" 
+          style={{
+            border: '1px solid #D4B25E',
+            background: 'rgba(53, 8, 84, 0.85)',
+            boxShadow: '0 0 14px rgba(176, 138, 63, 0.55)'
           }}
         >
-          {/* Inner Golden Stamen */}
-          <span className="h-1.5 w-1.5 rounded-full bg-[#F9E8A2]" />
+          {/* Inner Purple Jewel */}
+          <span 
+            className="h-1.5 w-1.5 rounded-full" 
+            style={{
+              background: '#9D4EDD',
+              boxShadow: '0 0 8px rgba(157, 78, 221, 0.95)'
+            }}
+          />
         </span>
-        <span className="h-1.5 w-1.5 rotate-45 bg-[#D4AF37]" />
-      </div>
-
-      {/* Right Golden Vine with Leaves */}
-      <div className="flex-1 flex items-center">
+        
+        {/* Right gold accent diamond */}
         <span 
-          className="inline-block w-2.5 h-1.5 rounded-full -mr-1 -rotate-[35deg]"
-          style={{ background: 'linear-gradient(135deg, #8C6D2A, #D4AF37)' }} 
+          className="h-1.5 w-1.5 shrink-0 rotate-45 bg-[#D4B25E]" 
+          style={{ boxShadow: '0 0 10px rgba(212, 178, 94, 0.8)' }}
         />
-        <div className="h-[1px] w-full bg-gradient-to-l from-transparent via-[#B08A3F] to-[#D4AF37]" />
-      </div>
+        
+        {/* Right gold gradient rule */}
+        <span 
+          className="h-px flex-1" 
+          style={{
+            background: 'linear-gradient(90deg, rgba(212, 178, 94, 0.95), transparent)',
+            boxShadow: '0 0 8px rgba(176, 138, 63, 0.5)'
+          }}
+        />
+        
+        {/* Right gold diamond point */}
+        <span className="h-1 w-1 shrink-0 rotate-45 bg-[#B08A3F]" />
+      </span>
     </div>
   );
 };

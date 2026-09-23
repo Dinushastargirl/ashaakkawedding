@@ -14,22 +14,47 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
   const [isMuted, setIsMuted] = useState(true);
   const [isEnded, setIsEnded] = useState(false);
   const [showCover, setShowCover] = useState(false);
+  
+  // Responsive media switching: mobile/portrait -> vertical; desktop/landscape -> horizontal
+  const [isPortrait, setIsPortrait] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const isPortraitMedia = window.matchMedia('(orientation: portrait)').matches;
+    const isSmallWidth = window.innerWidth <= 820;
+    const isTouchMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    return isPortraitMedia || isSmallWidth || isTouchMobile;
+  });
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Use intro.mp4 as provided in the asset folder
-  const currentVideoSrc = "/intro.mp4";
+  useEffect(() => {
+    const handleResize = () => {
+      const isPortraitMedia = window.matchMedia('(orientation: portrait)').matches;
+      const isSmallWidth = window.innerWidth <= 820;
+      const isTouchMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      setIsPortrait(isPortraitMedia || isSmallWidth || isTouchMobile);
+    };
 
-  // Initial autoplay
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
+  }, []);
+
+  const videoSrc = isPortrait ? '/intro/intro_vertical.mp4' : '/intro/intro_horizontal.mp4';
+
+  // Ensure autoplay on mount and source switch
   useEffect(() => {
     const v = videoRef.current;
     if (v) {
-      v.muted = true;
+      v.muted = isMuted;
       v.play().catch(() => {});
     }
-  }, []);
+  }, [videoSrc]);
 
-  // Unmute & sound toggle
+  // Sound toggle
   const toggleSound = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     const v = videoRef.current;
@@ -64,14 +89,15 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       onClick={() => isMuted && toggleSound()}
       className="fixed inset-0 z-50 overflow-hidden bg-[#150323] select-none cursor-pointer"
     >
-      {/* Delicate Ethereal Butterflies on Intro */}
-      <ButterfliesOverlay count={4} theme="intro" />
+      {/* Ethereal Floating Butterflies from supplied assets */}
+      <ButterfliesOverlay count={3} theme="intro" />
 
-      {/* 1. Full Screen Responsive Intro Video (Mobile & Laptop) */}
+      {/* 1. Full Screen Responsive Intro Video (Switching automatically) */}
       <div className="relative h-full w-full overflow-hidden">
         <video
+          key={videoSrc}
           ref={videoRef}
-          src={currentVideoSrc}
+          src={videoSrc}
           preload="auto"
           playsInline
           autoPlay
@@ -97,8 +123,8 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       {!isEnded && (
         <div className="absolute top-4 sm:top-6 left-0 right-0 z-30 flex items-center justify-between px-5 sm:px-8">
           {/* Couple brand tag */}
-          <div className="flex items-center gap-2 text-[#E5C578]/90 font-serif italic text-sm sm:text-base font-medium drop-shadow-md">
-            <span>Joshua &amp; Asha</span>
+          <div className="flex items-center gap-2 text-[#E5C578]/95 font-serif italic text-sm sm:text-base font-medium drop-shadow-md">
+            <span>{weddingConfig.couple.groom} &amp; {weddingConfig.couple.bride}</span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -137,7 +163,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
             {/* Skip Option */}
             <button
               onClick={handleSkip}
-              className="font-sans text-[0.62rem] uppercase tracking-[0.25em] text-[#DFCBF7]/70 hover:text-[#FAF7F2] transition-colors py-1 px-2.5 cursor-pointer"
+              className="font-sans text-[0.62rem] uppercase tracking-[0.25em] text-[#DFCBF7]/80 hover:text-[#FAF7F2] transition-colors py-1 px-2.5 cursor-pointer"
             >
               Skip
             </button>
@@ -148,10 +174,10 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
       {/* Floating prompt for mobile to unmute */}
       {!isEnded && isMuted && (
         <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-30 flex justify-center px-4">
-          <div className="rounded-full bg-[#150323]/80 border border-[#D4AF37]/60 px-5 py-2 backdrop-blur-md text-center shadow-lg">
+          <div className="rounded-full bg-[#150323]/85 border border-[#D4AF37]/60 px-5 py-2 backdrop-blur-md text-center shadow-lg">
             <p className="font-sans text-[0.68rem] uppercase tracking-[0.25em] text-[#E5C578] font-semibold flex items-center gap-2">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Tap screen to play beautiful wedding song</span>
+              <span>Tap screen to play wedding song</span>
               <Sparkles className="h-3.5 w-3.5" />
             </p>
           </div>
@@ -171,7 +197,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
           >
             {/* Soft floral background texture */}
             <div 
-              className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-screen scale-105 filter blur-sm pointer-events-none"
+              className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen scale-105 filter blur-sm pointer-events-none"
               style={{ backgroundImage: `url('/flowers.jpg')` }}
             />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(82,23,130,0.6)_0%,rgba(35,7,56,0.96)_70%,#150323_100%)] pointer-events-none" />

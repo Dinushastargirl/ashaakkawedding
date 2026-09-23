@@ -25,7 +25,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#FAF7F2] selection:bg-[#521782] selection:text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-transparent selection:bg-[#521782] selection:text-white overflow-x-hidden">
       
       {/* 1. Video-First Opening Experience -> Fade -> Cover -> Tap To Enter */}
       <AnimatePresence mode="wait">

@@ -56,6 +56,14 @@ export interface WeddingConfig {
     rings: string;
     chapel: string;
   };
+  gallery: Array<{
+    id: number;
+    url: string;
+    title: string;
+    subtitle: string;
+    caption: string;
+    aspect?: 'tall' | 'wide' | 'square';
+  }>;
   contact: {
     rsvpNotice: string;
     supportNote: string;
@@ -125,12 +133,46 @@ export const weddingConfig: WeddingConfig = {
     },
   ],
   photos: {
-    coupleHero: "/couple.jpg",
-    coupleEditorial: "/couple.jpg",
+    coupleHero: "/photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg",
+    coupleEditorial: "/photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg",
     flowers: "/flowers.jpg",
     rings: "/rings.jpg",
     chapel: "/ceremony_chapel.jpg",
   },
+  gallery: [
+    {
+      id: 1,
+      url: "/photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg",
+      title: "Embraced in Love",
+      subtitle: "A Sacred Covenant",
+      caption: "Two hearts bound by God's eternal love and grace.",
+      aspect: "tall"
+    },
+    {
+      id: 2,
+      url: "/photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg",
+      title: "Sacred Covenant",
+      subtitle: "Standing in Faith",
+      caption: "Under the shelter of the Almighty, walking side by side.",
+      aspect: "wide"
+    },
+    {
+      id: 3,
+      url: "/photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg",
+      title: "Hand in Hand",
+      subtitle: "Steps into Forever",
+      caption: "United in purpose, faith, and unconditional devotion.",
+      aspect: "wide"
+    },
+    {
+      id: 4,
+      url: "/photos/Couple_standing_in_grass_2K_20260923124146.jpeg",
+      title: "Joyful Beginnings",
+      subtitle: "Pure Happiness",
+      caption: "Blessed with laughter, peace, and eternal joy.",
+      aspect: "tall"
+    }
+  ],
   contact: {
     rsvpNotice: "Kindly respond at your earliest convenience so we may reserve your seat.",
     supportNote: "For questions or updates, please reach out directly to the couple.",

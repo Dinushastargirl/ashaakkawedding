@@ -7,192 +7,335 @@ interface ButterfliesOverlayProps {
 }
 
 export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
-  count = 5,
+  count = 8,
   className = '',
   theme = 'inside',
 }) => {
-  // Butterfly configuration
-  const butterflies = [
-    { id: 1, left: '8%', top: '22%', size: 36, delay: '0s', dur: '18s', wingColor: '#C77DFF', wingColor2: '#521782', goldAccent: '#F9E8A2', scale: 0.9 },
-    { id: 2, left: '85%', top: '15%', size: 42, delay: '2s', dur: '22s', wingColor: '#E0AAFF', wingColor2: '#7B2CBF', goldAccent: '#D4AF37', scale: 1.1 },
-    { id: 3, left: '18%', top: '65%', size: 32, delay: '4s', dur: '16s', wingColor: '#D4AF37', wingColor2: '#521782', goldAccent: '#FFF', scale: 0.8 },
-    { id: 4, left: '78%', top: '72%', size: 38, delay: '1s', dur: '20s', wingColor: '#C77DFF', wingColor2: '#3A085A', goldAccent: '#F9E8A2', scale: 1 },
-    { id: 5, left: '48%', top: '40%', size: 28, delay: '5s', dur: '19s', wingColor: '#E0AAFF', wingColor2: '#9D4EDD', goldAccent: '#D4AF37', scale: 0.75 },
+  // Rich suite of natural butterflies using supplied flapping GIF assets from /butterfly/
+  const butterflyConfigs = [
+    {
+      id: 'bf-1',
+      src: '/butterfly/b1.gif',
+      size: 48,
+      duration: '22s',
+      delay: '0s',
+      pathClass: 'butterfly-path-1',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.7))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))',
+    },
+    {
+      id: 'bf-2',
+      src: '/butterfly/b2.gif',
+      size: 54,
+      duration: '26s',
+      delay: '3s',
+      pathClass: 'butterfly-path-2',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))',
+    },
+    {
+      id: 'bf-3',
+      src: '/butterfly/b3.gif',
+      size: 42,
+      duration: '20s',
+      delay: '6s',
+      pathClass: 'butterfly-path-3',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))',
+    },
+    {
+      id: 'bf-4',
+      src: '/butterfly/b6.gif',
+      size: 46,
+      duration: '24s',
+      delay: '9s',
+      pathClass: 'butterfly-path-4',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
+    },
+    {
+      id: 'bf-5',
+      src: '/butterfly/b4.gif',
+      size: 38,
+      duration: '19s',
+      delay: '12s',
+      pathClass: 'butterfly-path-5',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.3))',
+    },
+    {
+      id: 'bf-6',
+      src: '/butterfly/b1.gif',
+      size: 44,
+      duration: '25s',
+      delay: '15s',
+      pathClass: 'butterfly-path-6',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
+    },
+    {
+      id: 'bf-7',
+      src: '/butterfly/b2.gif',
+      size: 50,
+      duration: '28s',
+      delay: '18s',
+      pathClass: 'butterfly-path-7',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.3))',
+    },
+    {
+      id: 'bf-8',
+      src: '/butterfly/b3.gif',
+      size: 36,
+      duration: '21s',
+      delay: '21s',
+      pathClass: 'butterfly-path-8',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))',
+    },
   ].slice(0, count);
 
   return (
     <div aria-hidden="true" className={`pointer-events-none fixed inset-0 z-20 overflow-hidden select-none ${className}`}>
       <style>{`
-        @keyframes flapLeftWing {
-          0%, 100% {
-            transform: rotateY(0deg) rotateZ(-5deg);
-          }
-          50% {
-            transform: rotateY(70deg) rotateZ(10deg);
-          }
-        }
-        @keyframes flapRightWing {
-          0%, 100% {
-            transform: rotateY(0deg) rotateZ(5deg);
-          }
-          50% {
-            transform: rotateY(-70deg) rotateZ(-10deg);
-          }
-        }
+        /* Path 1: Floating from bottom-left toward upper-right */
         @keyframes butterflyFlight1 {
           0% {
-            transform: translate(0, 0) rotate(10deg);
+            transform: translate(-10vw, 85vh) scale(0.75) rotate(15deg);
+            opacity: 0;
+          }
+          8% {
+            opacity: 0.92;
+          }
+          25% {
+            transform: translate(24vw, 64vh) scale(0.9) rotate(-6deg);
+          }
+          50% {
+            transform: translate(48vw, 42vh) scale(1.05) rotate(16deg);
+          }
+          75% {
+            transform: translate(74vw, 24vh) scale(0.92) rotate(-8deg);
+          }
+          92% {
+            opacity: 0.92;
+          }
+          100% {
+            transform: translate(110vw, 8vh) scale(0.8) rotate(10deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 2: Meandering from top-right down across to mid-left */
+        @keyframes butterflyFlight2 {
+          0% {
+            transform: translate(105vw, 18vh) scale(0.75) rotate(-18deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.88;
+          }
+          32% {
+            transform: translate(76vw, 38vh) scale(0.95) rotate(12deg);
+          }
+          56% {
+            transform: translate(46vw, 54vh) scale(1.02) rotate(-14deg);
+          }
+          80% {
+            transform: translate(22vw, 66vh) scale(0.9) rotate(8deg);
+          }
+          92% {
+            opacity: 0.88;
+          }
+          100% {
+            transform: translate(-10vw, 80vh) scale(0.75) rotate(-10deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 3: Gentle upper arc hovering near the letterbox frame */
+        @keyframes butterflyFlight3 {
+          0% {
+            transform: translate(-8vw, 26vh) scale(0.8) rotate(12deg);
+            opacity: 0;
+          }
+          12% {
+            opacity: 0.88;
+          }
+          38% {
+            transform: translate(30vw, 16vh) scale(0.95) rotate(-10deg);
+          }
+          64% {
+            transform: translate(65vw, 28vh) scale(1) rotate(15deg);
+          }
+          86% {
+            opacity: 0.88;
+          }
+          100% {
+            transform: translate(108vw, 15vh) scale(0.85) rotate(-6deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 4: Soft lower viewport glide */
+        @keyframes butterflyFlight4 {
+          0% {
+            transform: translate(108vw, 76vh) scale(0.75) rotate(-14deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.88;
+          }
+          36% {
+            transform: translate(68vw, 64vh) scale(0.92) rotate(10deg);
+          }
+          66% {
+            transform: translate(36vw, 74vh) scale(0.98) rotate(-10deg);
+          }
+          88% {
+            opacity: 0.88;
+          }
+          100% {
+            transform: translate(-12vw, 56vh) scale(0.75) rotate(8deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 5: Rising vertically on right margin */
+        @keyframes butterflyFlight5 {
+          0% {
+            transform: translate(88vw, 105vh) scale(0.7) rotate(-8deg);
             opacity: 0;
           }
           10% {
             opacity: 0.85;
           }
-          25% {
-            transform: translate(40px, -60px) rotate(-15deg);
+          35% {
+            transform: translate(82vw, 70vh) scale(0.9) rotate(12deg);
           }
-          50% {
-            transform: translate(90px, -20px) rotate(20deg);
-          }
-          75% {
-            transform: translate(140px, -90px) rotate(-10deg);
+          65% {
+            transform: translate(89vw, 38vh) scale(0.95) rotate(-10deg);
           }
           90% {
             opacity: 0.85;
           }
           100% {
-            transform: translate(180px, -150px) rotate(25deg);
+            transform: translate(84vw, -8vh) scale(0.7) rotate(6deg);
             opacity: 0;
           }
         }
-        @keyframes butterflyFlight2 {
+
+        /* Path 6: Rising vertically on left margin */
+        @keyframes butterflyFlight6 {
           0% {
-            transform: translate(0, 0) rotate(-15deg);
+            transform: translate(10vw, 105vh) scale(0.75) rotate(10deg);
             opacity: 0;
           }
           10% {
-            opacity: 0.9;
+            opacity: 0.88;
           }
-          30% {
-            transform: translate(-50px, 40px) rotate(15deg);
+          40% {
+            transform: translate(16vw, 68vh) scale(0.92) rotate(-12deg);
           }
-          60% {
-            transform: translate(-100px, -50px) rotate(-20deg);
+          70% {
+            transform: translate(8vw, 34vh) scale(0.98) rotate(14deg);
           }
-          85% {
-            opacity: 0.9;
+          90% {
+            opacity: 0.88;
           }
           100% {
-            transform: translate(-160px, -120px) rotate(10deg);
+            transform: translate(14vw, -8vh) scale(0.75) rotate(-8deg);
             opacity: 0;
           }
         }
+
+        /* Path 7: Center-screen diagonal crossing */
+        @keyframes butterflyFlight7 {
+          0% {
+            transform: translate(-10vw, 45vh) scale(0.7) rotate(16deg);
+            opacity: 0;
+          }
+          12% {
+            opacity: 0.86;
+          }
+          40% {
+            transform: translate(38vw, 36vh) scale(0.92) rotate(-8deg);
+          }
+          68% {
+            transform: translate(68vw, 50vh) scale(1) rotate(12deg);
+          }
+          88% {
+            opacity: 0.86;
+          }
+          100% {
+            transform: translate(110vw, 62vh) scale(0.8) rotate(-10deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 8: Gentle wave across upper-middle */
+        @keyframes butterflyFlight8 {
+          0% {
+            transform: translate(108vw, 32vh) scale(0.7) rotate(-12deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.85;
+          }
+          38% {
+            transform: translate(66vw, 24vh) scale(0.88) rotate(10deg);
+          }
+          70% {
+            transform: translate(32vw, 36vh) scale(0.92) rotate(-14deg);
+          }
+          90% {
+            opacity: 0.85;
+          }
+          100% {
+            transform: translate(-10vw, 22vh) scale(0.75) rotate(8deg);
+            opacity: 0;
+          }
+        }
+
+        .butterfly-path-1 { animation: butterflyFlight1 22s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-2 { animation: butterflyFlight2 26s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-3 { animation: butterflyFlight3 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-4 { animation: butterflyFlight4 24s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-5 { animation: butterflyFlight5 19s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-6 { animation: butterflyFlight6 25s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-7 { animation: butterflyFlight7 28s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        .butterfly-path-8 { animation: butterflyFlight8 21s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+
+        /* Delicate Fluttering Bob */
+        @keyframes butterflyBob {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-5px) rotate(3deg);
+          }
+        }
+
+        .butterfly-bob {
+          animation: butterflyBob 2.6s ease-in-out infinite;
+        }
       `}</style>
 
-      {butterflies.map((b, idx) => (
+      {butterflyConfigs.map((b) => (
         <div
           key={b.id}
-          className="absolute"
+          className={`absolute top-0 left-0 ${b.pathClass}`}
           style={{
-            left: b.left,
-            top: b.top,
-            animation: `${idx % 2 === 0 ? 'butterflyFlight1' : 'butterflyFlight2'} ${b.dur} ease-in-out infinite`,
             animationDelay: b.delay,
-            filter: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.7))' : 'drop-shadow(0 3px 8px rgba(35,7,56,0.35))',
+            animationDuration: b.duration,
           }}
         >
-          {/* 3D Flapping Butterfly */}
-          <div
-            style={{
-              width: `${b.size}px`,
-              height: `${b.size * 0.8}px`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              perspective: '600px',
-              transform: `scale(${b.scale})`,
-            }}
-          >
-            {/* Left Wing */}
-            <svg
-              viewBox="0 0 50 60"
+          <div className="butterfly-bob">
+            <img
+              src={b.src}
+              alt=""
+              width={b.size}
+              height={b.size}
               style={{
-                width: '50%',
-                height: '100%',
-                transformOrigin: 'right center',
-                animation: 'flapLeftWing 0.35s ease-in-out infinite',
+                width: `${b.size}px`,
+                height: `${b.size}px`,
+                objectFit: 'contain',
+                filter: b.glow,
+                pointerEvents: 'none',
               }}
-            >
-              <defs>
-                <linearGradient id={`wingL_${b.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor={b.wingColor} />
-                  <stop offset="70%" stopColor={b.wingColor2} />
-                  <stop offset="100%" stopColor="#230738" />
-                </linearGradient>
-              </defs>
-              {/* Forewing */}
-              <path
-                d="M 50 30 C 40 10, 10 5, 5 20 C 0 35, 25 45, 50 35 Z"
-                fill={`url(#wingL_${b.id})`}
-                opacity="0.9"
-              />
-              {/* Hindwing */}
-              <path
-                d="M 50 35 C 35 40, 15 48, 20 58 C 28 65, 45 52, 50 38 Z"
-                fill={b.wingColor2}
-                opacity="0.85"
-              />
-              {/* Gold Dust Accent on Wing */}
-              <circle cx="20" cy="22" r="3" fill={b.goldAccent} opacity="0.9" />
-              <circle cx="32" cy="18" r="2" fill="#FFF" opacity="0.8" />
-              <circle cx="28" cy="48" r="2.5" fill={b.goldAccent} opacity="0.9" />
-            </svg>
-
-            {/* Butterfly Body */}
-            <div
-              style={{
-                width: '3px',
-                height: '65%',
-                background: 'linear-gradient(180deg, #D4AF37, #230738)',
-                borderRadius: '3px',
-                zIndex: 2,
-                position: 'relative',
-              }}
+              loading="eager"
             />
-
-            {/* Right Wing */}
-            <svg
-              viewBox="0 0 50 60"
-              style={{
-                width: '50%',
-                height: '100%',
-                transformOrigin: 'left center',
-                animation: 'flapRightWing 0.35s ease-in-out infinite',
-              }}
-            >
-              <defs>
-                <linearGradient id={`wingR_${b.id}`} x1="100%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor={b.wingColor} />
-                  <stop offset="70%" stopColor={b.wingColor2} />
-                  <stop offset="100%" stopColor="#230738" />
-                </linearGradient>
-              </defs>
-              {/* Forewing */}
-              <path
-                d="M 0 30 C 10 10, 40 5, 45 20 C 50 35, 25 45, 0 35 Z"
-                fill={`url(#wingR_${b.id})`}
-                opacity="0.9"
-              />
-              {/* Hindwing */}
-              <path
-                d="M 0 35 C 15 40, 35 48, 30 58 C 22 65, 5 52, 0 38 Z"
-                fill={b.wingColor2}
-                opacity="0.85"
-              />
-              {/* Gold Dust Accent on Wing */}
-              <circle cx="30" cy="22" r="3" fill={b.goldAccent} opacity="0.9" />
-              <circle cx="18" cy="18" r="2" fill="#FFF" opacity="0.8" />
-              <circle cx="22" cy="48" r="2.5" fill={b.goldAccent} opacity="0.9" />
-            </svg>
           </div>
         </div>
       ))}
