@@ -10,10 +10,9 @@ interface CinematicVideoOpeningProps {
 }
 
 export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ onEnterInvitation }) => {
-  // isStarted = false: Shows video paused at frame 0 with Joshua & Asha, Date & TAP TO ENTER button directly on video (Image 2)
-  // isStarted = true: Overlay fades out, song plays, video plays to completion, then dissolves into inside invitation
+  // isStarted = false: Shows video paused at frame 0 with Joshua & Asha, Date & TAP TO ENTER directly on video (Image 2)
+  // isStarted = true: Overlay fades out, song plays, video plays to completion
   const [isStarted, setIsStarted] = useState(false);
-  const [videoEnded, setVideoEnded] = useState(false);
 
   // Responsive media switching: mobile/portrait -> vertical; desktop/landscape -> horizontal
   const [isMobilePortrait, setIsMobilePortrait] = useState<boolean>(() => {
@@ -79,16 +78,18 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     }
   };
 
-  // When video ends -> transition directly into inside invitation
+  // When video ends -> transition DIRECTLY into inside invitation with zero gap!
   const handleVideoEnded = () => {
-    setVideoEnded(true);
-    setTimeout(() => {
-      onEnterInvitation();
-    }, 600);
+    onEnterInvitation();
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black select-none">
+    <motion.div 
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+      className="fixed inset-0 z-50 overflow-hidden bg-black select-none pointer-events-auto"
+    >
       {/* 1. Full-screen Intro Video as the actual background */}
       <video
         ref={videoRef}
@@ -98,16 +99,14 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
         playsInline
         muted
         onEnded={handleVideoEnded}
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
-          videoEnded ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-        }`}
+        className="absolute inset-0 h-full w-full object-cover"
       />
 
       {/* Subtle top & bottom gradient vignettes so text is clear without hiding the video */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/50" />
 
       {/* Floating natural butterflies */}
-      <ButterfliesOverlay count={4} theme="intro" />
+      <ButterfliesOverlay count={10} theme="intro" />
 
       {/* 2. Exact Image 2 Overlay: AN INVITATION at top, Joshua & Asha + Date + TAP TO ENTER at bottom */}
       <AnimatePresence>
@@ -115,7 +114,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
+            exit={{ opacity: 0, transition: { duration: 0.6 } }}
             className="absolute inset-0 z-30 flex flex-col justify-between items-center px-4 py-8 pointer-events-none"
           >
             {/* Top: AN INVITATION */}
@@ -154,13 +153,6 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Smooth fade out when video finishes */}
-      <div 
-        className={`pointer-events-none absolute inset-0 bg-[#FAF7F2] transition-opacity duration-700 ease-in-out ${
-          videoEnded ? 'opacity-100' : 'opacity-0'
-        }`} 
-      />
-    </div>
+    </motion.div>
   );
 };
