@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAssetUrl } from '../../utils/assetHelper';
 
-export const ScenicBackdrop: React.FC = () => {
+interface ScenicBackdropProps {
+  active?: boolean;
+}
+
+export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true }) => {
   // Robust detection for mobile / phone / portrait
   const [isMobilePortrait, setIsMobilePortrait] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
@@ -71,6 +75,22 @@ export const ScenicBackdrop: React.FC = () => {
       window.removeEventListener('scroll', handleFirstInteraction);
     };
   }, [isMobilePortrait]);
+
+  // When active becomes true (user enters inside invitation), ensure fresh start from 0.0s
+  useEffect(() => {
+    if (active) {
+      const target = isMobilePortrait ? mobileVideoRef.current : desktopVideoRef.current;
+      if (target) {
+        try {
+          target.currentTime = 0;
+          const p = target.play();
+          if (p !== undefined) p.catch(() => {});
+        } catch {
+          // Ignore any abort error
+        }
+      }
+    }
+  }, [active, isMobilePortrait]);
 
   return (
     <div 

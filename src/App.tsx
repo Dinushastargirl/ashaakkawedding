@@ -17,35 +17,69 @@ import { audioManager } from './utils/audioManager';
 
 export default function App() {
   const [hasEnteredInvitation, setHasEnteredInvitation] = useState(false);
+  const [transitionStage, setTransitionStage] = useState<'idle' | 'fade-out' | 'fade-in'>('idle');
 
   const handleEnterInvitation = () => {
-    setHasEnteredInvitation(true);
-    // Ensure audio continues smoothly
+    if (transitionStage !== 'idle' || hasEnteredInvitation) return;
+
+    // 1. Begin smooth Fade Out of intro video to deep velvet black (600ms)
+    setTransitionStage('fade-out');
+
+    // Ensure audio plays without interruption
     audioManager.start();
+
+    // 2. Once screen has smoothly faded out (600ms), switch to inside invitation
+    setTimeout(() => {
+      setHasEnteredInvitation(true);
+      setTransitionStage('fade-in');
+
+      // 3. Fade in inside video & invitation content gracefully (850ms)
+      setTimeout(() => {
+        setTransitionStage('idle');
+      }, 850);
+    }, 600);
   };
 
   return (
-    <div className="relative min-h-screen bg-transparent selection:bg-[#521782] selection:text-white overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#0c0214] selection:bg-[#521782] selection:text-white overflow-x-hidden">
       {/* 
-        Scenic Floral Motion Inside Video (inside.mp4) is mounted at z-0 from the start,
-        buffering in the background so when the intro video ends, the inside video appears 
-        at the EXACT SAME TIME with ZERO gap!
+        Scenic Floral Motion Inside Video (inside.mp4) is mounted at z-0,
+        buffering and ready in background so fade-in reveals it instantly with zero gap!
       */}
-      <ScenicBackdrop />
+      <ScenicBackdrop active={hasEnteredInvitation} />
 
-      {/* 1. Full-Screen Cinematic Opening Experience with exact Image 2 layout */}
+      {/* 1. Full-Screen Cinematic Opening Experience */}
       <AnimatePresence>
         {!hasEnteredInvitation && (
           <CinematicVideoOpening onEnterInvitation={handleEnterInvitation} />
         )}
       </AnimatePresence>
 
-      {/* 2. Main Wedding Invitation Content (Revealed simultaneously at video finish) */}
+      {/* 
+        Cinematic Transition Curtain:
+        - Fades from 0 to 1 during 'fade-out' (intro dims gracefully to black)
+        - Fades from 1 to 0 during 'fade-in' (inside video & invitation glow up into view)
+        - Creates a seamless, breath-taking chapter change
+      */}
+      <motion.div
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: transitionStage === 'fade-out' ? 1 : 0,
+        }}
+        transition={{
+          duration: transitionStage === 'fade-out' ? 0.6 : 0.85,
+          ease: 'easeInOut',
+        }}
+        className="pointer-events-none fixed inset-0 z-[60] bg-[#0c0214]"
+      />
+
+      {/* 2. Main Wedding Invitation Content (Revealed with cinematic fade-in) */}
       {hasEnteredInvitation && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, scale: 0.985 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
           className="relative z-10 pb-20 sm:pb-24"
         >
           {/* Gentle Fluttering Natural Butterflies (20 instances) */}

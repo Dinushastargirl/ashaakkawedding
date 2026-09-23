@@ -78,9 +78,24 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     }
   };
 
-  // When video ends -> transition DIRECTLY into inside invitation with zero gap!
+  const hasTriggeredEndRef = useRef(false);
+
+  // When video ends -> trigger smooth fade out & fade in transition into inside invitation
   const handleVideoEnded = () => {
-    onEnterInvitation();
+    if (!hasTriggeredEndRef.current) {
+      hasTriggeredEndRef.current = true;
+      onEnterInvitation();
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    const v = videoRef.current;
+    if (v && v.duration && v.duration > 0 && v.currentTime >= v.duration - 0.25) {
+      if (!hasTriggeredEndRef.current) {
+        hasTriggeredEndRef.current = true;
+        onEnterInvitation();
+      }
+    }
   };
 
   return (
@@ -99,6 +114,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
         playsInline
         muted
         onEnded={handleVideoEnded}
+        onTimeUpdate={handleTimeUpdate}
         className="absolute inset-0 h-full w-full object-cover"
       />
 
