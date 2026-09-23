@@ -12,6 +12,11 @@ export const ClosingSection: React.FC = () => {
 
   return (
     <footer className="relative py-20 px-4 sm:px-8 overflow-hidden text-center">
+      {/* Subtle low-opacity overlay matching Velvet Homecoming */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#230738]/15 to-[#230738]/25" 
+      />
       <div className="relative z-10 mx-auto max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 22 }}

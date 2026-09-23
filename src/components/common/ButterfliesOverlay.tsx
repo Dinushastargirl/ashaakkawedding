@@ -8,16 +8,16 @@ interface ButterfliesOverlayProps {
 }
 
 export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
-  count = 8,
+  count = 5,
   className = '',
   theme = 'inside',
 }) => {
-  // Rich suite of natural butterflies using supplied flapping GIF assets from /butterfly/
+  // 5 natural butterflies with staggered, balanced, off-screen entry points
   const butterflyConfigs = [
     {
       id: 'bf-1',
       src: getAssetUrl('butterfly/b1.gif'),
-      size: 48,
+      size: 46,
       duration: '22s',
       delay: '0s',
       pathClass: 'butterfly-path-1',
@@ -26,280 +26,188 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
     {
       id: 'bf-2',
       src: getAssetUrl('butterfly/b2.gif'),
-      size: 54,
+      size: 52,
       duration: '26s',
-      delay: '3s',
+      delay: '4s',
       pathClass: 'butterfly-path-2',
       glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))',
     },
     {
       id: 'bf-3',
       src: getAssetUrl('butterfly/b3.gif'),
-      size: 42,
+      size: 40,
       duration: '20s',
-      delay: '6s',
+      delay: '8s',
       pathClass: 'butterfly-path-3',
       glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))',
     },
     {
       id: 'bf-4',
       src: getAssetUrl('butterfly/b6.gif'),
-      size: 46,
+      size: 44,
       duration: '24s',
-      delay: '9s',
+      delay: '13s',
       pathClass: 'butterfly-path-4',
       glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
     },
     {
       id: 'bf-5',
-      src: getAssetUrl('butterfly/b4.gif'),
-      size: 38,
-      duration: '19s',
-      delay: '12s',
-      pathClass: 'butterfly-path-5',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-6',
       src: getAssetUrl('butterfly/b1.gif'),
-      size: 44,
-      duration: '25s',
-      delay: '15s',
-      pathClass: 'butterfly-path-6',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
-    },
-    {
-      id: 'bf-7',
-      src: getAssetUrl('butterfly/b2.gif'),
-      size: 50,
-      duration: '28s',
-      delay: '18s',
-      pathClass: 'butterfly-path-7',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-8',
-      src: getAssetUrl('butterfly/b3.gif'),
-      size: 36,
+      size: 38,
       duration: '21s',
-      delay: '21s',
-      pathClass: 'butterfly-path-8',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))',
+      delay: '17s',
+      pathClass: 'butterfly-path-5',
+      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.25))',
     },
   ].slice(0, count);
 
   return (
     <div aria-hidden="true" className={`pointer-events-none fixed inset-0 z-20 overflow-hidden select-none ${className}`}>
       <style>{`
-        /* Path 1: Floating from bottom-left toward upper-right */
-        @keyframes butterflyFlight1 {
+        /* Path 1: Starts completely off-screen at bottom-left, ascends diagonally to top-right */
+        @keyframes bfFlight1 {
           0% {
-            transform: translate(-10vw, 85vh) scale(0.75) rotate(15deg);
-            opacity: 0;
-          }
-          8% {
-            opacity: 0.92;
-          }
-          25% {
-            transform: translate(24vw, 64vh) scale(0.9) rotate(-6deg);
-          }
-          50% {
-            transform: translate(48vw, 42vh) scale(1.05) rotate(16deg);
-          }
-          75% {
-            transform: translate(74vw, 24vh) scale(0.92) rotate(-8deg);
-          }
-          92% {
-            opacity: 0.92;
-          }
-          100% {
-            transform: translate(110vw, 8vh) scale(0.8) rotate(10deg);
-            opacity: 0;
-          }
-        }
-
-        /* Path 2: Meandering from top-right down across to mid-left */
-        @keyframes butterflyFlight2 {
-          0% {
-            transform: translate(105vw, 18vh) scale(0.75) rotate(-18deg);
+            transform: translate(-15vw, 85vh) scale(0.75) rotate(15deg);
             opacity: 0;
           }
           10% {
-            opacity: 0.88;
+            opacity: 0.9;
           }
-          32% {
-            transform: translate(76vw, 38vh) scale(0.95) rotate(12deg);
+          30% {
+            transform: translate(25vw, 62vh) scale(0.92) rotate(-8deg);
           }
-          56% {
-            transform: translate(46vw, 54vh) scale(1.02) rotate(-14deg);
+          55% {
+            transform: translate(52vw, 40vh) scale(1.04) rotate(16deg);
           }
           80% {
-            transform: translate(22vw, 66vh) scale(0.9) rotate(8deg);
+            transform: translate(78vw, 22vh) scale(0.92) rotate(-6deg);
+          }
+          90% {
+            opacity: 0.9;
+          }
+          100% {
+            transform: translate(115vw, 6vh) scale(0.78) rotate(12deg);
+            opacity: 0;
+          }
+        }
+
+        /* Path 2: Starts completely off-screen at top-right, glides across to mid-left */
+        @keyframes bfFlight2 {
+          0% {
+            transform: translate(115vw, 15vh) scale(0.75) rotate(-18deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.88;
+          }
+          35% {
+            transform: translate(75vw, 36vh) scale(0.95) rotate(10deg);
+          }
+          60% {
+            transform: translate(45vw, 52vh) scale(1.02) rotate(-14deg);
+          }
+          85% {
+            transform: translate(18vw, 68vh) scale(0.88) rotate(8deg);
           }
           92% {
             opacity: 0.88;
           }
           100% {
-            transform: translate(-10vw, 80vh) scale(0.75) rotate(-10deg);
+            transform: translate(-15vw, 80vh) scale(0.75) rotate(-10deg);
             opacity: 0;
           }
         }
 
-        /* Path 3: Gentle upper arc hovering near the letterbox frame */
-        @keyframes butterflyFlight3 {
+        /* Path 3: Mid-left offscreen entrance, gentle wave across center */
+        @keyframes bfFlight3 {
           0% {
-            transform: translate(-8vw, 26vh) scale(0.8) rotate(12deg);
+            transform: translate(-15vw, 42vh) scale(0.75) rotate(12deg);
             opacity: 0;
           }
           12% {
             opacity: 0.88;
           }
-          38% {
-            transform: translate(30vw, 16vh) scale(0.95) rotate(-10deg);
+          40% {
+            transform: translate(32vw, 30vh) scale(0.94) rotate(-10deg);
           }
-          64% {
-            transform: translate(65vw, 28vh) scale(1) rotate(15deg);
-          }
-          86% {
-            opacity: 0.88;
-          }
-          100% {
-            transform: translate(108vw, 15vh) scale(0.85) rotate(-6deg);
-            opacity: 0;
-          }
-        }
-
-        /* Path 4: Soft lower viewport glide */
-        @keyframes butterflyFlight4 {
-          0% {
-            transform: translate(108vw, 76vh) scale(0.75) rotate(-14deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.88;
-          }
-          36% {
-            transform: translate(68vw, 64vh) scale(0.92) rotate(10deg);
-          }
-          66% {
-            transform: translate(36vw, 74vh) scale(0.98) rotate(-10deg);
+          70% {
+            transform: translate(68vw, 44vh) scale(1.02) rotate(14deg);
           }
           88% {
             opacity: 0.88;
           }
           100% {
-            transform: translate(-12vw, 56vh) scale(0.75) rotate(8deg);
+            transform: translate(115vw, 32vh) scale(0.8) rotate(-6deg);
             opacity: 0;
           }
         }
 
-        /* Path 5: Rising vertically on right margin */
-        @keyframes butterflyFlight5 {
+        /* Path 4: Lower viewport glide from right to left */
+        @keyframes bfFlight4 {
           0% {
-            transform: translate(88vw, 105vh) scale(0.7) rotate(-8deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.85;
-          }
-          35% {
-            transform: translate(82vw, 70vh) scale(0.9) rotate(12deg);
-          }
-          65% {
-            transform: translate(89vw, 38vh) scale(0.95) rotate(-10deg);
-          }
-          90% {
-            opacity: 0.85;
-          }
-          100% {
-            transform: translate(84vw, -8vh) scale(0.7) rotate(6deg);
-            opacity: 0;
-          }
-        }
-
-        /* Path 6: Rising vertically on left margin */
-        @keyframes butterflyFlight6 {
-          0% {
-            transform: translate(10vw, 105vh) scale(0.75) rotate(10deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.88;
-          }
-          40% {
-            transform: translate(16vw, 68vh) scale(0.92) rotate(-12deg);
-          }
-          70% {
-            transform: translate(8vw, 34vh) scale(0.98) rotate(14deg);
-          }
-          90% {
-            opacity: 0.88;
-          }
-          100% {
-            transform: translate(14vw, -8vh) scale(0.75) rotate(-8deg);
-            opacity: 0;
-          }
-        }
-
-        /* Path 7: Center-screen diagonal crossing */
-        @keyframes butterflyFlight7 {
-          0% {
-            transform: translate(-10vw, 45vh) scale(0.7) rotate(16deg);
+            transform: translate(115vw, 75vh) scale(0.75) rotate(-14deg);
             opacity: 0;
           }
           12% {
-            opacity: 0.86;
+            opacity: 0.88;
           }
           40% {
-            transform: translate(38vw, 36vh) scale(0.92) rotate(-8deg);
-          }
-          68% {
-            transform: translate(68vw, 50vh) scale(1) rotate(12deg);
-          }
-          88% {
-            opacity: 0.86;
-          }
-          100% {
-            transform: translate(110vw, 62vh) scale(0.8) rotate(-10deg);
-            opacity: 0;
-          }
-        }
-
-        /* Path 8: Gentle wave across upper-middle */
-        @keyframes butterflyFlight8 {
-          0% {
-            transform: translate(108vw, 32vh) scale(0.7) rotate(-12deg);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.85;
-          }
-          38% {
-            transform: translate(66vw, 24vh) scale(0.88) rotate(10deg);
+            transform: translate(68vw, 62vh) scale(0.92) rotate(10deg);
           }
           70% {
-            transform: translate(32vw, 36vh) scale(0.92) rotate(-14deg);
+            transform: translate(32vw, 72vh) scale(0.98) rotate(-12deg);
           }
-          90% {
-            opacity: 0.85;
+          88% {
+            opacity: 0.88;
           }
           100% {
-            transform: translate(-10vw, 22vh) scale(0.75) rotate(8deg);
+            transform: translate(-15vw, 58vh) scale(0.75) rotate(8deg);
             opacity: 0;
           }
         }
 
-        .butterfly-path-1 { animation: butterflyFlight1 22s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-2 { animation: butterflyFlight2 26s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-3 { animation: butterflyFlight3 20s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-4 { animation: butterflyFlight4 24s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-5 { animation: butterflyFlight5 19s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-6 { animation: butterflyFlight6 25s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-7 { animation: butterflyFlight7 28s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
-        .butterfly-path-8 { animation: butterflyFlight8 21s cubic-bezier(0.42, 0, 0.58, 1) infinite; }
+        /* Path 5: Rising softly along right-side margin */
+        @keyframes bfFlight5 {
+          0% {
+            transform: translate(85vw, 110vh) scale(0.7) rotate(-8deg);
+            opacity: 0;
+          }
+          12% {
+            opacity: 0.85;
+          }
+          40% {
+            transform: translate(78vw, 68vh) scale(0.9) rotate(12deg);
+          }
+          70% {
+            transform: translate(86vw, 34vh) scale(0.95) rotate(-10deg);
+          }
+          88% {
+            opacity: 0.85;
+          }
+          100% {
+            transform: translate(80vw, -12vh) scale(0.7) rotate(6deg);
+            opacity: 0;
+          }
+        }
 
-        /* Delicate Fluttering Bob */
-        @keyframes butterflyBob {
+        .butterfly-path-1 {
+          animation: bfFlight1 22s cubic-bezier(0.42, 0, 0.58, 1) both infinite;
+        }
+        .butterfly-path-2 {
+          animation: bfFlight2 26s cubic-bezier(0.42, 0, 0.58, 1) both infinite;
+        }
+        .butterfly-path-3 {
+          animation: bfFlight3 20s cubic-bezier(0.42, 0, 0.58, 1) both infinite;
+        }
+        .butterfly-path-4 {
+          animation: bfFlight4 24s cubic-bezier(0.42, 0, 0.58, 1) both infinite;
+        }
+        .butterfly-path-5 {
+          animation: bfFlight5 21s cubic-bezier(0.42, 0, 0.58, 1) both infinite;
+        }
+
+        /* Subtle fluttering bob */
+        @keyframes bfBob {
           0%, 100% {
             transform: translateY(0px) rotate(0deg);
           }
@@ -309,15 +217,18 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
         }
 
         .butterfly-bob {
-          animation: butterflyBob 2.6s ease-in-out infinite;
+          animation: bfBob 2.6s ease-in-out infinite;
         }
       `}</style>
 
       {butterflyConfigs.map((b) => (
         <div
           key={b.id}
-          className={`absolute top-0 left-0 ${b.pathClass}`}
+          className={`absolute ${b.pathClass}`}
           style={{
+            top: 0,
+            left: 0,
+            opacity: 0, // Starts 100% invisible so it can NEVER be stuck in top-left
             animationDelay: b.delay,
             animationDuration: b.duration,
           }}

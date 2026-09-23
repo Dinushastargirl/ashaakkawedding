@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { SectionHeader } from './common/SectionHeader';
-import { PurpleFloralCorner } from './common/PurpleFloralCorner';
 import { supabase } from '../utils/supabase';
 import { CheckCircle2, HeartHandshake, Send, Users, User, MessageSquare, Sparkles, AlertCircle } from 'lucide-react';
 
@@ -91,28 +90,30 @@ export const RSVPSection: React.FC = () => {
   };
 
   return (
-    <section id="rsvp" className="relative mx-auto max-w-4xl scroll-mt-20 px-5 py-14 sm:px-8 sm:py-20">
-      {/* Section Header */}
-      <SectionHeader
-        preTitle="Celebrate With Us"
-        title="We Would Love To Celebrate With You"
-        subtitle="Kindly grace us with your response so that we may reserve your seat"
-        dividerWidth="w-[230px]"
+    <section id="rsvp" className="relative scroll-mt-20 px-5 py-14 sm:px-8 sm:py-20 overflow-hidden">
+      {/* Subtle low-opacity section overlay matching Velvet Homecoming */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[#230738]/10 to-[#230738]/20" 
       />
 
-      {/* Velvet Homecoming RSVP Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 22 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.9 }}
-        className="relative mx-auto max-w-2xl rounded-[28px] px-6 py-10 sm:px-12 sm:py-14 velvet-card text-left"
-      >
-        {/* Purple Floral Corners */}
-        <PurpleFloralCorner position="top-left" size={85} />
-        <PurpleFloralCorner position="top-right" size={85} />
-        <PurpleFloralCorner position="bottom-left" size={85} />
-        <PurpleFloralCorner position="bottom-right" size={85} />
+      <div className="relative z-10 mx-auto max-w-4xl">
+        {/* Section Header */}
+        <SectionHeader
+          preTitle="Celebrate With Us"
+          title="We Would Love To Celebrate With You"
+          subtitle="Kindly grace us with your response so that we may reserve your seat"
+          dividerWidth="w-[230px]"
+        />
+
+        {/* Velvet Homecoming RSVP Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+          className="relative mx-auto max-w-2xl rounded-[28px] px-6 py-10 sm:px-12 sm:py-14 velvet-card text-left"
+        >
 
         {/* 4 Corner Gold Brackets */}
         <span aria-hidden="true" className="pointer-events-none">
@@ -309,6 +310,7 @@ export const RSVPSection: React.FC = () => {
           )}
         </AnimatePresence>
       </motion.div>
+      </div>
     </section>
   );
 };
