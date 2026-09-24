@@ -12,189 +12,29 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
   className = '',
   theme = 'inside',
 }) => {
-  // 20 rich, natural butterflies distributed smoothly across the screen
-  // Using original and newly copied assets (b1, b2, b3, b4, b6, copy versions)
+  // 20 natural butterflies cleanly referencing canonical cached assets (b1, b2, b3, b4, b6)
+  // WebP is used natively with GIF fallback for high efficiency and smooth flight
   const butterflyConfigs = [
-    {
-      id: 'bf-1',
-      src: getAssetUrl('butterfly/b1.gif'),
-      size: 46,
-      duration: '22s',
-      delay: '0s',
-      pathClass: 'butterfly-path-1',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.7))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-2',
-      src: getAssetUrl('butterfly/b2 copy.gif'),
-      size: 52,
-      duration: '26s',
-      delay: '1.5s',
-      pathClass: 'butterfly-path-2',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))',
-    },
-    {
-      id: 'bf-3',
-      src: getAssetUrl('butterfly/b3.gif'),
-      size: 40,
-      duration: '20s',
-      delay: '3s',
-      pathClass: 'butterfly-path-3',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))',
-    },
-    {
-      id: 'bf-4',
-      src: getAssetUrl('butterfly/b6 copy.gif'),
-      size: 44,
-      duration: '24s',
-      delay: '4.8s',
-      pathClass: 'butterfly-path-4',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
-    },
-    {
-      id: 'bf-5',
-      src: getAssetUrl('butterfly/b4.gif'),
-      size: 36,
-      duration: '21s',
-      delay: '6.5s',
-      pathClass: 'butterfly-path-5',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.25))',
-    },
-    {
-      id: 'bf-6',
-      src: getAssetUrl('butterfly/b1 copy.gif'),
-      size: 42,
-      duration: '25s',
-      delay: '8s',
-      pathClass: 'butterfly-path-6',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
-    },
-    {
-      id: 'bf-7',
-      src: getAssetUrl('butterfly/b2.gif'),
-      size: 48,
-      duration: '28s',
-      delay: '9.8s',
-      pathClass: 'butterfly-path-7',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-8',
-      src: getAssetUrl('butterfly/b3 copy.gif'),
-      size: 38,
-      duration: '22s',
-      delay: '11.5s',
-      pathClass: 'butterfly-path-8',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))',
-    },
-    {
-      id: 'bf-9',
-      src: getAssetUrl('butterfly/b6.gif'),
-      size: 45,
-      duration: '23s',
-      delay: '13s',
-      pathClass: 'butterfly-path-9',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-10',
-      src: getAssetUrl('butterfly/b1.gif'),
-      size: 50,
-      duration: '27s',
-      delay: '14.5s',
-      pathClass: 'butterfly-path-10',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))',
-    },
-    {
-      id: 'bf-11',
-      src: getAssetUrl('butterfly/b4 copy.gif'),
-      size: 40,
-      duration: '21s',
-      delay: '16s',
-      pathClass: 'butterfly-path-11',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))',
-    },
-    {
-      id: 'bf-12',
-      src: getAssetUrl('butterfly/b3.gif'),
-      size: 36,
-      duration: '24s',
-      delay: '17.5s',
-      pathClass: 'butterfly-path-12',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))',
-    },
-    {
-      id: 'bf-13',
-      src: getAssetUrl('butterfly/b2 copy.gif'),
-      size: 45,
-      duration: '23s',
-      delay: '19s',
-      pathClass: 'butterfly-path-13',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 11px rgba(229,197,120,0.7))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-14',
-      src: getAssetUrl('butterfly/b6 copy.gif'),
-      size: 42,
-      duration: '25s',
-      delay: '20.5s',
-      pathClass: 'butterfly-path-14',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
-    },
-    {
-      id: 'bf-15',
-      src: getAssetUrl('butterfly/b1 copy.gif'),
-      size: 48,
-      duration: '26s',
-      delay: '22s',
-      pathClass: 'butterfly-path-15',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.35))',
-    },
-    {
-      id: 'bf-16',
-      src: getAssetUrl('butterfly/b3 copy.gif'),
-      size: 38,
-      duration: '22s',
-      delay: '23.5s',
-      pathClass: 'butterfly-path-16',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 9px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 7px rgba(157,78,221,0.25))',
-    },
-    {
-      id: 'bf-17',
-      src: getAssetUrl('butterfly/b2.gif'),
-      size: 44,
-      duration: '24s',
-      delay: '25s',
-      pathClass: 'butterfly-path-1',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))',
-    },
-    {
-      id: 'bf-18',
-      src: getAssetUrl('butterfly/b6.gif'),
-      size: 46,
-      duration: '27s',
-      delay: '26.5s',
-      pathClass: 'butterfly-path-3',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 11px rgba(229,197,120,0.7))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))',
-    },
-    {
-      id: 'bf-19',
-      src: getAssetUrl('butterfly/b4.gif'),
-      size: 35,
-      duration: '21s',
-      delay: '28s',
-      pathClass: 'butterfly-path-7',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.25))',
-    },
-    {
-      id: 'bf-20',
-      src: getAssetUrl('butterfly/b1.gif'),
-      size: 47,
-      duration: '25s',
-      delay: '29.5s',
-      pathClass: 'butterfly-path-10',
-      glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))',
-    },
+    { id: 'bf-1', base: 'b1', size: 46, duration: '22s', delay: '0s', pathClass: 'butterfly-path-1', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.7))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))' },
+    { id: 'bf-2', base: 'b2', size: 52, duration: '26s', delay: '1.5s', pathClass: 'butterfly-path-2', glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))' },
+    { id: 'bf-3', base: 'b3', size: 40, duration: '20s', delay: '3s', pathClass: 'butterfly-path-3', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))' },
+    { id: 'bf-4', base: 'b6', size: 44, duration: '24s', delay: '4.8s', pathClass: 'butterfly-path-4', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))' },
+    { id: 'bf-5', base: 'b4', size: 36, duration: '21s', delay: '6.5s', pathClass: 'butterfly-path-5', glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.25))' },
+    { id: 'bf-6', base: 'b1', size: 42, duration: '25s', delay: '8s', pathClass: 'butterfly-path-6', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))' },
+    { id: 'bf-7', base: 'b2', size: 48, duration: '28s', delay: '9.8s', pathClass: 'butterfly-path-7', glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.3))' },
+    { id: 'bf-8', base: 'b3', size: 38, duration: '22s', delay: '11.5s', pathClass: 'butterfly-path-8', glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))' },
+    { id: 'bf-9', base: 'b6', size: 45, duration: '23s', delay: '13s', pathClass: 'butterfly-path-9', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))' },
+    { id: 'bf-10', base: 'b1', size: 50, duration: '27s', delay: '14.5s', pathClass: 'butterfly-path-10', glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))' },
+    { id: 'bf-11', base: 'b4', size: 40, duration: '21s', delay: '16s', pathClass: 'butterfly-path-11', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.25))' },
+    { id: 'bf-12', base: 'b3', size: 36, duration: '24s', delay: '17.5s', pathClass: 'butterfly-path-12', glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(157,78,221,0.25))' },
+    { id: 'bf-13', base: 'b2', size: 45, duration: '23s', delay: '19s', pathClass: 'butterfly-path-13', glow: theme === 'intro' ? 'drop-shadow(0 0 11px rgba(229,197,120,0.7))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))' },
+    { id: 'bf-14', base: 'b6', size: 42, duration: '25s', delay: '20.5s', pathClass: 'butterfly-path-14', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))' },
+    { id: 'bf-15', base: 'b1', size: 48, duration: '26s', delay: '22s', pathClass: 'butterfly-path-15', glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.7))' : 'drop-shadow(0 4px 10px rgba(82,23,130,0.35))' },
+    { id: 'bf-16', base: 'b3', size: 38, duration: '22s', delay: '23.5s', pathClass: 'butterfly-path-16', glow: theme === 'intro' ? 'drop-shadow(0 0 9px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 7px rgba(157,78,221,0.25))' },
+    { id: 'bf-17', base: 'b2', size: 44, duration: '24s', delay: '25s', pathClass: 'butterfly-path-1', glow: theme === 'intro' ? 'drop-shadow(0 0 10px rgba(212,175,55,0.65))' : 'drop-shadow(0 3px 8px rgba(82,23,130,0.3))' },
+    { id: 'bf-18', base: 'b6', size: 46, duration: '27s', delay: '26.5s', pathClass: 'butterfly-path-3', glow: theme === 'intro' ? 'drop-shadow(0 0 11px rgba(229,197,120,0.7))' : 'drop-shadow(0 3px 8px rgba(157,78,221,0.3))' },
+    { id: 'bf-19', base: 'b4', size: 35, duration: '21s', delay: '28s', pathClass: 'butterfly-path-7', glow: theme === 'intro' ? 'drop-shadow(0 0 8px rgba(212,175,55,0.6))' : 'drop-shadow(0 3px 6px rgba(82,23,130,0.25))' },
+    { id: 'bf-20', base: 'b1', size: 47, duration: '25s', delay: '29.5s', pathClass: 'butterfly-path-10', glow: theme === 'intro' ? 'drop-shadow(0 0 12px rgba(229,197,120,0.75))' : 'drop-shadow(0 4px 10px rgba(157,78,221,0.35))' },
   ].slice(0, count);
 
   return (
@@ -407,20 +247,24 @@ export const ButterfliesOverlay: React.FC<ButterfliesOverlayProps> = ({
           }}
         >
           <div className="butterfly-bob">
-            <img
-              src={b.src}
-              alt=""
-              width={b.size}
-              height={b.size}
-              style={{
-                width: `${b.size}px`,
-                height: `${b.size}px`,
-                objectFit: 'contain',
-                filter: b.glow,
-                pointerEvents: 'none',
-              }}
-              loading="eager"
-            />
+            <picture>
+              <source srcSet={getAssetUrl(`butterfly/${b.base}.webp`)} type="image/webp" />
+              <img
+                src={getAssetUrl(`butterfly/${b.base}.gif`)}
+                alt=""
+                width={b.size}
+                height={b.size}
+                style={{
+                  width: `${b.size}px`,
+                  height: `${b.size}px`,
+                  objectFit: 'contain',
+                  filter: b.glow,
+                  pointerEvents: 'none',
+                }}
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
       ))}

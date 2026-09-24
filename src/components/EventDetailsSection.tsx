@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
+import { getAssetUrl } from '../utils/assetHelper';
 import { SectionHeader } from './common/SectionHeader';
 import { PurpleFloralDivider } from './common/PurpleFloralDivider';
 import { PurpleFloralCorner } from './common/PurpleFloralCorner';
@@ -50,11 +51,16 @@ export const EventDetailsSection: React.FC = () => {
 
           {/* Scenic Floral Chapel Window Banner */}
           <div className="relative h-44 sm:h-52 w-full overflow-hidden">
-            <img
-              src="/ceremony_chapel.jpg"
-              alt="Cathedral Ceremony with Purple Flowers"
-              className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
-            />
+            <picture>
+              <source srcSet={getAssetUrl('ceremony_chapel.webp')} type="image/webp" />
+              <img
+                src={getAssetUrl('ceremony_chapel.jpg')}
+                alt="Cathedral Ceremony with Purple Flowers"
+                className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-[#230738] via-[#230738]/40 to-transparent" />
             
             {/* Medallion badge resting on scenic window boundary */}
@@ -127,11 +133,16 @@ export const EventDetailsSection: React.FC = () => {
 
           {/* Scenic Purple Floral Candlelight Banquet Window Banner */}
           <div className="relative h-44 sm:h-52 w-full overflow-hidden">
-            <img
-              src="/flowers.jpg"
-              alt="Evening Reception Banquet with Purple Roses and Candles"
-              className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
-            />
+            <picture>
+              <source srcSet={getAssetUrl('flowers.webp')} type="image/webp" />
+              <img
+                src={getAssetUrl('flowers.jpg')}
+                alt="Evening Reception Banquet with Purple Roses and Candles"
+                className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-[#230738] via-[#230738]/40 to-transparent" />
             
             {/* Medallion badge resting on scenic window boundary */}

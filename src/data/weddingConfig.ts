@@ -61,6 +61,7 @@ export interface WeddingConfig {
   gallery: Array<{
     id: number;
     url: string;
+    fallbackUrl?: string;
     title: string;
     subtitle: string;
     caption: string;
@@ -92,8 +93,8 @@ export const weddingConfig: WeddingConfig = {
     isoDateTime: "2026-10-17T17:30:00+05:30",
   },
   videos: {
-    landscape: "/video_landscape.mp4", // 1920x1080 for Laptop and Tablets
-    portrait: "/video_portrait.mp4",   // 1080x1920 for Phones
+    landscape: getAssetUrl("inside/inside_horizontal.mp4"), // Faststart 1280x720 24fps
+    portrait: getAssetUrl("inside/inside_vertical.mp4"),    // Faststart 720x1280 mobile
   },
   scripture: {
     verse: "“What therefore God has joined together, let not man separate.”",
@@ -135,16 +136,17 @@ export const weddingConfig: WeddingConfig = {
     },
   ],
   photos: {
-    coupleHero: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
-    coupleEditorial: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
-    flowers: getAssetUrl("flowers.jpg"),
-    rings: getAssetUrl("rings.jpg"),
-    chapel: getAssetUrl("ceremony_chapel.jpg"),
+    coupleHero: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.webp"),
+    coupleEditorial: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.webp"),
+    flowers: getAssetUrl("flowers.webp"),
+    rings: getAssetUrl("rings.webp"),
+    chapel: getAssetUrl("ceremony_chapel.webp"),
   },
   gallery: [
     {
       id: 1,
-      url: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
+      url: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.webp"),
+      fallbackUrl: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
       title: "Embraced in Love",
       subtitle: "A Sacred Covenant",
       caption: "Two hearts bound by God's eternal love and grace.",
@@ -152,7 +154,8 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 2,
-      url: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
+      url: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.webp"),
+      fallbackUrl: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
       title: "Sacred Covenant",
       subtitle: "Standing in Faith",
       caption: "Under the shelter of the Almighty, walking side by side.",
@@ -160,7 +163,8 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 3,
-      url: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg"),
+      url: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.webp"),
+      fallbackUrl: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg"),
       title: "Hand in Hand",
       subtitle: "Steps into Forever",
       caption: "United in purpose, faith, and unconditional devotion.",
@@ -168,7 +172,8 @@ export const weddingConfig: WeddingConfig = {
     },
     {
       id: 4,
-      url: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.jpeg"),
+      url: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.webp"),
+      fallbackUrl: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.jpeg"),
       title: "Joyful Beginnings",
       subtitle: "Pure Happiness",
       caption: "Blessed with laughter, peace, and eternal joy.",

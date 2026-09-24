@@ -54,12 +54,16 @@ export const PhotoExperienceSection: React.FC = () => {
 
             {/* Image Container */}
             <div className="relative overflow-hidden rounded-[18px] aspect-[4/3] sm:aspect-[4/3.2] bg-[#230738]/10">
-              <img
-                src={item.url}
-                alt={item.title}
-                className="h-full w-full object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-108"
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet={item.url} type="image/webp" />
+                <img
+                  src={item.fallbackUrl || item.url}
+                  alt={item.title}
+                  className="h-full w-full object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-108"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
 
               {/* Gradient Vignette */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#230738]/80 via-[#230738]/20 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
@@ -146,11 +150,15 @@ export const PhotoExperienceSection: React.FC = () => {
             >
               {/* Photo Display */}
               <div className="relative max-h-[72vh] w-full overflow-hidden rounded-[16px]">
-                <img
-                  src={photos[selectedPhotoIndex].url}
-                  alt={photos[selectedPhotoIndex].title}
-                  className="max-h-[72vh] w-auto mx-auto object-contain rounded-[14px]"
-                />
+                <picture>
+                  <source srcSet={photos[selectedPhotoIndex].url} type="image/webp" />
+                  <img
+                    src={photos[selectedPhotoIndex].fallbackUrl || photos[selectedPhotoIndex].url}
+                    alt={photos[selectedPhotoIndex].title}
+                    className="max-h-[72vh] w-auto mx-auto object-contain rounded-[14px]"
+                    decoding="async"
+                  />
+                </picture>
               </div>
 
               {/* Caption & Counter */}

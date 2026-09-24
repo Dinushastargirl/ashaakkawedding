@@ -12,14 +12,14 @@
     <meta property="og:image" content="/couple.jpg" />
     <meta name="theme-color" content="#230738" />
 
-    <!-- Preload Mobile & Desktop Video First Frame Posters for 0ms cold load -->
-    <link rel="preload" as="image" href="./intro/intro_vertical_poster.jpg" media="(orientation: portrait), (max-width: 820px)" />
-    <link rel="preload" as="image" href="./intro/intro_horizontal_poster.jpg" media="(orientation: landscape) and (min-width: 821px)" />
+    <!-- Preload Mobile & Desktop Video First Frame WebP Posters for 0ms cold load -->
+    <link rel="preload" as="image" type="image/webp" href="./intro/intro_vertical_poster.webp" media="(orientation: portrait), (max-width: 820px)" />
+    <link rel="preload" as="image" type="image/webp" href="./intro/intro_horizontal_poster.webp" media="(orientation: landscape) and (min-width: 821px)" />
 
-    <!-- Google Fonts Preconnect & Styles -->
+    <!-- Google Fonts Preconnect & Optimized Weight Styles (Streamlined for 0ms FCP) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400;1,600&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-transparent text-[#2D1B36] selection:bg-[#521782] selection:text-white antialiased overflow-x-hidden min-h-screen">
     <div id="root"></div>

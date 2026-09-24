@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAssetUrl } from '../../utils/assetHelper';
+import { mediaPreloader } from '../../utils/mediaPreloader';
 
 interface ScenicBackdropProps {
   active?: boolean;
@@ -15,13 +16,19 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
     return isPortraitMedia || isSmallWidth || isTouchMobile;
   });
 
-  const mobileVideoRef = useRef<HTMLVideoElement | null>(null);
-  const desktopVideoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const mobileSrc = getAssetUrl('inside/inside_vertical.mp4');
-  const desktopSrc = getAssetUrl('inside/inside_horizontal.mp4');
-  const mobilePoster = getAssetUrl('inside/inside_vertical_poster.jpg');
-  const desktopPoster = getAssetUrl('inside/inside_horizontal_poster.jpg');
+  const videoSrc = isMobilePortrait
+    ? getAssetUrl('inside/inside_vertical.mp4')
+    : getAssetUrl('inside/inside_horizontal.mp4');
+
+  const posterWebp = isMobilePortrait
+    ? getAssetUrl('inside/inside_vertical_poster.webp')
+    : getAssetUrl('inside/inside_horizontal_poster.webp');
+
+  const posterJpg = isMobilePortrait
+    ? getAssetUrl('inside/inside_vertical_poster.jpg')
+    : getAssetUrl('inside/inside_horizontal_poster.jpg');
 
   useEffect(() => {
     const checkOrientation = () => {
@@ -40,17 +47,18 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
     };
   }, []);
 
-  // Ensure videos play smoothly with mobile browser autoplay workarounds
+  // Ensure video plays smoothly with mobile browser autoplay workarounds
   useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+
     const playCurrentVideo = () => {
-      const target = isMobilePortrait ? mobileVideoRef.current : desktopVideoRef.current;
-      if (target) {
-        target.muted = true;
-        target.defaultMuted = true;
-        target.playsInline = true;
-        target.setAttribute('playsinline', '');
-        target.setAttribute('webkit-playsinline', '');
-        const p = target.play();
+      if (videoRef.current) {
+        const p = videoRef.current.play();
         if (p !== undefined) {
           p.catch(() => {});
         }
@@ -76,66 +84,59 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
       window.removeEventListener('click', handleFirstInteraction);
       window.removeEventListener('scroll', handleFirstInteraction);
     };
-  }, [isMobilePortrait]);
+  }, [videoSrc]);
 
-  // When active becomes true (user enters inside invitation), ensure fresh start from 0.0s
+  // When active becomes true (user enters inside invitation), ensure fresh start
   useEffect(() => {
-    if (active) {
-      const target = isMobilePortrait ? mobileVideoRef.current : desktopVideoRef.current;
-      if (target) {
-        try {
-          target.currentTime = 0;
-          const p = target.play();
-          if (p !== undefined) p.catch(() => {});
-        } catch {
-          // Ignore any abort error
-        }
+    if (active && videoRef.current) {
+      try {
+        videoRef.current.currentTime = 0;
+        const p = videoRef.current.play();
+        if (p !== undefined) p.catch(() => {});
+      } catch {
+        // Ignore any abort error
       }
     }
-  }, [active, isMobilePortrait]);
+  }, [active]);
+
+  const handleCanPlay = () => {
+    mediaPreloader.markScene2VideoReady();
+  };
 
   return (
     <div 
       aria-hidden="true" 
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none bg-[#0c0214]"
     >
-      {/* 0. Instant Poster Image so phone screen NEVER shows black while video buffers */}
-      <img
-        src={isMobilePortrait ? mobilePoster : desktopPoster}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="eager"
-      />
+      {/* 0. Instant Poster Image with Picture WebP & fallback so screen NEVER shows black while video buffers */}
+      <picture className="absolute inset-0 h-full w-full">
+        <source srcSet={posterWebp} type="image/webp" />
+        <img
+          src={posterJpg}
+          alt=""
+          className="h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
 
-      {/* 1. Mobile / Phone Portrait Inside Video: inside_vertical.mp4 */}
+      {/* 1. Only load the active orientation video (saves 2-4MB on mobile devices) */}
       <video
-        ref={mobileVideoRef}
-        src={mobileSrc}
-        poster={mobilePoster}
+        ref={videoRef}
+        key={videoSrc}
+        src={videoSrc}
+        poster={posterJpg}
         autoPlay
         loop
         muted
         playsInline
         webkit-playsinline="true"
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
-          isMobilePortrait ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-        }`}
-      />
-
-      {/* 2. Desktop / Laptop Landscape Inside Video: inside_horizontal.mp4 */}
-      <video
-        ref={desktopVideoRef}
-        src={desktopSrc}
-        poster={desktopPoster}
-        autoPlay
-        loop
-        muted
-        playsInline
-        webkit-playsinline="true"
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out ${
-          !isMobilePortrait ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-        }`}
+        preload="auto"
+        onCanPlay={handleCanPlay}
+        onLoadedData={handleCanPlay}
+        className="absolute inset-0 h-full w-full object-cover opacity-100 z-10 transition-opacity duration-700 ease-in-out"
       />
     </div>
   );
 };
+

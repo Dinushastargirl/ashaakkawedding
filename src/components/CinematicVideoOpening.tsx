@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { getAssetUrl } from '../utils/assetHelper';
 import { audioManager } from '../utils/audioManager';
+import { mediaPreloader } from '../utils/mediaPreloader';
 import { ButterfliesOverlay } from './common/ButterfliesOverlay';
 
 interface CinematicVideoOpeningProps {
@@ -46,9 +47,18 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     ? getAssetUrl('intro/intro_vertical.mp4')
     : getAssetUrl('intro/intro_horizontal.mp4');
 
-  const posterSrc = isMobilePortrait
+  const posterWebp = isMobilePortrait
+    ? getAssetUrl('intro/intro_vertical_poster.webp')
+    : getAssetUrl('intro/intro_horizontal_poster.webp');
+
+  const posterJpg = isMobilePortrait
     ? getAssetUrl('intro/intro_vertical_poster.jpg')
     : getAssetUrl('intro/intro_horizontal_poster.jpg');
+
+  // Silently prepare Scene 2 assets as soon as Scene 1 mounts
+  useEffect(() => {
+    mediaPreloader.prepareScene2(isMobilePortrait);
+  }, [isMobilePortrait]);
 
   // Ensure video is muted and playsInline for mobile compatibility without seeking stalls
   useEffect(() => {
@@ -83,7 +93,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
 
   const hasTriggeredEndRef = useRef(false);
 
-  // When video ends -> trigger smooth fade out & fade in transition into inside invitation
+  // When video ends -> trigger smooth cinematic light spread transition into Scene 2
   const handleVideoEnded = () => {
     if (!hasTriggeredEndRef.current) {
       hasTriggeredEndRef.current = true;
@@ -93,7 +103,8 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
 
   const handleTimeUpdate = () => {
     const v = videoRef.current;
-    if (v && v.duration && v.duration > 0 && v.currentTime >= v.duration - 0.25) {
+    // Trigger transition slightly before final frame so light spreads seamlessly over video climax
+    if (v && v.duration && v.duration > 0 && v.currentTime >= v.duration - 0.4) {
       if (!hasTriggeredEndRef.current) {
         hasTriggeredEndRef.current = true;
         onEnterInvitation();
@@ -105,23 +116,27 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
     <motion.div 
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
       className="fixed inset-0 z-50 overflow-hidden bg-black select-none pointer-events-auto"
     >
-      {/* 0. Instant Poster Image so phone screen NEVER shows black, loads in milliseconds */}
-      <img
-        src={posterSrc}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="eager"
-      />
+      {/* 0. Instant Poster Image with Picture WebP so phone screen NEVER shows black, loads in milliseconds */}
+      <picture className="absolute inset-0 h-full w-full">
+        <source srcSet={posterWebp} type="image/webp" />
+        <img
+          src={posterJpg}
+          alt=""
+          className="h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
+      </picture>
 
       {/* 1. Full-screen Intro Video playing seamlessly over poster */}
       <video
         ref={videoRef}
         key={videoSrc}
         src={videoSrc}
-        poster={posterSrc}
+        poster={posterJpg}
         preload="auto"
         playsInline
         webkit-playsinline="true"
