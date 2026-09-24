@@ -43,7 +43,7 @@ export const ClosingSection: React.FC = () => {
           </p>
 
           {/* Names */}
-          <h2 className="mt-3 font-serif italic text-3xl sm:text-5xl text-purple-foil leading-tight tracking-wider">
+          <h2 className="mt-3 font-couple italic font-semibold text-4xl sm:text-5xl text-purple-foil leading-tight tracking-wider">
             {weddingConfig.couple.groom} <span className="font-script text-[0.8em] text-[#521782]">&amp;</span> {weddingConfig.couple.bride}
           </h2>
 

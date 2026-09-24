@@ -62,7 +62,7 @@ export const HeroSection: React.FC = () => {
         <PurpleFloralDivider width="w-[140px] sm:w-[180px]" />
 
         {/* Couple Names: Joshua & Asha with Foil Sheen */}
-        <h1 className="flex flex-col items-center font-serif italic font-medium text-[clamp(2.5rem,9vw,4.4rem)] leading-[1.12] tracking-[0.04em]">
+        <h1 className="flex flex-col items-center font-couple italic font-semibold text-[clamp(2.8rem,10vw,4.8rem)] leading-[1.12] tracking-[0.04em]">
           <span className="text-purple-foil">{weddingConfig.couple.groom}</span>
           <span className="my-1 font-script not-italic text-[0.7em] text-[#521782] leading-none select-none">
             &amp;

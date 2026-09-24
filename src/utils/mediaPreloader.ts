@@ -89,8 +89,8 @@ class MediaPreloader {
       : getAssetUrl('inside/inside_horizontal_poster.webp');
     this.preloadImage(insidePoster);
 
-    // 2. Preload butterflies (canonical WebP versions)
-    const butterflies = ['b1.webp', 'b2.webp', 'b3.webp', 'b4.gif', 'b6.webp'];
+    // 2. Preload butterflies (canonical high-quality WebP & GIF versions)
+    const butterflies = ['b1.webp', 'b3.webp', 'b4.gif', 'b6.webp'];
     butterflies.forEach((b) => this.preloadImage(getAssetUrl(`butterfly/${b}`)));
   }
 
@@ -101,10 +101,11 @@ class MediaPreloader {
     // Use requestIdleCallback or setTimeout so preloading doesn't contend with Scene 2 entrance animation
     const run = () => {
       const photos = [
-        getAssetUrl('photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.webp'),
-        getAssetUrl('photos/Couple_holding_hands_on_balcony_2K_20260923124157.webp'),
-        getAssetUrl('photos/Couple_standing_in_grass_2K_20260923124146.webp'),
-        getAssetUrl('photos/Couple_standing_in_stone_archway_2K_20260923125401.webp'),
+        getAssetUrl('photos/0U5A4855.webp'),
+        getAssetUrl('photos/0U5A5059.webp'),
+        getAssetUrl('photos/0U5A5096.webp'),
+        getAssetUrl('photos/0U5A5193.webp'),
+        getAssetUrl('photos/0U5A5286.webp'),
         getAssetUrl('ceremony_chapel.webp'),
         getAssetUrl('flowers.webp'),
         getAssetUrl('rings.webp'),

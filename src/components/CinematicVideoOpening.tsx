@@ -171,7 +171,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
             {/* Bottom-Center: Joshua & Asha, 17th October 2026, TAP TO ENTER */}
             <div className="pb-8 sm:pb-12 text-center pointer-events-auto flex flex-col items-center">
               {/* Couple Names */}
-              <h1 className="font-serif italic font-medium text-4xl sm:text-6xl text-[#FAF0D7] tracking-wide drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
+              <h1 className="font-couple italic font-semibold text-5xl sm:text-7xl text-[#FAF0D7] tracking-wide drop-shadow-[0_3px_12px_rgba(0,0,0,0.9)]">
                 <span>{weddingConfig.couple.groom}</span>{' '}
                 <span className="font-script text-[0.8em] text-[#E5C578] not-italic px-1 drop-shadow-md">
                   &amp;

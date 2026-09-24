@@ -136,8 +136,8 @@ export const weddingConfig: WeddingConfig = {
     },
   ],
   photos: {
-    coupleHero: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.webp"),
-    coupleEditorial: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.webp"),
+    coupleHero: getAssetUrl("photos/0U5A5059.webp"),
+    coupleEditorial: getAssetUrl("photos/0U5A4855.webp"),
     flowers: getAssetUrl("flowers.webp"),
     rings: getAssetUrl("rings.webp"),
     chapel: getAssetUrl("ceremony_chapel.webp"),
@@ -145,39 +145,48 @@ export const weddingConfig: WeddingConfig = {
   gallery: [
     {
       id: 1,
-      url: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.webp"),
-      fallbackUrl: getAssetUrl("photos/Couple_embracing_in_romantic_gaze_2K_20260923125436.jpeg"),
+      url: getAssetUrl("photos/0U5A4855.webp"),
+      fallbackUrl: getAssetUrl("photos/0U5A4855.jpg"),
       title: "Embraced in Love",
       subtitle: "A Sacred Covenant",
       caption: "Two hearts bound by God's eternal love and grace.",
-      aspect: "tall"
+      aspect: "wide"
     },
     {
       id: 2,
-      url: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.webp"),
-      fallbackUrl: getAssetUrl("photos/Couple_standing_in_stone_archway_2K_20260923125401.jpeg"),
+      url: getAssetUrl("photos/0U5A5059.webp"),
+      fallbackUrl: getAssetUrl("photos/0U5A5059.jpg"),
       title: "Sacred Covenant",
       subtitle: "Standing in Faith",
       caption: "Under the shelter of the Almighty, walking side by side.",
-      aspect: "wide"
+      aspect: "tall"
     },
     {
       id: 3,
-      url: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.webp"),
-      fallbackUrl: getAssetUrl("photos/Couple_holding_hands_on_balcony_2K_20260923124157.jpeg"),
+      url: getAssetUrl("photos/0U5A5096.webp"),
+      fallbackUrl: getAssetUrl("photos/0U5A5096.jpg"),
       title: "Hand in Hand",
       subtitle: "Steps into Forever",
       caption: "United in purpose, faith, and unconditional devotion.",
-      aspect: "wide"
+      aspect: "tall"
     },
     {
       id: 4,
-      url: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.webp"),
-      fallbackUrl: getAssetUrl("photos/Couple_standing_in_grass_2K_20260923124146.jpeg"),
+      url: getAssetUrl("photos/0U5A5193.webp"),
+      fallbackUrl: getAssetUrl("photos/0U5A5193.jpg"),
       title: "Joyful Beginnings",
       subtitle: "Pure Happiness",
       caption: "Blessed with laughter, peace, and eternal joy.",
       aspect: "tall"
+    },
+    {
+      id: 5,
+      url: getAssetUrl("photos/0U5A5286.webp"),
+      fallbackUrl: getAssetUrl("photos/0U5A5286.jpg"),
+      title: "Eternal Devotion",
+      subtitle: "Walking in Light",
+      caption: "Together in Christ's love, yesterday, today, and forever.",
+      aspect: "wide"
     }
   ],
   contact: {

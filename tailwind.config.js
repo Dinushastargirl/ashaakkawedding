@@ -43,6 +43,7 @@ export default {
       },
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        couple: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
         cinzel: ['"Cinzel"', 'serif'],
         script: ['"Great Vibes"', 'cursive'],
         body: ['"Cormorant Garamond"', 'Georgia', 'serif'],
