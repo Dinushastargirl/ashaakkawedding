@@ -56,12 +56,12 @@ export const ClosingSection: React.FC = () => {
           </div>
 
           {/* Closing Scripture */}
-          <blockquote className="font-serif italic text-xl sm:text-2xl text-[#230738] max-w-[28ch] mx-auto leading-relaxed">
-            “What therefore God has joined together, let not man separate.”
+          <blockquote className="font-couple italic font-medium text-xl sm:text-2xl text-[#230738] max-w-[38ch] mx-auto leading-relaxed">
+            {weddingConfig.scripture.verse}
           </blockquote>
 
           <p className="mt-2 font-sans text-xs uppercase tracking-[0.3em] text-[#8C6D2A] font-semibold">
-            Matthew 19:6
+            {weddingConfig.scripture.citation}
           </p>
 
           <div className="mt-8 flex items-center justify-center gap-2 text-[#521782]">

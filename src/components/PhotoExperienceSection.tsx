@@ -42,7 +42,9 @@ export const PhotoExperienceSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.15 }}
             onClick={() => setSelectedPhotoIndex(index)}
-            className="group relative cursor-pointer overflow-hidden rounded-[24px] bg-gradient-to-b from-[#FFFDF9]/95 via-[#FAF6EE]/90 to-[#F6ECDC]/95 p-3 border border-[#B08A3F]/70 shadow-[0_15px_35px_rgba(35,7,56,0.14)] hover:shadow-[0_25px_50px_rgba(82,23,130,0.25)] hover:border-[#D4AF37] transition-all duration-500 hover:-translate-y-1.5"
+            className={`group relative cursor-pointer overflow-hidden rounded-[24px] bg-gradient-to-b from-[#FFFDF9]/95 via-[#FAF6EE]/90 to-[#F6ECDC]/95 p-3 border border-[#B08A3F]/70 shadow-[0_15px_35px_rgba(35,7,56,0.14)] hover:shadow-[0_25px_50px_rgba(82,23,130,0.25)] hover:border-[#D4AF37] transition-all duration-500 hover:-translate-y-1.5 ${
+              index === 4 ? 'sm:col-span-2 sm:max-w-xl sm:mx-auto w-full' : ''
+            }`}
           >
             {/* Ornate corner brackets */}
             <span aria-hidden="true" className="pointer-events-none">
@@ -52,35 +54,34 @@ export const PhotoExperienceSection: React.FC = () => {
               <span className="absolute bottom-[10px] right-[10px] w-4 h-4 border-b-2 border-r-2 border-[#B08A3F] rounded-br-[3px] z-10 group-hover:border-[#D4AF37] transition-colors" />
             </span>
 
-            {/* Image Container */}
-            <div className="relative overflow-hidden rounded-[18px] aspect-[4/3] sm:aspect-[4/3.2] bg-[#230738]/10">
+            {/* Image Container - Resized frame matching reference photo 1 (3:2) or tall portraits (3:4) */}
+            <div className={`relative overflow-hidden rounded-[18px] bg-[#230738]/10 ${
+              item.aspect === 'tall' ? 'aspect-[3/4]' : 'aspect-[3/2]'
+            }`}>
               <picture>
                 <source srcSet={item.url} type="image/webp" />
                 <img
                   src={item.fallbackUrl || item.url}
-                  alt={item.title}
-                  className="h-full w-full object-cover object-[center_35%] transition-transform duration-700 ease-out group-hover:scale-108"
+                  alt={item.subtitle}
+                  className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                 />
               </picture>
 
               {/* Gradient Vignette */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#230738]/80 via-[#230738]/20 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#230738]/80 via-[#230738]/15 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-300" />
 
               {/* Hover Expand Icon */}
               <div className="absolute top-4 right-4 h-9 w-9 rounded-full bg-[#150323]/70 backdrop-blur-md border border-[#D4AF37]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100 shadow-md">
                 <Maximize2 className="h-4 w-4 text-[#E5C578]" />
               </div>
 
-              {/* Bottom Caption Overlay */}
+              {/* Bottom Caption Overlay: Only the yellow line as requested */}
               <div className="absolute bottom-4 left-4 right-4 text-left">
-                <span className="font-sans text-[0.62rem] uppercase tracking-[0.25em] text-[#E5C578] font-bold">
+                <span className="inline-block font-sans text-[0.72rem] sm:text-xs uppercase tracking-[0.28em] text-[#E5C578] font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   {item.subtitle}
                 </span>
-                <h3 className="font-serif italic text-xl text-[#FAF7F2] font-medium leading-snug drop-shadow-md">
-                  {item.title}
-                </h3>
               </div>
             </div>
 
@@ -154,7 +155,7 @@ export const PhotoExperienceSection: React.FC = () => {
                   <source srcSet={photos[selectedPhotoIndex].url} type="image/webp" />
                   <img
                     src={photos[selectedPhotoIndex].fallbackUrl || photos[selectedPhotoIndex].url}
-                    alt={photos[selectedPhotoIndex].title}
+                    alt={photos[selectedPhotoIndex].subtitle}
                     className="max-h-[72vh] w-auto mx-auto object-contain rounded-[14px]"
                     decoding="async"
                   />
@@ -163,13 +164,10 @@ export const PhotoExperienceSection: React.FC = () => {
 
               {/* Caption & Counter */}
               <div className="w-full mt-4 text-center px-4">
-                <p className="font-sans text-[0.68rem] uppercase tracking-[0.3em] text-[#E5C578] font-bold">
+                <p className="font-sans text-[0.72rem] uppercase tracking-[0.3em] text-[#E5C578] font-bold">
                   {selectedPhotoIndex + 1} of {photos.length} • {photos[selectedPhotoIndex].subtitle}
                 </p>
-                <h4 className="font-serif italic text-2xl text-gold-gradient mt-1 font-medium">
-                  {photos[selectedPhotoIndex].title}
-                </h4>
-                <p className="font-body italic text-sm text-[#DFCBF7]/90 mt-1 max-w-[50ch] mx-auto">
+                <p className="font-body italic text-base text-[#DFCBF7]/95 mt-2 max-w-[50ch] mx-auto">
                   {photos[selectedPhotoIndex].caption}
                 </p>
               </div>

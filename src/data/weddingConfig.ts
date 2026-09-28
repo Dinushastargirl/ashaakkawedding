@@ -97,8 +97,8 @@ export const weddingConfig: WeddingConfig = {
     portrait: getAssetUrl("inside/inside_vertical.mp4"),    // Faststart 720x1280 mobile
   },
   scripture: {
-    verse: "“What therefore God has joined together, let not man separate.”",
-    citation: "Matthew 19:6",
+    verse: "“This is the season Jacob takes root and Israel blossoms and fills all the world with fruit.”",
+    citation: "Isaiah 27:6",
   },
   loveStory: {
     heading: "Two Lives • One Promise • One God",
@@ -159,7 +159,7 @@ export const weddingConfig: WeddingConfig = {
       title: "Sacred Covenant",
       subtitle: "Standing in Faith",
       caption: "Under the shelter of the Almighty, walking side by side.",
-      aspect: "tall"
+      aspect: "wide"
     },
     {
       id: 3,

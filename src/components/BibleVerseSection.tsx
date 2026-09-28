@@ -43,7 +43,7 @@ export const BibleVerseSection: React.FC = () => {
             <CrossOrnament size={32} />
           </span>
 
-          <blockquote className="mt-3 font-serif italic text-2xl sm:text-3.5xl text-purple-foil leading-relaxed max-w-[26ch] mx-auto">
+          <blockquote className="mt-3 font-couple italic font-medium text-2xl sm:text-3.5xl text-purple-foil leading-relaxed max-w-[38ch] mx-auto">
             {weddingConfig.scripture.verse}
           </blockquote>
 

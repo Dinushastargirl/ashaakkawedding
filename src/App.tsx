@@ -142,7 +142,7 @@ export default function App() {
               {/* 5. Moments in Time: 4 Authentic Pre-Shoot Photos + Lightbox Modal */}
               <PhotoExperienceSection />
 
-              {/* 6. Holy Matrimony Scripture: Matthew 19:6 */}
+              {/* 6. Holy Matrimony Scripture: Isaiah 27:6 */}
               <BibleVerseSection />
 
               {/* 7. RSVP Section: Attendee Reservation with Supabase Persistence */}

@@ -24,6 +24,16 @@ for of in old_files:
 # Process each new photo in asset/photos
 photos = sorted([f for f in os.listdir(src_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
 
+# Custom crops (left, upper, right, lower) to zoom in on the couple and show them in full size
+# Photo 1 (0U5A4855) is kept as reference (uncropped 3:2 landscape)
+CROPS = {
+    '0U5A4855': None,                             # Reference landscape 3:2
+    '0U5A5059': (400, 3600, 4080, 6600),          # Road scene: zoomed in wide crop (~4:3) on couple
+    '0U5A5096': (515, 1600, 3965, 6200),          # Embracing portrait: full-body 3:4 tall
+    '0U5A5193': (400, 1600, 4080, 6450),          # Walking portrait: full-body 3:4 tall
+    '0U5A5286': (1200, 1500, 5700, 4450),         # Paddy field landscape: zoomed in 3:2 wide
+}
+
 for f in photos:
     src_fp = os.path.join(src_dir, f)
     base_name = os.path.splitext(f)[0]
@@ -37,6 +47,10 @@ for f in photos:
         # Convert to RGB if needed
         if img.mode != 'RGB':
             img = img.convert('RGB')
+            
+        # Apply custom zoom crop if defined
+        if base_name in CROPS and CROPS[base_name] is not None:
+            img = img.crop(CROPS[base_name])
             
         # Target 1600px maximum dimension for ultra-sharp 2x retina display without huge payload
         max_dim = 1600
