@@ -38,13 +38,14 @@ print("Posters generated successfully!")
 sys.stdout.flush()
 
 # 2. Encode public/intro/intro_vertical.mp4
-print("2. Encoding public/intro/intro_vertical.mp4...")
+print("2. Encoding public/intro/intro_vertical.mp4 (scaling from 4K to 1080x1920 with faststart)...")
 sys.stdout.flush()
 cmd_v = [
     ffmpeg, '-nostdin', '-y',
     '-i', src,
+    '-vf', 'scale=1080:1920',
     '-c:v', 'libx264',
-    '-crf', '24',
+    '-crf', '23',
     '-preset', 'veryfast',
     '-pix_fmt', 'yuv420p',
     '-movflags', '+faststart',
@@ -61,8 +62,9 @@ sys.stdout.flush()
 cmd_h = [
     ffmpeg, '-nostdin', '-y',
     '-i', src,
+    '-vf', 'scale=1080:1920',
     '-c:v', 'libx264',
-    '-crf', '24',
+    '-crf', '23',
     '-preset', 'veryfast',
     '-pix_fmt', 'yuv420p',
     '-movflags', '+faststart',

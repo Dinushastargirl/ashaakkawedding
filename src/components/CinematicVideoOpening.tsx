@@ -44,16 +44,16 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
   }, []);
 
   const videoSrc = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical.mp4')
-    : getAssetUrl('intro/intro_horizontal.mp4');
+    ? getAssetUrl('intro/intro_vertical.mp4?v=20260928v2')
+    : getAssetUrl('intro/intro_horizontal.mp4?v=20260928v2');
 
   const posterWebp = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical_poster.webp')
-    : getAssetUrl('intro/intro_horizontal_poster.webp');
+    ? getAssetUrl('intro/intro_vertical_poster.webp?v=20260928v2')
+    : getAssetUrl('intro/intro_horizontal_poster.webp?v=20260928v2');
 
   const posterJpg = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical_poster.jpg')
-    : getAssetUrl('intro/intro_horizontal_poster.jpg');
+    ? getAssetUrl('intro/intro_vertical_poster.jpg?v=20260928v2')
+    : getAssetUrl('intro/intro_horizontal_poster.jpg?v=20260928v2');
 
   // Silently prepare Scene 2 assets as soon as Scene 1 mounts
   useEffect(() => {
