@@ -19,6 +19,7 @@ const RSVPSection = lazy(() => import('./components/RSVPSection').then(m => ({ d
 const ClosingSection = lazy(() => import('./components/ClosingSection').then(m => ({ default: m.ClosingSection })));
 
 export default function App() {
+  const [isIntroPlaying, setIsIntroPlaying] = useState(false);
   const [hasEnteredInvitation, setHasEnteredInvitation] = useState(false);
   const [transitionStage, setTransitionStage] = useState<'idle' | 'light-bloom' | 'light-reveal'>('idle');
 
@@ -54,14 +55,20 @@ export default function App() {
     <div className="relative min-h-screen bg-[#0c0214] selection:bg-[#521782] selection:text-white overflow-x-hidden">
       {/* 
         Scenic Floral Motion Inside Video (inside.mp4) is mounted at z-0,
-        buffering and ready in background so light reveal shows it running seamlessly with zero gap!
+        buffering in background only once the user begins the intro, so light reveal shows it running seamlessly with zero gap!
       */}
-      <ScenicBackdrop active={hasEnteredInvitation} />
+      <ScenicBackdrop 
+        active={hasEnteredInvitation} 
+        shouldPreload={isIntroPlaying || hasEnteredInvitation} 
+      />
 
       {/* 1. Full-Screen Cinematic Opening Experience */}
       <AnimatePresence>
         {!hasEnteredInvitation && (
-          <CinematicVideoOpening onEnterInvitation={handleEnterInvitation} />
+          <CinematicVideoOpening 
+            onVideoStart={() => setIsIntroPlaying(true)}
+            onEnterInvitation={handleEnterInvitation} 
+          />
         )}
       </AnimatePresence>
 

@@ -4,9 +4,10 @@ import { mediaPreloader } from '../../utils/mediaPreloader';
 
 interface ScenicBackdropProps {
   active?: boolean;
+  shouldPreload?: boolean;
 }
 
-export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true }) => {
+export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true, shouldPreload = false }) => {
   // Robust detection for mobile / phone / portrait
   const [isMobilePortrait, setIsMobilePortrait] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
@@ -47,7 +48,7 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
     };
   }, []);
 
-  // Ensure video plays smoothly with mobile browser autoplay workarounds
+  // When shouldPreload or active becomes true, ensure video element loads and prepares
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -56,52 +57,64 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
     v.defaultMuted = true;
     v.playsInline = true;
 
-    const playCurrentVideo = () => {
-      if (videoRef.current) {
-        const p = videoRef.current.play();
-        if (p !== undefined) {
-          p.catch(() => {});
-        }
+    if (shouldPreload || active) {
+      if (v.preload !== 'auto') {
+        v.preload = 'auto';
       }
-    };
-
-    playCurrentVideo();
-
-    // Fallback: resume play on first user interaction if browser blocked autoplay
-    const handleFirstInteraction = () => {
-      playCurrentVideo();
-      window.removeEventListener('touchstart', handleFirstInteraction);
-      window.removeEventListener('click', handleFirstInteraction);
-      window.removeEventListener('scroll', handleFirstInteraction);
-    };
-
-    window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
-    window.addEventListener('click', handleFirstInteraction, { passive: true });
-    window.addEventListener('scroll', handleFirstInteraction, { passive: true });
-
-    return () => {
-      window.removeEventListener('touchstart', handleFirstInteraction);
-      window.removeEventListener('click', handleFirstInteraction);
-      window.removeEventListener('scroll', handleFirstInteraction);
-    };
-  }, [videoSrc]);
-
-  // When active becomes true (user enters inside invitation), ensure fresh start
-  useEffect(() => {
-    if (active && videoRef.current) {
-      try {
-        videoRef.current.currentTime = 0;
-        const p = videoRef.current.play();
-        if (p !== undefined) p.catch(() => {});
-      } catch {
-        // Ignore any abort error
+      if (v.readyState < 2) {
+        v.load();
       }
     }
-  }, [active]);
+  }, [shouldPreload, active, videoSrc]);
+
+  // When active becomes true (user enters inside invitation), smoothly play
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+
+    if (active) {
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+
+      // Fallback: resume play on first user interaction if browser blocked autoplay
+      const handleFirstInteraction = () => {
+        if (v && v.paused) {
+          const p = v.play();
+          if (p !== undefined) p.catch(() => {});
+        }
+        window.removeEventListener('touchstart', handleFirstInteraction);
+        window.removeEventListener('click', handleFirstInteraction);
+        window.removeEventListener('scroll', handleFirstInteraction);
+      };
+
+      window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
+      window.addEventListener('click', handleFirstInteraction, { passive: true });
+      window.addEventListener('scroll', handleFirstInteraction, { passive: true });
+
+      return () => {
+        window.removeEventListener('touchstart', handleFirstInteraction);
+        window.removeEventListener('click', handleFirstInteraction);
+        window.removeEventListener('scroll', handleFirstInteraction);
+      };
+    } else {
+      // Pause if not active to save battery and GPU cycles
+      if (!v.paused) {
+        v.pause();
+      }
+    }
+  }, [active, videoSrc]);
 
   const handleCanPlay = () => {
     mediaPreloader.markScene2VideoReady();
   };
+
+  const isAllowedToLoad = shouldPreload || active;
 
   return (
     <div 
@@ -115,27 +128,30 @@ export const ScenicBackdrop: React.FC<ScenicBackdropProps> = ({ active = true })
           src={posterJpg}
           alt=""
           className="h-full w-full object-cover"
-          loading="eager"
+          loading="lazy"
           decoding="async"
         />
       </picture>
 
-      {/* 1. Only load the active orientation video (saves 2-4MB on mobile devices) */}
-      <video
-        ref={videoRef}
-        key={videoSrc}
-        src={videoSrc}
-        poster={posterJpg}
-        autoPlay
-        loop
-        muted
-        playsInline
-        webkit-playsinline="true"
-        preload="auto"
-        onCanPlay={handleCanPlay}
-        onLoadedData={handleCanPlay}
-        className="absolute inset-0 h-full w-full object-cover opacity-100 z-10 transition-opacity duration-700 ease-in-out"
-      />
+      {/* 1. Video only loads data when shouldPreload or active is true */}
+      {isAllowedToLoad && (
+        <video
+          ref={videoRef}
+          key={videoSrc}
+          src={videoSrc}
+          poster={posterJpg}
+          loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          onCanPlay={handleCanPlay}
+          onLoadedData={handleCanPlay}
+          className={`absolute inset-0 h-full w-full object-cover z-10 transition-opacity duration-700 ease-in-out ${
+            active ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      )}
     </div>
   );
 };

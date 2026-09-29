@@ -8,9 +8,10 @@ import { ButterfliesOverlay } from './common/ButterfliesOverlay';
 
 interface CinematicVideoOpeningProps {
   onEnterInvitation: () => void;
+  onVideoStart?: () => void;
 }
 
-export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ onEnterInvitation }) => {
+export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ onEnterInvitation, onVideoStart }) => {
   // isStarted = false: Shows video paused at frame 0 with Joshua & Asha, Date & TAP TO ENTER directly on video (Image 2)
   // isStarted = true: Overlay fades out, song plays, video plays to completion
   const [isStarted, setIsStarted] = useState(false);
@@ -44,21 +45,24 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
   }, []);
 
   const videoSrc = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical.mp4?v=20260929v1')
-    : getAssetUrl('intro/intro_horizontal.mp4?v=20260929v1');
+    ? getAssetUrl('intro/intro_vertical.mp4')
+    : getAssetUrl('intro/intro_horizontal.mp4');
 
   const posterWebp = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical_poster.webp?v=20260929v1')
-    : getAssetUrl('intro/intro_horizontal_poster.webp?v=20260929v1');
+    ? getAssetUrl('intro/intro_vertical_poster.webp')
+    : getAssetUrl('intro/intro_horizontal_poster.webp');
 
   const posterJpg = isMobilePortrait
-    ? getAssetUrl('intro/intro_vertical_poster.jpg?v=20260929v1')
-    : getAssetUrl('intro/intro_horizontal_poster.jpg?v=20260929v1');
+    ? getAssetUrl('intro/intro_vertical_poster.jpg')
+    : getAssetUrl('intro/intro_horizontal_poster.jpg');
 
-  // Silently prepare Scene 2 assets as soon as Scene 1 mounts
+  // Silently prepare Scene 2 assets ONLY after the user has initiated playback,
+  // reserving 100% bandwidth for the first screen to open in real-time with zero delay!
   useEffect(() => {
-    mediaPreloader.prepareScene2(isMobilePortrait);
-  }, [isMobilePortrait]);
+    if (isStarted) {
+      mediaPreloader.prepareScene2(isMobilePortrait);
+    }
+  }, [isStarted, isMobilePortrait]);
 
   // Ensure video is muted and playsInline for mobile compatibility without seeking stalls
   useEffect(() => {
@@ -73,6 +77,7 @@ export const CinematicVideoOpening: React.FC<CinematicVideoOpeningProps> = ({ on
   // When TAP TO ENTER is clicked:
   const handleTapToEnter = () => {
     setIsStarted(true);
+    onVideoStart?.();
 
     // 1. Play real wedding song
     audioManager.start();
