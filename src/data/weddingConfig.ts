@@ -150,8 +150,8 @@ export const weddingConfig: WeddingConfig = {
       id: 1,
       url: getAssetUrl("photos/0U5A4855.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A4855.jpg"),
-      title: "A Sacred Covenant",
-      subtitle: "A Sacred Covenant",
+      title: "Walking in Light",
+      subtitle: "Walking in Light",
       caption: "Two hearts bound by God's eternal love and grace.",
       aspect: "wide"
     },
@@ -186,8 +186,8 @@ export const weddingConfig: WeddingConfig = {
       id: 5,
       url: getAssetUrl("photos/0U5A5286.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5286.jpg"),
-      title: "Walking in Light",
-      subtitle: "Walking in Light",
+      title: "Standing in Faith",
+      subtitle: "Standing in Faith",
       caption: "Together in Christ's love, yesterday, today, and forever.",
       aspect: "wide"
     }
