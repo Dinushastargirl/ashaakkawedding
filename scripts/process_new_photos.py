@@ -28,7 +28,7 @@ photos = sorted([f for f in os.listdir(src_dir) if f.lower().endswith(('.jpg', '
 # Photo 1 (0U5A4855) is kept as reference (uncropped 3:2 landscape)
 CROPS = {
     '0U5A4855': None,                             # Reference landscape 3:2
-    '0U5A5059': (400, 3600, 4080, 6600),          # Road scene: zoomed in wide crop (~4:3) on couple
+    '0U5A5059': (1200, 4800, 3280, 6650),         # Road scene: zoomed in close-up on couple walking
     '0U5A5096': (515, 1600, 3965, 6200),          # Embracing portrait: full-body 3:4 tall
     '0U5A5193': (400, 1600, 4080, 6450),          # Walking portrait: full-body 3:4 tall
     '0U5A5286': (1200, 1500, 5700, 4450),         # Paddy field landscape: zoomed in 3:2 wide
@@ -80,3 +80,17 @@ for f in photos:
         print(f"  Original:   {orig_sz/1024/1024:.2f} MB")
         print(f"  WebP:       {webp_sz/1024:.1f} KB (saved {(orig_sz-webp_sz)/orig_sz*100:.1f}%)")
         print(f"  JPG:        {jpg_sz/1024:.1f} KB (saved {(orig_sz-jpg_sz)/orig_sz*100:.1f}%)")
+
+# Generate Social Share (Open Graph / WhatsApp / Facebook / Twitter preview) from 0U5A5193.jpg
+share_src = os.path.join(src_dir, '0U5A5193.jpg')
+if os.path.exists(share_src):
+    with Image.open(share_src) as s_img:
+        s_img = ImageOps.exif_transpose(s_img)
+        if s_img.mode != 'RGB':
+            s_img = s_img.convert('RGB')
+        # Center-crop couple smiling together
+        c_share = s_img.crop((700, 3300, 4300, 5185))
+        c_share = c_share.resize((1200, 630), Image.Resampling.LANCZOS)
+        c_share.save('public/couple.jpg', 'JPEG', quality=92, optimize=True)
+        print("\nCreated public/couple.jpg for social sharing (1200x630)")
+

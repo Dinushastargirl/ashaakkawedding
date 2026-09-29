@@ -168,8 +168,8 @@ export const weddingConfig: WeddingConfig = {
       id: 3,
       url: getAssetUrl("photos/0U5A5096.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5096.jpg"),
-      title: "Standing in Faith",
-      subtitle: "Standing in Faith",
+      title: "A Sacred Covenant",
+      subtitle: "A Sacred Covenant",
       caption: "United in purpose, faith, and unconditional devotion.",
       aspect: "tall"
     },
