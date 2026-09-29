@@ -7,12 +7,12 @@ import { Calendar, Clock, MapPin, CalendarPlus, Church, Wine } from 'lucide-reac
 
 export const FramedWeddingDetailsCard: React.FC = () => {
   const handleGoogleCalendar = () => {
-    // 17th October 2026 at 5:30 PM local (+05:30) = 12:00 UTC
+    // 17th October 2026 at 5:00 PM local (+05:30) = 11:30 UTC
     // Ends approx 10:30 PM local (+05:30) = 17:00 UTC
-    const startTime = '20261017T120000Z';
+    const startTime = '20261017T113000Z';
     const endTime = '20261017T170000Z';
     const title = encodeURIComponent('Joshua & Asha — Christian Wedding Service & Reception');
-    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
+    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:00 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
     const location = encodeURIComponent('The Farm Retreat Resorts');
     
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
@@ -83,7 +83,7 @@ export const FramedWeddingDetailsCard: React.FC = () => {
               <div className="mt-2.5 flex items-center gap-2 text-[#521782]">
                 <Clock className="h-4 w-4" />
                 <span className="font-sans text-base font-semibold tracking-wider">
-                  5:30 PM
+                  5:00 PM
                 </span>
               </div>
             </div>

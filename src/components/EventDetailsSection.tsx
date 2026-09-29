@@ -13,10 +13,10 @@ export const EventDetailsSection: React.FC = () => {
   const { ceremony, reception } = weddingConfig.events;
 
   const handleGoogleCalendar = () => {
-    const startTime = '20261017T120000Z';
+    const startTime = '20261017T113000Z';
     const endTime = '20261017T170000Z';
     const title = encodeURIComponent('Joshua & Asha — Christian Wedding Service & Reception');
-    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
+    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:00 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
     const location = encodeURIComponent('The Farm Retreat Resorts');
     
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;

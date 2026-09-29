@@ -6,7 +6,7 @@ import { Church, Wine, Clock, Sparkles } from 'lucide-react';
 export const TimelineSection: React.FC = () => {
   const steps = [
     {
-      time: "5:30 PM",
+      time: "5:00 PM",
       title: "The Wedding Ceremony",
       description: "Sacred vows, scripture readings, exchange of rings, and Holy Matrimony blessings.",
       icon: Church,

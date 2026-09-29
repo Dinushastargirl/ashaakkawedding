@@ -145,7 +145,7 @@ export const InvitationOpening: React.FC<InvitationOpeningProps> = ({ onOpen }) 
             October 17, 2026
           </p>
           <p className="font-sans text-[0.72rem] tracking-[0.25em] uppercase text-[#6D23A6] font-semibold">
-            Wedding Ceremony • 5:30 PM
+            Wedding Ceremony • 5:00 PM
           </p>
         </motion.div>
 

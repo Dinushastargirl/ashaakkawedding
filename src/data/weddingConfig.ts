@@ -91,7 +91,7 @@ export const weddingConfig: WeddingConfig = {
     month: "October",
     day: 17,
     year: 2026,
-    isoDateTime: "2026-10-17T17:30:00+05:30",
+    isoDateTime: "2026-10-17T17:00:00+05:30",
   },
   videos: {
     landscape: getAssetUrl("inside/inside_horizontal.mp4"), // Faststart 1280x720 24fps
@@ -110,7 +110,7 @@ export const weddingConfig: WeddingConfig = {
     ceremony: {
       title: "Christian Wedding Service",
       subtitle: "Holy Matrimony in the presence of God & Loved Ones",
-      time: "5:30 PM",
+      time: "5:00 PM",
       description: "Join us as we exchange sacred vows and receive God's blessings.",
       venuePlaceholder: "The Farm Retreat Resorts",
       mapUrl: "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw",
@@ -128,7 +128,7 @@ export const weddingConfig: WeddingConfig = {
   },
   timeline: [
     {
-      time: "5:30 PM",
+      time: "5:00 PM",
       title: "Christian Wedding Service",
       description: "Processional, Scripture reading, exchange of sacred vows & rings.",
     },

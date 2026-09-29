@@ -90,7 +90,7 @@ export const HeroSection: React.FC = () => {
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-[#8C6D2A]" />
             <span className="font-sans text-xs uppercase tracking-[0.24em] font-bold text-[#350854]">
-              Wedding: <span className="text-[#521782]">5:30 PM</span>
+              Wedding: <span className="text-[#521782]">5:00 PM</span>
             </span>
           </div>
 
