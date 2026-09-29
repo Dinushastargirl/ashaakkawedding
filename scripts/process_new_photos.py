@@ -22,7 +22,7 @@ for of in old_files:
         print(f"Removed old photo: {of}")
 
 # Process each new photo in asset/photos
-photos = sorted([f for f in os.listdir(src_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png'))])
+photos = sorted([f for f in os.listdir(src_dir) if f.startswith('0U5A') and f.lower().endswith(('.jpg', '.jpeg', '.png'))])
 
 # Custom crops (left, upper, right, lower) to zoom in on the couple and show them in full size
 # Photo 1 (0U5A4855) is kept as reference (uncropped 3:2 landscape)
@@ -81,16 +81,14 @@ for f in photos:
         print(f"  WebP:       {webp_sz/1024:.1f} KB (saved {(orig_sz-webp_sz)/orig_sz*100:.1f}%)")
         print(f"  JPG:        {jpg_sz/1024:.1f} KB (saved {(orig_sz-jpg_sz)/orig_sz*100:.1f}%)")
 
-# Generate Social Share (Open Graph / WhatsApp / Facebook / Twitter preview) from 0U5A5193.jpg
-share_src = os.path.join(src_dir, '0U5A5193.jpg')
+# Generate Social Share (Open Graph / WhatsApp / Facebook / Twitter preview) from couple_road.jpg
+share_src = os.path.join(src_dir, 'couple_road.jpg')
 if os.path.exists(share_src):
     with Image.open(share_src) as s_img:
         s_img = ImageOps.exif_transpose(s_img)
         if s_img.mode != 'RGB':
             s_img = s_img.convert('RGB')
-        # Center-crop couple smiling together
-        c_share = s_img.crop((700, 3300, 4300, 5185))
-        c_share = c_share.resize((1200, 630), Image.Resampling.LANCZOS)
-        c_share.save('public/couple.jpg', 'JPEG', quality=92, optimize=True)
-        print("\nCreated public/couple.jpg for social sharing (1200x630)")
+        s_img.save('public/couple.jpg', 'JPEG', quality=90, optimize=True, progressive=True)
+        s_img.save('public/couple.webp', 'WEBP', quality=88, method=6)
+        print("\nCreated public/couple.jpg and public/couple.webp for social sharing")
 
