@@ -12,8 +12,8 @@ export const FramedWeddingDetailsCard: React.FC = () => {
     const startTime = '20261017T120000Z';
     const endTime = '20261017T170000Z';
     const title = encodeURIComponent('Joshua & Asha — Christian Wedding Service & Reception');
-    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue details coming soon.');
-    const location = encodeURIComponent('Venue details coming soon');
+    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
+    const location = encodeURIComponent('The Farm Retreat Resorts');
     
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
     window.open(googleCalendarUrl, '_blank', 'noopener,noreferrer');
@@ -121,7 +121,7 @@ export const FramedWeddingDetailsCard: React.FC = () => {
             <div className="flex items-center justify-center gap-2 text-[#5C4566] text-sm">
               <MapPin className="h-4 w-4 text-[#8C6D2A]" />
               <span className="font-serif italic text-base">
-                Venue: Venue details coming soon
+                Venue: The Farm Retreat Resorts
               </span>
             </div>
           </div>

@@ -50,7 +50,7 @@ export const CountdownSection: React.FC = () => {
       'DESCRIPTION:Christian Wedding Ceremony & Reception for Joshua & Asha.',
       'DTSTART:20261017T120000Z',
       'DTEND:20261017T180000Z',
-      'LOCATION:Venue details coming soon',
+      'LOCATION:The Farm Retreat Resorts',
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR',

@@ -16,8 +16,8 @@ export const EventDetailsSection: React.FC = () => {
     const startTime = '20261017T120000Z';
     const endTime = '20261017T170000Z';
     const title = encodeURIComponent('Joshua & Asha — Christian Wedding Service & Reception');
-    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue details coming soon.');
-    const location = encodeURIComponent('Venue details coming soon');
+    const details = encodeURIComponent('Holy Matrimony & Reception celebration for Joshua and Asha.\nCeremony: 5:30 PM\nDinner & Reception: 7:30 PM\nVenue: The Farm Retreat Resorts\nMap: https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw');
+    const location = encodeURIComponent('The Farm Retreat Resorts');
     
     const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startTime}/${endTime}&details=${details}&location=${location}`;
     window.open(googleCalendarUrl, '_blank', 'noopener,noreferrer');
@@ -101,19 +101,29 @@ export const EventDetailsSection: React.FC = () => {
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-                <span className="font-body text-[1.02rem] text-[#4A154B]">{ceremony.venuePlaceholder}</span>
+                <a
+                  href={ceremony.mapUrl || "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-[1.08rem] font-semibold text-[#4A154B] hover:text-[#521782] transition-colors underline decoration-[#B08A3F]/50 underline-offset-4"
+                  title="Open in Google Maps"
+                >
+                  {ceremony.venuePlaceholder}
+                </a>
               </div>
             </div>
 
             {/* View Location Action */}
             <div className="mt-7">
-              <button
-                onClick={() => setModalVenue({ title: ceremony.title, time: ceremony.time, placeholder: ceremony.venuePlaceholder })}
-                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              <a
+                href={ceremony.mapUrl || "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg hover:border-[#D4AF37] hover:scale-105 transition-all active:scale-95 cursor-pointer no-underline"
               >
                 <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
-                <span>View Location</span>
-              </button>
+                <span>View on Google Maps</span>
+              </a>
             </div>
           </div>
         </motion.div>
@@ -183,19 +193,29 @@ export const EventDetailsSection: React.FC = () => {
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 shrink-0 text-[#8C6D2A]" />
-                <span className="font-body text-[1.02rem] text-[#4A154B]">{reception.venuePlaceholder}</span>
+                <a
+                  href={reception.mapUrl || "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-[1.08rem] font-semibold text-[#4A154B] hover:text-[#521782] transition-colors underline decoration-[#B08A3F]/50 underline-offset-4"
+                  title="Open in Google Maps"
+                >
+                  {reception.venuePlaceholder}
+                </a>
               </div>
             </div>
 
             {/* View Location Action */}
             <div className="mt-7">
-              <button
-                onClick={() => setModalVenue({ title: reception.title, time: reception.time, placeholder: reception.venuePlaceholder })}
-                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+              <a
+                href={reception.mapUrl || "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#230738] to-[#4E144A] px-6 py-2.5 font-sans text-xs uppercase tracking-[0.25em] text-[#FAF7F2] font-semibold shadow-md hover:shadow-lg hover:border-[#D4AF37] hover:scale-105 transition-all active:scale-95 cursor-pointer no-underline"
               >
                 <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
-                <span>View Location</span>
-              </button>
+                <span>View on Google Maps</span>
+              </a>
             </div>
           </div>
         </motion.div>
@@ -265,13 +285,24 @@ export const EventDetailsSection: React.FC = () => {
                 Time: {modalVenue.time}
               </p>
 
-              <div className="mt-4 rounded-xl border border-[#C5A059]/40 bg-white p-4">
-                <p className="font-serif italic text-lg text-[#3C1061]">
+              <div className="mt-4 rounded-xl border border-[#C5A059]/40 bg-white p-5">
+                <p className="font-serif italic text-xl text-[#3C1061] font-semibold">
                   "{modalVenue.placeholder}"
                 </p>
                 <p className="mt-2 font-sans text-xs text-[#6B5074] leading-relaxed">
-                  Formal church and reception hall address with direct Google Maps directions will be provided here.
+                  Join us for the celebration at The Farm Retreat Resorts.
                 </p>
+                <div className="mt-4">
+                  <a
+                    href="https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#B08A3F] bg-gradient-to-r from-[#521782] to-[#230738] px-5 py-2 font-sans text-xs uppercase tracking-wider text-[#FAF7F2] font-semibold hover:border-[#D4AF37] transition-all no-underline"
+                  >
+                    <MapPin className="h-3.5 w-3.5 text-[#E5C578]" />
+                    <span>Open in Google Maps</span>
+                  </a>
+                </div>
               </div>
 
               <div className="mt-6 flex justify-center">

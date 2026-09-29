@@ -6,6 +6,7 @@ export interface WeddingEvent {
   time: string;
   description: string;
   venuePlaceholder: string;
+  mapUrl?: string;
   mapQuery?: string;
   iconName: 'church' | 'champagne' | 'rings' | 'music';
 }
@@ -111,7 +112,8 @@ export const weddingConfig: WeddingConfig = {
       subtitle: "Holy Matrimony in the presence of God & Loved Ones",
       time: "5:30 PM",
       description: "Join us as we exchange sacred vows and receive God's blessings.",
-      venuePlaceholder: "Venue details coming soon",
+      venuePlaceholder: "The Farm Retreat Resorts",
+      mapUrl: "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw",
       iconName: "church",
     },
     reception: {
@@ -119,7 +121,8 @@ export const weddingConfig: WeddingConfig = {
       subtitle: "Dinner, Fellowship & Celebration",
       time: "7:30 PM",
       description: "An evening of fellowship, joy, toasts, and a grand feast with family and friends.",
-      venuePlaceholder: "Venue details coming soon",
+      venuePlaceholder: "The Farm Retreat Resorts",
+      mapUrl: "https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw",
       iconName: "champagne",
     },
   },
@@ -147,7 +150,7 @@ export const weddingConfig: WeddingConfig = {
       id: 1,
       url: getAssetUrl("photos/0U5A4855.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A4855.jpg"),
-      title: "Embraced in Love",
+      title: "A Sacred Covenant",
       subtitle: "A Sacred Covenant",
       caption: "Two hearts bound by God's eternal love and grace.",
       aspect: "wide"
@@ -156,8 +159,8 @@ export const weddingConfig: WeddingConfig = {
       id: 2,
       url: getAssetUrl("photos/0U5A5059.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5059.jpg"),
-      title: "Sacred Covenant",
-      subtitle: "Standing in Faith",
+      title: "Steps into Forever",
+      subtitle: "Steps into Forever",
       caption: "Under the shelter of the Almighty, walking side by side.",
       aspect: "wide"
     },
@@ -165,8 +168,8 @@ export const weddingConfig: WeddingConfig = {
       id: 3,
       url: getAssetUrl("photos/0U5A5096.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5096.jpg"),
-      title: "Hand in Hand",
-      subtitle: "Steps into Forever",
+      title: "Standing in Faith",
+      subtitle: "Standing in Faith",
       caption: "United in purpose, faith, and unconditional devotion.",
       aspect: "tall"
     },
@@ -174,7 +177,7 @@ export const weddingConfig: WeddingConfig = {
       id: 4,
       url: getAssetUrl("photos/0U5A5193.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5193.jpg"),
-      title: "Joyful Beginnings",
+      title: "Pure Happiness",
       subtitle: "Pure Happiness",
       caption: "Blessed with laughter, peace, and eternal joy.",
       aspect: "tall"
@@ -183,7 +186,7 @@ export const weddingConfig: WeddingConfig = {
       id: 5,
       url: getAssetUrl("photos/0U5A5286.webp"),
       fallbackUrl: getAssetUrl("photos/0U5A5286.jpg"),
-      title: "Eternal Devotion",
+      title: "Walking in Light",
       subtitle: "Walking in Light",
       caption: "Together in Christ's love, yesterday, today, and forever.",
       aspect: "wide"

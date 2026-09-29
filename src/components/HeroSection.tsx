@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { weddingConfig } from '../data/weddingConfig';
 import { PurpleFloralDivider } from './common/PurpleFloralDivider';
 import { CrossOrnament } from './common/CrossOrnament';
-import { ChevronDown, Clock, Sparkles } from 'lucide-react';
+import { ChevronDown, Clock, Sparkles, MapPin } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -104,10 +104,17 @@ export const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Venue placeholder */}
-        <p className="mt-1 font-sans text-[0.72rem] uppercase tracking-[0.24em] font-semibold text-[#8C6D2A]">
-          Venue details coming soon
-        </p>
+        {/* Venue Location Link */}
+        <a
+          href="https://maps.app.goo.gl/2WUq6FvyibMaTf8t5?g_st=iw"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 inline-flex items-center gap-1.5 font-sans text-[0.74rem] uppercase tracking-[0.24em] font-semibold text-[#8C6D2A] hover:text-[#521782] transition-colors"
+          title="Open The Farm Retreat Resorts on Google Maps"
+        >
+          <MapPin className="h-3.5 w-3.5 text-[#B08A3F]" />
+          <span>The Farm Retreat Resorts</span>
+        </a>
 
         {/* Scroll indicator */}
         <a
